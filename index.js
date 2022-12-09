@@ -33,7 +33,7 @@ class ProductManager {
         })
 
         const checkInCart = products.find(element => element.code === product.code)
-        if(checkInCart && validar == true) {
+        if(checkInCart == true) {
             console.log("ERROR - Please check the information and try again")
         }
         else {
@@ -42,7 +42,7 @@ class ProductManager {
             
         } 
 
-        function validar(){
+       
           if (!product.title || !product.description || !product.price ||
 
             !product.thumbnail || !product.code || !product.stock) {
@@ -50,7 +50,7 @@ class ProductManager {
           throw new Error('Todos los campos son obligatorios');
   
         }
-          }
+          
         }
       
     }  
