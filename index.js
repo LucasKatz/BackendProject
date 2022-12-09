@@ -43,18 +43,18 @@ class ProductManager {
         } 
 
         function validar(){
-          elementos = product;
-          for(i=0;i<elementos.length;i++){
-            if(elementos.product.value = false){
-            return  false
-            } else {
-              return true 
-            }
+          if (!product.title || !product.description || !product.price ||
+
+            !product.thumbnail || !product.code || !product.stock) {
+  
+          throw new Error('Todos los campos son obligatorios');
+  
+        }
           }
         }
       
     }  
-}
+
 
 
 const isInCart = (id) => { return products.find (product =>product.title ===title) }
@@ -91,7 +91,7 @@ const prod1 = new ProductManager("Lámpara Tokio", "Lámpara escritorio aluminio
 
 const prod2 = new ProductManager("Lampara Double Sh", "Embutido retraible doble cabezal móvil aluminio blanco led", 3000,"ruta de imagen", 102, 2)
 
-const prod3 = new ProductManager("", "dfjsjfsdgfj", 3)
+const prod3 = new ProductManager("", 3)
 
 
 prod1.addProducts()
