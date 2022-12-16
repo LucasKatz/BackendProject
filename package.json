@@ -1,0 +1,25 @@
+{
+  "name": "fs_sinc",
+  "version": "1.0.0",
+  "description": "Proyecto Backend Coderhouse",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LucasKatz/BackendProject.git"
+  },
+  "keywords": [
+    "#Backend",
+    "-",
+    "Desafio",
+    "2"
+  ],
+  "author": "Lucas Katz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LucasKatz/BackendProject/issues"
+  },
+  "homepage": "https://github.com/LucasKatz/BackendProject#readme"
+}

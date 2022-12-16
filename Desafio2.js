@@ -1,3 +1,6 @@
+
+const fs = require ('fs')
+
 const products = []
 
 class ProductManager {
@@ -84,6 +87,59 @@ const isInProducts = (title) => {
 
 
 
+fs.writeFile = async () =>  {
+    try {
+        await fs.promises.writeFile((ProductManager,products.JSON),
+            this.file, JSON.stringify(products.JSON)
+        )
+    } catch (err) {
+        console.log("Oops! There has been a mistake")
+    }
+}
+
+getAll = async () =>  {
+    try {
+       const productos = await fs.promises.readFile(this.file, 'utf-8')
+        return JSON.parse(productos)    
+        
+    } catch (err) {
+        if(err.message.includes ('no such file or directory')) return [];
+        console.log("Oops! There has been a mistake")
+    }
+}
+
+
+
+
+updateProduct = () => {const arr = [ProductManager];
+  
+  const newArr = arr.map(object => {
+    if (object.id === 2) {
+    
+      return {...object, //valor a sobreescribir
+    };
+    }
+    return object;
+  });
+  
+  console.log(newArr);   
+}
+
+
+deleteProduct  = async id =>  {
+    let productos = await  this.getAll()
+    try {
+       productos = productos.filter (producto =>producto.id != id )
+    await this.writeFile(productos)
+        
+    } catch (err) {
+        console.log("Oops! There has been a mistake")
+    }
+}
+
+//deleteAll = async => {
+//    this.writeFile([])
+//}
 
 const prod1 = new ProductManager("Lámpara Tokio", "Lámpara escritorio aluminio negro led", 2200, "ruta de imagen", 101, 3)
 
@@ -99,5 +155,12 @@ prod2.addProducts()
 //prod3.addProducts()
 
 getProducts()
+
+
+
+
+
+
+
 
 
