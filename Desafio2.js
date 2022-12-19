@@ -16,17 +16,6 @@ class ProductManager {
       return data 
     }
 
-    
-    writeFile = async () =>  {
-      try {
-          await fs.promises.writeFileSync((ProductManager,products.JSON),
-            this.path, JSON.stringify(products))
-          } catch (err) {
-          console.log("Oops! There has been a mistake")
-          }
-        }
-
-    
     addProducts() {
         
       
@@ -40,6 +29,17 @@ class ProductManager {
             id:ProductManager.id
           
         })
+    
+    writeFile = async () =>  {
+      try {
+          await fs.promises.writeFileSync((ProductManager,products.JSON),
+            this.path, JSON.stringify(products))
+          } catch (err) {
+          console.log("Oops! There has been a mistake")
+          }
+        }
+
+    
 
         const checkInCart = products.find(element => element.code === product.code)
         if(checkInCart == true) {
