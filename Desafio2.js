@@ -29,6 +29,18 @@ class ProductManager {
             id:ProductManager.id
           
         })
+
+        getProducts () {
+          try {
+            const productos =  fs.promises.readFile(this.file, 'utf-8')
+             return JSON.parse(productos)    
+             
+         } catch (err) {
+             if(err.message.includes ('no such file or directory')) return [];
+             console.log("Oops! There has been a mistake")
+         }
+         console.log(products)
+        }    
     
     writeFile = async () =>  {
       try {
@@ -69,17 +81,7 @@ class ProductManager {
 const isInCart = (id) => { return products.find (product =>product.title ===title) }
 
 
-getProducts () {
-  try {
-    const productos =  fs.promises.readFile(this.file, 'utf-8')
-     return JSON.parse(productos)    
-     
- } catch (err) {
-     if(err.message.includes ('no such file or directory')) return [];
-     console.log("Oops! There has been a mistake")
- }
- console.log(products)
-}
+
 
 getProductsById (id)  {
 
