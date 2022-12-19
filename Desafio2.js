@@ -1,24 +1,30 @@
 
 const fs = require ('fs')
 
-const products = []
-
 class ProductManager {
 
   static id = 1
     
-    
-    constructor (title, description, price, thumbnail, code, stock){
-       
-        this.title = title
-        this.description = description
-        this.price = price
-        this.thumbnail = thumbnail
-        this.code = code
-        this.stock = stock
-        ProductManager.id
+    constructor (path){
+      this.path = path
+      this.products = this.readFile()
 
     }
+
+    readFile () {
+      const data = JSON.parse(fs.readFileSync('./$(this.path)', 'utf-8'))
+      return data 
+    }
+
+    
+    writeFile = async () =>  {
+      try {
+          await fs.promises.writeFileSync((ProductManager,products.JSON),
+            this.path, JSON.stringify(products))
+          } catch (err) {
+          console.log("Oops! There has been a mistake")
+          }
+        }
 
     
     addProducts() {
@@ -63,16 +69,21 @@ class ProductManager {
 const isInCart = (id) => { return products.find (product =>product.title ===title) }
 
 
-const getProducts = () =>  {
-
-    console.log(products)
-
+getProducts () {
+  try {
+    const productos =  fs.promises.readFile(this.file, 'utf-8')
+     return JSON.parse(productos)    
+     
+ } catch (err) {
+     if(err.message.includes ('no such file or directory')) return [];
+     console.log("Oops! There has been a mistake")
+ }
+ console.log(products)
 }
 
+getProductsById (id)  {
 
-const getProductsById = (id) => {
-
-  const search = products.find(product => product.id === id)
+  const search = getProducts.find(product => product.id === id) //asi el find??
 
 if (search == undefined) {
   console.log( "Product not found")
@@ -83,29 +94,6 @@ else {
 }
 const isInProducts = (title) => {
     products.find (prod => prod.title === title)
-}
-
-
-
-fs.writeFile = async () =>  {
-    try {
-        await fs.promises.writeFile((ProductManager,products.JSON),
-            this.file, JSON.stringify(products.JSON)
-        )
-    } catch (err) {
-        console.log("Oops! There has been a mistake")
-    }
-}
-
-getAll = async () =>  {
-    try {
-       const productos = await fs.promises.readFile(this.file, 'utf-8')
-        return JSON.parse(productos)    
-        
-    } catch (err) {
-        if(err.message.includes ('no such file or directory')) return [];
-        console.log("Oops! There has been a mistake")
-    }
 }
 
 
@@ -137,22 +125,35 @@ deleteProduct  = async id =>  {
     }
 }
 
-//deleteAll = async => {
-//    this.writeFile([])
-//}
+deleteAll = async => {
+    this.writeFile([])
+}
 
-const prod1 = new ProductManager("Lámpara Tokio", "Lámpara escritorio aluminio negro led", 2200, "ruta de imagen", 101, 3)
+const prod1 = new ProductManager(productos.JSON)
 
-const prod2 = new ProductManager("Lampara Double Sh", "Embutido retraible doble cabezal móvil aluminio blanco led", 3000,"ruta de imagen", 102, 2)
+const prod2 = new ProductManager(productos.JSON)
 
 //const prod3 = new ProductManager("", 3)
 
 
-prod1.addProducts()
+ProductManager.addProducts({
+            title: "Lámpara Tokio",
+            description: "Lámpara escritorio aluminio negro led",
+            price: 2200,
+            thumbnail: "ruta de imagen",
+            code: 101,
+            stock: 3,
+            id:ProductManager.id,
 
-prod2.addProducts()
+            title: "Lampara Double Sh",
+            description: "Embutido retraible doble cabezal móvil aluminio blanco led",
+            price: 3200,
+            thumbnail: "ruta de imagen",
+            code: 102,
+            stock: 4,
+            id:ProductManager.id
+})
 
-//prod3.addProducts()
 
 getProducts()
 
