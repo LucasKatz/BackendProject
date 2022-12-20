@@ -39,7 +39,7 @@ class ProductManager {
             
             product.id = products.length > 0 ? products[products.length - 1].id + 1 : 1;
             products.push(product)
-            this.writeFile(productos.JSON)
+            this.writeData(data)
                              
         }
     }
