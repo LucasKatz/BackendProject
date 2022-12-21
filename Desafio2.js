@@ -2,23 +2,21 @@
 const fs = require ('fs')
 
 class ProductManager {
-
-  static id = 1
-    
-    constructor (path){
-      this.path = path
-      this.products = this.readFile()
-
+    constructor(path) {
+      this.path = path;
+      this.products = this.readFile();
     }
-    writeData(){
-        let dataString = JSON.stringify(data);
-        fs.writeFileSync(`./${this.path}`, dataString)
+  
+    readFile() {
+      const data = JSON.parse(fs.readFileSync(`./${this.path}`, "utf-8"));
+      return data;
+    }
+  
+    writeData(data) {
+      let dataString = JSON.stringify(data);
+      fs.writeFileSync(`./${this.path}`, dataString);
     }
 
-    readFile () {
-        const data = JSON.parse(fs.readFileSync('./$(this.path)', 'utf-8'))
-        return data 
-    }
 
     addProducts(product) {     
         
@@ -128,6 +126,7 @@ deleteAll(){
 }
 }
 
+const productManager = new ProductManager('./productos.JSON');
 
 const prod1 = new ProductManager('./this.path')//aca pasar ruta del archivo a crear lo toma this.path
 
@@ -144,8 +143,8 @@ prod1.updateProduct(1,{
 }) //Los productos pasarlo por separado y podes usar prod1 ya que estas instanciando a ProducManager
 
 prod1.updateProduct(2,{
-    title: "Lámpara Tokio",
-    description: "Lámpara escritorio aluminio negro led",
+    title: "Lampara Double Sh",
+    description: "Embutido retraible doble cabezal móvil aluminio blanco led",
     price: 3200,
     thumbnail: "ruta de imagen",
     code: 102,
@@ -153,7 +152,7 @@ prod1.updateProduct(2,{
 }) 
 
 prod1.updateProduct(3,{
-    title: "Lámpara Tokio",
+    title: "Lámpara Hat",
     description: "Lámpara escritorio aluminio negro led",
     price: 2500,
     thumbnail: "ruta de imagen",
