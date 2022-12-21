@@ -8,9 +8,20 @@ class ProductManager {
     }
   
     readFile() {
-      const data = JSON.parse(fs.readFileSync(`./${this.path}`, "utf-8"));
-      return data;
-    }
+
+        try {
+        
+        const data = JSON.parse(fs.readFileSync(`./${this.path}`, "utf-8"));
+        
+        return data;
+        
+        } catch (error) {
+        
+        return []
+        
+        }
+        
+        }
   
     writeData(data) {
       let dataString = JSON.stringify(data);
@@ -22,7 +33,7 @@ class ProductManager {
         
         //Aca llamar this o crear variable trayendo los products usando readfile() o getProducts()
         let listado = this.readFile();
-        const checkInCart = this.listado.find(p => p.id === product.code)
+        const checkInCart = listado.find(p => p.code === product.code)
 
         if (!product.title || !product.description || !product.price ||
             
@@ -35,8 +46,8 @@ class ProductManager {
         else {
             
             
-            product.id = products.length > 0 ? products[products.length - 1].id + 1 : 1;
-            products.push(product)
+            listado.id = listado.length > 0 ? listado[listado.length - 1].id + 1 : 1;
+            listado.push(product)
             this.writeData(data)
                              
         }
@@ -46,24 +57,18 @@ class ProductManager {
         
     getProducts () {
         try {
-          const productos =  fs.promises.readFile(this.path, 'utf-8')
-           return JSON.parse(productos)    
-           
-       } catch (err) {
-           if(err.message.includes ('no such file or directory')) return [];
-           console.log("Oops! There has been a mistake")
-       }
-       console.log(products)
-      }    
-    
-    writeFile(products){  
-        try {
-             fs.promises.writeFileSync(this.path,JSON.stringify(products))
-            } catch (err) {
-            console.log("Oops! There has been a mistake")
-            }      
-    }    
-    
+        
+            const data = JSON.parse(fs.readFileSync(`./${this.path}`, "utf-8"));
+            
+            return data;
+            
+            } catch (error) {
+            
+            return []
+            
+            }
+            
+            }
 
 
 // const isInCart = (id) => { return products.find (product =>product.title ===title) }
@@ -72,7 +77,7 @@ class ProductManager {
 getProductsById (id){
     //Aca crear una variable trayendo los productos usando getProducts() o readFile() 
     let listaProductos = this.readFile();
-    const products = this.listaProductos
+    const products = listaProductos
     // const products = this.xxxx
 
   const search = products.find(product => product.id === id) //asi el find??
@@ -111,10 +116,10 @@ updateProduct(id, product){
 
 
 async deleteProduct (id){
-    let productos = await  this.readFile(productos.JSON) //Aca no estes getAll debes llamar getProducts() o readFile()
+    let productos = await  this.readFile() //Aca no estes getAll debes llamar getProducts() o readFile()
     try {
        productos = productos.filter (producto =>producto.id != id )
-    this.writeFile(productos)
+    this.writeData(productos)
         
     } catch (err) {
         console.log("Oops! There has been a mistake")
@@ -126,12 +131,7 @@ deleteAll(){
 }
 }
 
-const productManager = new ProductManager('./productos.JSON');
-
-const prod1 = new ProductManager('./this.path')//aca pasar ruta del archivo a crear lo toma this.path
-
-
-
+const productManager = new ProductManager('productos.JSON');
 
 prod1.updateProduct(1,{
             title: "Lámpara Tokio",
