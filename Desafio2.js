@@ -131,9 +131,9 @@ deleteAll(){
 }
 }
 
-const productManager = new ProductManager('productos.JSON');
+const newProd = new ProductManager('productos.JSON');
 
-prod1.updateProduct(1,{
+newProd.updateProduct(1,{
             title: "Lámpara Tokio",
             description: "Lámpara escritorio aluminio negro led",
             price: 2200,
@@ -142,7 +142,7 @@ prod1.updateProduct(1,{
             stock: 3,
 }) //Los productos pasarlo por separado y podes usar prod1 ya que estas instanciando a ProducManager
 
-prod1.updateProduct(2,{
+newProd.updateProduct(2,{
     title: "Lampara Double Sh",
     description: "Embutido retraible doble cabezal móvil aluminio blanco led",
     price: 3200,
@@ -151,7 +151,7 @@ prod1.updateProduct(2,{
     stock: 4,
 }) 
 
-prod1.updateProduct(3,{
+newProd.updateProduct(3,{
     title: "Lámpara Hat",
     description: "Lámpara escritorio aluminio negro led",
     price: 2500,
