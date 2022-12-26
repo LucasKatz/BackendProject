@@ -48,7 +48,7 @@ class ProductManager {
             
             listado.id = listado.length > 0 ? listado[listado.length - 1].id + 1 : 1;
             listado.push(product)
-            this.writeData(data)
+            this.writeData(listado)
                              
         }
     }
@@ -133,16 +133,16 @@ deleteAll(){
 
 const newProd = new ProductManager('productos.JSON');
 
-newProd.updateProduct(1,{
+newProd.addProducts(1,{
             title: "Lámpara Tokio",
             description: "Lámpara escritorio aluminio negro led",
             price: 2200,
             thumbnail: "ruta de imagen",
             code: 101,
             stock: 3,
-}) //Los productos pasarlo por separado y podes usar prod1 ya que estas instanciando a ProducManager
+}) 
 
-newProd.updateProduct(2,{
+newProd.addProducts(2,{
     title: "Lampara Double Sh",
     description: "Embutido retraible doble cabezal móvil aluminio blanco led",
     price: 3200,
