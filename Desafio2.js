@@ -116,7 +116,7 @@ updateProduct(id, product){
 
 
 async deleteProduct (id){
-    let productos = await  this.readFile() //Aca no estes getAll debes llamar getProducts() o readFile()
+    let productos = await  this.readFile() 
     try {
        productos = productos.filter (producto =>producto.id != id )
     this.writeData(productos)
