@@ -162,7 +162,3 @@ newProd.updateProduct(3,{
 
 
 
-//Aca ejemplo como se debrian llamar 
-//   console.log(newProd.getProductById(1));  
-//   newProd.deleteProduct(6);
-//   console.log(newProd.getProducts());
