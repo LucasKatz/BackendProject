@@ -3,10 +3,10 @@ const fs = require ('fs')
 
 class ProductManager {
     constructor(path) {
-      this.path = path;
-      this.products = this.readFile();
+    this.path = path;
+    this.products = this.readFile();
     }
-  
+
     readFile() {
 
         try {
@@ -22,10 +22,10 @@ class ProductManager {
         }
         
         }
-  
+
     writeData(data) {
-      let dataString = JSON.stringify(data);
-      fs.writeFileSync(`./${this.path}`, dataString);
+    let dataString = JSON.stringify(data);
+    fs.writeFileSync(`./${this.path}`, dataString);
     }
 
 
@@ -49,18 +49,17 @@ class ProductManager {
             listado.id = listado.length > 0 ? listado[listado.length - 1].id + 1 : 1;
             listado.push(product)
             this.writeData(listado)
-                             
         }
     }
             
-         
         
     getProducts () {
         try {
         
             const data = JSON.parse(fs.readFileSync(`./${this.path}`, "utf-8"));
-            
-            return data;
+            const {limit} = req.query
+            if (limit) return res.json(data.slice(0,limit))
+            else return res.json(data).send("Listado de Productos")
             
             } catch (error) {
             
@@ -161,4 +160,4 @@ newProd.updateProduct(3,{
 }) 
 
 
-
+module.exports = {newProd} 

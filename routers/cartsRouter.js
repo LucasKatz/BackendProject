@@ -47,7 +47,6 @@ routerCarts.post("/:cid/product/:pid", (req, res) => {
         carrito.id = listado.length > 0 ? listado[listado.length - 1].id + 1 : 1;
         carrito.id.push(product.id)
         this.writeData(carrito)
-                         
     }
 }
 
