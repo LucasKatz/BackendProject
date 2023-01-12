@@ -31,13 +31,15 @@ class ProductManager {
 
     addProducts(product) {     
         
-        //Aca llamar this o crear variable trayendo los products usando readfile() o getProducts()
+        //Creo la variable utilizando this.readfile
         let listado = this.readFile();
         const checkInCart = listado.find(p => p.code === product.code)
 
-        if (!product.title || !product.description || !product.price ||
+        if (!product.title 
+            // || !product.description || !product.price ||
             
-            !product.thumbnail || !product.code || !product.stock) {
+            // !product.status|| !product.code || !product.stock || !!product.category
+            ) {
                 
                 throw new Error('Todos los campos son obligatorios'); 
             } else if (checkInCart){
@@ -46,20 +48,18 @@ class ProductManager {
         else {
             
             
-            listado.id = listado.length > 0 ? listado[listado.length - 1].id + 1 : 1;
+            product.id = listado.length > 0 ? listado[listado.length - 1].id + 1 : 1;
             listado.push(product)
             this.writeData(listado)
         }
     }
-            
-        
+
     getProducts () {
         try {
         
             const data = JSON.parse(fs.readFileSync(`./${this.path}`, "utf-8"));
-            const {limit} = req.query
-            if (limit) return res.json(data.slice(0,limit))
-            else return res.json(data).send("Listado de Productos")
+            
+            return data;
             
             } catch (error) {
             
@@ -79,14 +79,14 @@ getProductsById (id){
     const products = listaProductos
     // const products = this.xxxx
 
-  const search = products.find(product => product.id === id) //asi el find??
+const search = products.find(product => product.id === id) 
 
 if (search == undefined) {
-  console.log( "Product not found")
+console.log( "Product not found")
 }
 else {
-    //retornarlo para cuando se llame el metodo
-  return search 
+
+return search 
 }
 }
 
@@ -130,34 +130,9 @@ deleteAll(){
 }
 }
 
-const newProd = new ProductManager('productos.JSON');
+const newProd = new ProductManager('./database/productos.JSON');
 
-newProd.addProducts(1,{
-            title: "Lámpara Tokio",
-            description: "Lámpara escritorio aluminio negro led",
-            price: 2200,
-            thumbnail: "ruta de imagen",
-            code: 101,
-            stock: 3,
-}) 
-
-newProd.addProducts(2,{
-    title: "Lampara Double Sh",
-    description: "Embutido retraible doble cabezal móvil aluminio blanco led",
-    price: 3200,
-    thumbnail: "ruta de imagen",
-    code: 102,
-    stock: 4,
-}) 
-
-newProd.updateProduct(3,{
-    title: "Lámpara Hat",
-    description: "Lámpara escritorio aluminio negro led",
-    price: 2500,
-    thumbnail: "ruta de imagen",
-    code: 103,
-    stock: 5,
-}) 
+module.exports = {newProd}
 
 
-module.exports = {newProd} 
+

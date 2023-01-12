@@ -6,7 +6,6 @@ class ProductManager {
     
     
     constructor (title, description, price, thumbnail, code, stock){
-       
         this.title = title
         this.description = description
         this.price = price
@@ -42,7 +41,6 @@ class ProductManager {
             
         } 
 
-       
           if (!product.title || !product.description || !product.price ||
 
             !product.thumbnail || !product.code || !product.stock) {

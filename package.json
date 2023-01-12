@@ -2,7 +2,7 @@
   "name": "fs_sinc",
   "version": "1.0.0",
   "description": "Proyecto Backend Coderhouse",
-  "main": "index.js",
+  "main": "index2.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
