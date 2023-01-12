@@ -48,7 +48,8 @@ routerProducts.post('/', (req, res) => {
 
 routerProducts.put('/:pid', (req, res) =>{
     // Usar params y body
-
+    const {pid} = req.params 
+    const body = req.body
     /*
     - Traer logica del updateProduct, el this.readFile no hace falta debes modificar el find y filter por productosDB.xxxxxx
     - La igualacion debe ser al pid recibido por params tanto en find como en filter
@@ -59,13 +60,24 @@ routerProducts.put('/:pid', (req, res) =>{
     - En el else enviar por res el mensaje de error
     
     */
+    if(productosDB.find(product=>product.id===pid)){
+        let productDeleted = productosDB.filter(product => product.id!==pid)
+        productDeleted.push(product);
+        this.writeFileSync(productDeleted);
+        res.send(productDeleted, "Producto Actualizado");
+
+    }
+    else{
+        console.log('El producto no existe')
+    }
+
     
 })
 
 routerProducts.delete('/:pid', (req, res) =>{
 
     // Usar params para el id
-
+    const {pid} = req.params 
     /* 
     - Traer logica del deleteProduct, el this.readFile no hace falta.
     - Debes modificar filter por productosDB.xxxxxx
@@ -74,9 +86,15 @@ routerProducts.delete('/:pid', (req, res) =>{
     - Enviar una respuesta por res
     - En el else enviar mensaje de error por res.
     */
+    if (pid) { //de esta forma verifica si el producto existe, no?
+    productosDB = productosDB.filter (producto =>producto.id != pid )
+    this.writeFileSync(productosDB)
+    res.send ("El Producto ha sido eliminado")
+    } else {
+    res.status(404).send("El producto no existe")
+}
 })
 
 
 
 module.exports = routerProducts
-  

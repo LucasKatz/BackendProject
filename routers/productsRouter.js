@@ -39,24 +39,10 @@ routerProducts.put("/:pid", (req, res) => {
     const productBody = req.body
 
     // Usar el metodo updateProduct y pasarle el id y producto recibido por req.body 
-    updateProduct = (id, product) =>  {
-
-        let productUpdated = this.readFile ();
-        if(productUpdated.find(product=>product.pid===req.params.pid && product.body ===req.body )){
-            let productDeleted = data.filter(product => product.id!==id)
-            product.id=id;
-            productDeleted.push(product);
-            this.writeData(productDeleted);
-            return productDeleted;
-    
-        }
-        else{
-            console.log('The product to be updated does not exist')
-        }
-    }
+    const productUpdated = newProd.updateProduct(id, body)
 
     //Enviar por res el producto actualizado
-    res.json({productoActualizado})
+    res.json({productUpdated})
     
 
 });

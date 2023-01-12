@@ -8,15 +8,14 @@ const cartDB = JSON.parse(fs.readFileSync('./database/cart.JSON', 'utf-8'))
 routerCarts.post("/", (req, res) => {
   /* Se debe crear solo la logica y estructura del carrito (id y products con array vacio), luego la logica de pushear y escribir el cart.json con fs. El envio del producto se hace en el otro endpoint de post.
 
-    let cart = {
-      id: logica para el id,
-      product: []
-    }
-
     xxxxxx.push(cart)
     fs.writeFileSync___________
     res.send("Carrito creado");
   */
+    let cart = {
+      id: "id", //corregir
+      product: []
+    }
 });
 
 
@@ -39,6 +38,7 @@ routerCarts.post("/:cid/product/:pid", (req, res) => {
     const carritoId = req.params.cid;
     const productoId = req.params.pid;
   // agregar el producto al carrito
+    productoId.push(carritoId)
 
 
     const productPost = 
@@ -51,14 +51,23 @@ routerCarts.post("/:cid/product/:pid", (req, res) => {
 
     //Verificar si el id devuelve checkInCart coincide con el productPost
 
+
     //Verificar si hay un producto que coincida con productoId para luego sumar la cantidad si existe
 
+    
+    const isInCart = (id) => { return products.find (product =>product.id ===productoId) }
+
     //Un if de que en el caso que exista productoId, sumarle la cantidad sino pushear productoPost
+    if(productoId){
+      productoId.quantity = productoId.quantity +1
+    }else{
+      cart.push(productoId)
+    }
 
     //Luego escribir en el cart.json con fs pasandole el cartDb
 
     //Enviar por res una respuesta
-
+    res.send("Producto Agregado")
     
 
 }
