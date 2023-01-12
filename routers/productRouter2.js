@@ -26,7 +26,7 @@ routerProducts.get('/:pid', (req, res) => {
 routerProducts.post('/', (req, res) => {
 
     let producto = req.body
-    let id = productosDB.length > 0 ? productosDB[productosDB.length - 1].id + 1 : 1
+    let id = producto.length > 0 ? producto[producto.length - 1].id + 1 : 1
 
     let productoNuevo = { id, ...producto}
     if (productoNuevo) {
@@ -62,7 +62,10 @@ routerProducts.put('/:pid', (req, res) =>{
     */
     if(productosDB.find(product=>product.id===pid)){
         let productDeleted = productosDB.filter(product => product.id!==pid)
-        productDeleted.push(product);
+        let producto = req.body
+        let id = producto.length > 0 ? producto[producto.length - 1].id + 1 : 1  
+        let productoNuevo = { id, ...producto}
+        productDeleted.push(productoNuevo);
         this.writeFileSync(productDeleted);
         res.send(productDeleted, "Producto Actualizado");
 
