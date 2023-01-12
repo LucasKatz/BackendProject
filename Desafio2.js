@@ -74,10 +74,8 @@ class ProductManager {
 
 
 getProductsById (id){
-    //Aca crear una variable trayendo los productos usando getProducts() o readFile() 
-    let listaProductos = this.readFile();
-    const products = listaProductos
-    // const products = this.xxxx
+
+    const products = this.readFile();
 
 const search = products.find(product => product.id === id) 
 
@@ -98,7 +96,7 @@ isInProducts  (title)  {
 
 
 updateProduct(id, product){
-  
+
     let data = this.readFile ();
     if(data.find(product=>product.id===id)){
         let productDeleted = data.filter(product => product.id!==id)
@@ -117,7 +115,7 @@ updateProduct(id, product){
 async deleteProduct (id){
     let productos = await  this.readFile() 
     try {
-       productos = productos.filter (producto =>producto.id != id )
+    productos = productos.filter (producto =>producto.id != id )
     this.writeData(productos)
         
     } catch (err) {

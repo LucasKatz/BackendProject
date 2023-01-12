@@ -6,9 +6,6 @@ const cartDB = JSON.parse(fs.readFileSync('./database/cart.JSON', 'utf-8'))
 
 
 routerCarts.post("/", (req, res) => {
-    let cart = [] //Aca de verdad no entiendo como "crear" el carrito, se refiere a que me tiene que crear un archivo JSON o crear un nuevo array vacio a través de una función?
-  res.send("Carrito creado");
-
   /* Se debe crear solo la logica y estructura del carrito (id y products con array vacio), luego la logica de pushear y escribir el cart.json con fs. El envio del producto se hace en el otro endpoint de post.
 
     let cart = {
@@ -18,8 +15,7 @@ routerCarts.post("/", (req, res) => {
 
     xxxxxx.push(cart)
     fs.writeFileSync___________
-    res.________
-
+    res.send("Carrito creado");
   */
 });
 
@@ -27,14 +23,14 @@ routerCarts.post("/", (req, res) => {
 routerCarts.get("/:cid", (req, res) => {
     const carritoId = req.params.cid;
 
-    const searchInCart = cartDB.find(product => product.id === cid) //asi el find?? *** debe ser product.id e igualar al id de params y que sea Number***
+    const searchInCart = cartDB.find(product => product.id === Number(req.params.cid)) 
 
     if (searchInCart == undefined) {
       console.log( "Product not found")
     }
     else {
 
-      return searchInCart  //Enviar por res la respuesta.
+      res.send(searchInCart)  
     }
 });
 
@@ -44,7 +40,7 @@ routerCarts.post("/:cid/product/:pid", (req, res) => {
     const productoId = req.params.pid;
   // agregar el producto al carrito
 
-    //asi va a leer lo que hay en el array, no? O como tengo que hacer ?
+
     const productPost = 
     {
         'id': productoId,

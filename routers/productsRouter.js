@@ -35,12 +35,28 @@ routerProducts.post("/", (req, res) => {
 
 routerProducts.put("/:pid", (req, res) => {
     const productsId = req.params.pid;
-    //Traer lo que recibe de body
+    //Traigo lo que recibe de body
+    const productBody = req.body
 
     // Usar el metodo updateProduct y pasarle el id y producto recibido por req.body 
+    updateProduct = (id, product) =>  {
+
+        let productUpdated = this.readFile ();
+        if(productUpdated.find(product=>product.pid===req.params.pid && product.body ===req.body )){
+            let productDeleted = data.filter(product => product.id!==id)
+            product.id=id;
+            productDeleted.push(product);
+            this.writeData(productDeleted);
+            return productDeleted;
+    
+        }
+        else{
+            console.log('The product to be updated does not exist')
+        }
+    }
 
     //Enviar por res el producto actualizado
-    
+    res.json({productoActualizado})
     
 
 });
@@ -49,9 +65,10 @@ routerProducts.delete("/:pid", (req, res) => {
     const productsId = req.params.pid;
 
     // Usar el metodo deleteProduct y pasarle el id de params 
+    newProd.deleteProduct(req.params.pid)
 
     //Enviar por res una respuesta que fue eliminado
-    
+    res.send("Producto Eliminado")
 });
 
 module.exports = routerProducts
