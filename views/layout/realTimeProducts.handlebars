@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -63,12 +63,16 @@
         <form action="api/productos"  method="post">
             <h3 class="title">Producto A Agregar</h3>
             <div>
-                <label for="title">{{Nombre}}</label>
+                <label for="title">{{title}}</label>
                 <input class="input" type="text" id="title" name="title" required>
             </div>
             <div>
-                <label for="price">{{Precio}}</label>
+                <label for="price">{{price}}</label>
                 <input class="input" type="number" id="price" min=0 name="price" required>
+            </div>
+                <div>
+                <label for="thumbnail">{{description}}</label>
+                <input type="FILE" id="thumbnail" name="thumbnail" required>
             </div>
             <div>
                 <label for="thumbnail">{{Thumbnail}}</label>
