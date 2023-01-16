@@ -39,7 +39,7 @@ routerProducts.put("/:pid", (req, res) => {
     const productBody = req.body
 
     // Usar el metodo updateProduct y pasarle el id y producto recibido por req.body 
-    const productUpdated = newProd.updateProduct(id, body)
+    const productUpdated = newProd.updateProduct(productsId, productBody)
 
     //Enviar por res el producto actualizado
     res.json({productUpdated})

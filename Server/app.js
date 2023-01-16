@@ -11,7 +11,7 @@ app.set('views',__dirname+'/views');
 app.set('view engine','handlebars');
 app.use(express.static(__dirname+'/public'));
 
-app.get('/',(req,res) => {
+app.get('/', async(req,res) => {
     res.render('home',{});
 });
 
