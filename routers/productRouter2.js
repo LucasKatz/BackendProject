@@ -15,7 +15,7 @@ routerProducts.get("/", (req, res) => {
 routerProducts.get('/:pid', (req, res) => {
 
     const {pid} = req.params 
-    const producto = productosDB.find((product) => product.id == +pid);
+    const producto = productosDB.find((product) => product.id === pid);
 
     res.status(200).json({
         message: 'Producto Encontrado',

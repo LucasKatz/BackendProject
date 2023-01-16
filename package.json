@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/LucasKatz/BackendProject#readme",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "express-handlebars": "^6.0.6"
   }
 }
