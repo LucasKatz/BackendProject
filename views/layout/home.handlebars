@@ -1,4 +1,4 @@
-{{const listaProducts = [{
+const listaProducts = [{
     id: 1,
     title" "Lámpara Tokio",
     description: "Lámpara escritorio aluminio negro led",
@@ -99,19 +99,19 @@
     stock: 3
 }
 
-]}}
+]
 
 
 {{#each listaProducts}}
 <div>
     <ul>
-        <li>{{id}}</li>
-        <li>{{title}}</li>
-        <li>{{price}}</li>
-        <li>{{description}}</li>
-        <li>{{thumbnail}}</li>
-        <li>{{code}}</li>
-        <li>{{stock}}</li>
+        <li>{{this.id}}</li>
+        <li>{{this.title}}</li>
+        <li>{{this.price}}</li>
+        <li>{{this.description}}</li>
+        <li>{{this.thumbnail}}</li>
+        <li>{{this.code}}</li>
+        <li>{{this.stock}}</li>
     </ul>
 </div>
 {{/each}}

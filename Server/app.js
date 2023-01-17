@@ -1,3 +1,8 @@
+import express from 'express';
+import handlebars from 'express-handlebars';
+import { Server } from 'socket.io';
+
+
 const express = require ('express')
 const app = express()
 const ProductManager = require ('../desafio3')

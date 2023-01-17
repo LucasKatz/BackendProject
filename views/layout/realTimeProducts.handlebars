@@ -1,3 +1,5 @@
+//Creación de Formulario Simple
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -79,10 +81,11 @@
                 <input type="FILE" id="thumbnail" name="thumbnail" required>
             </div>
             <input type="hidden" name="form" value="1">
-            <input class="btn" type="submit" value="Save product">
+            <button class="btn" id="submitButton" type="submit" value="Save product"> Add Product </button>
         </form>
     </div>
 </body>
 </html>
 
-//agregar otra ruta con el nombre realTimeProducts dentro de un archivo con ese mismo nombre dentro de server. Contendrá la misma lista de productos pero trabajará con websockets. La lista debe actualizarse a medida que agregamos productos o actualizamos los ya existentes
+<script src="realTimeProducts.js" type="application/javascript"></script>
+    
