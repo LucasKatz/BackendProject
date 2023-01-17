@@ -16,16 +16,18 @@ app.set('views',__dirname+'/views');
 app.set('view engine','handlebars');
 app.use(express.static(__dirname+'/public'));
 
-app.get('/', async(req,res) => {
-    res.render('home',{});
-});
+//app.get('/', async(req,res) => {
+//    res.render('home',{});
+//});
 
-socketServer.on('connection', (socket) => {
-    socket.on('mensaje',(msj) => {
-        console.log('Recibi un mensaje que dice: '+msj);
-    });
-    socket.emit('singlecast', 'Este es un mensaje singlecast');
-});
+//socketServer.on('connection', (socket) => {
+//    socket.on('mensaje',(msj) => {
+//        console.log('Recibi un mensaje que dice: '+msj);
+//    });
+//    socket.emit('singlecast', 'Este es un mensaje singlecast');
+//});
+
+//Teniendo todo en viewsRouter esto no es necesario, no?
 
 
 app.get ('/products', async (req,res)=>{
