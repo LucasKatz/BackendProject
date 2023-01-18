@@ -1,6 +1,6 @@
-const express = require("express");
+import express from 'express';
 const routerProducts = express.Router();
-const fs = require ('fs')
+import fs from 'fs';
 
 
 const productosDB = JSON.parse(fs.readFileSync('./database/productos.JSON', 'utf-8'))

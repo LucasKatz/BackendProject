@@ -1,6 +1,6 @@
-const express = require("express");
+import express from 'express';
 const routerCarts = express.Router();
-const fs = require("fs");
+import fs from 'fs';
 
 const cartDB = JSON.parse(fs.readFileSync('./database/cart.JSON', 'utf-8'))
 

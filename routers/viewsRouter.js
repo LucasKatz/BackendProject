@@ -1,9 +1,19 @@
-const express = require("express");
+import express from 'express';
 const viewsRouter = express.Router();
-const fs = require ('fs')
+import fs from 'fs';
+
+const readFile= async () => {
+
+    const data = await fs.readFileSync("./database/productos.json", "utf-8");
+    
+    const products = await JSON.parse(data);
+    
+    return products;
+    
+    };
 
 viewsRouter.get ("/", async (req, res) => { 
-    const products = await readFile(); //agrego archivo como parametro entre ()? el JSON o el handlebars?
+    const products = await readFile(); 
     res.render("home", {products} );
 });
 
@@ -17,3 +27,4 @@ viewsRouter.get('/realtimeproducts', async (req, res)=>{
     res.render('realTimeProducts', {newProductToAdd});
 })
 
+export default viewsRouter;

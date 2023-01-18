@@ -1,12 +1,8 @@
+//Estos imports que dejo aca, son necesarios para usarlos abajo con app.use... o estoy haciendo lo mismo 2 veces??
+
 import express from 'express';
 import handlebars from 'express-handlebars';
 import { Server } from 'socket.io';
-
-import __dirname from './utils.js';
-
-import viewsRouter from './routers/viewsRouter'
-import productsRouter from './routes/productRouter2';
-import cartsRouter from './routes/cartsRouter';
 
 // Instancia de expres y servidor.
 const express = require ('express')
@@ -15,7 +11,7 @@ const app = express()
 //const ProductManager = require ('../desafio3')
 //const productManager = new ProductManager('./database/productos.JSON')
 const PORT = 8080
-const {Server}=require('socket.io')
+
 const socketServer=new Server(httpServer);
 app.listen(PORT, () => {
     console.log (`Server running on port ${PORT}`)
