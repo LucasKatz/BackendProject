@@ -17,6 +17,14 @@ app.listen(PORT, () => {
     console.log (`Server running on port ${PORT}`)
     })
 
+const httpServer = app.listen(PORT, () => {
+
+    console.log (`Server running on port ${PORT}`)
+        
+    })    
+
+
+
 
 // Configuracion Express.
 app.engine('handlebars',handlebars.engine());

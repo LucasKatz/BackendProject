@@ -131,6 +131,6 @@ deleteAll(){
 const newProd = new ProductManager('./database/productos.JSON');
 
 module.exports = {newProd}
-
+module.exports=ProductManager
 
 
