@@ -6,7 +6,6 @@ import { Server } from 'socket.io';
 
 import viewsRouter from './routers/viewsRouter.js';
 
-
 const PORT = 8080
 
 const socketServer=new Server(httpServer);
@@ -24,7 +23,26 @@ const httpServer = app.listen(PORT, () => {
     
     })    
 
+    io.on("connection", (socket) => {
+    
+    console.log("nuevo user conectado");
 
+    const io = new Server(httpServer);
+
+    socket.on("message", async (data) =>
+    
+    { let productos = await readJson()
+    
+    productos.push({prod: data})
+    
+    await writeJson (productos)
+    
+    io.emit("paragraph", productos);
+    
+    });
+    
+    });
+//Mi archivo de productos se llama productos.JSON, pero con que ponga productos ya está, no? O las variables que provienen de donde son las que tengo que leer?
 
 
 // Configuracion Express.
