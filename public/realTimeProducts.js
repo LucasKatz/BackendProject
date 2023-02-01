@@ -4,20 +4,20 @@ const input = document.getElementById('input')
 const socket = io();
 
 //Listeners
-input.addEventListener('click', (event)=>{
+input.addEventListener('keyup', (event)=>{
     let  newProductToAdd = event.target.value 
     if (event.key === "Enter" ){
         if (input.value.trim().length){
-        socket.emit('send_message', newProductToAdd);
+        socket.emit('message', newProductToAdd);
     }
     input.value =""
     }
 })
 
 //Emitter
-socket.on("paragrpah", data =>{
+socket.on("paragraph", data =>{
     let html = data.map ( (product) => {
-        return <span>Producto: ${product.prod}</span>
+        return `<span>Producto: ${product.title}</span>`
     })
     paragraph.innerHTML=html
 })
