@@ -11,6 +11,7 @@ const PORT = 8080
 // Configuracion Express.
 app.engine('handlebars',handlebars.engine());
 app.set('views',__dirname+'/views');
+app.set("/public/views")
 app.set('view engine','handlebars');
 app.use(express.static(__dirname+'/public'));
 app.use(express.json());
@@ -26,8 +27,8 @@ const readJson= async () => {
     return products;
 }
 
-const writeJson= async () => {
-    const dataToWrite = await JSON.stringify(data, null, "/t");
+const writeJson= async (data) => {
+    const dataToWrite = await JSON.stringify(data, null, "\t");
     await fs.writeFileSync ("./database/productos.JSON" , dataToWrite);
 };
 
