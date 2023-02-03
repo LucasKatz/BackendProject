@@ -14,7 +14,7 @@ const messages = []
 
 // Configuracion Express.
 app.engine('handlebars',handlebars.engine());
-app.set('views',__dirname+'/views');
+app.set('views',__dirname+'/public/views');
 app.set("/public/views")
 app.set('view engine','handlebars');
 app.use(express.static(__dirname+'/public'));
