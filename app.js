@@ -1,5 +1,4 @@
 import __dirname from './utils.js';
-import mongoose from 'mongoose';
 import chatRoute from "./routers/chatRouter.js";
 import express from 'express';
 import handlebars from 'express-handlebars';
@@ -7,8 +6,12 @@ import { Server } from 'socket.io';
 import fs from "fs"
 import viewsRouter from './routers/viewsRouter.js';
 
+import mongoose from "mongoose";
+import * as dotenv from "dotenv";
+
 const app = express()
 const PORT = 8080
+dotenv.config();
 
 const messages = []
 
@@ -77,7 +80,16 @@ socketServer.on("chatConnection", (socket) => {
     });
 });
 
-
+mongoose.connect (
+    `mongodb+srv://${process.env.USER_MONGO}:${process.env.PASS_MONGO}@codercluster.vdti2wf.mongodb.net/?retryWrites=true&w=majority`,
+    (error) => {
+        if (error) {
+            console.log("Error al conectar a la base de datos");
+        } else {
+            console.log("Conectado a la base de datos");
+        }
+    }
+)
 
 
 
