@@ -51,7 +51,7 @@ socket.on("messageLogs", (data) => {
   log.innerHTML = message;
 });
 
-socket.on("new-user-connected", (data) => {
+socket.broadcast("new-user-connected", (data) => {
   if (data.id !== socket.id)
     Swal.fire({
       text: `${data.user} se ha conectado al chat`,
