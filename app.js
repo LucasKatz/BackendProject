@@ -1,6 +1,6 @@
 import __dirname from './utils.js';
 import mongoose from 'mongoose';
-import chatRoute from './routers/chatRouter.js'
+import chatRoute from "./routers/chatRouter.js";
 import express from 'express';
 import handlebars from 'express-handlebars';
 import { Server } from 'socket.io';
@@ -60,6 +60,22 @@ socketServer.on('connection', (socket) => {
 })
 
 
+socketServer.on("chatConnection", (socket) => {
+    console.log("Nuevo cliente conectado!");
+    socket.on("new-user", (data) => {
+        socket.user = data.user;
+        socket.id = data.id;
+        socketServer.emit("new-user-connected", {
+        user: socket.user,
+        id: socket.id,
+        });
+    });
+    socket.on("chatMessage", (data) => {
+        messages.push(data);
+        socketServer.emit("messageLogs", messages);
+        messageModel.create(data);
+    });
+});
 
 
 
