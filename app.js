@@ -102,7 +102,7 @@ socketChat.on("connection", (socket) => {
 });
 
 mongoose.connect (
-    `mongodb+srv://${process.env.USER_MONGO}:${process.env.PASS_MONGO}@codercluster.vdti2wf.mongodb.net/?retryWrites=true&w=majority`,
+    `mongodb+srv://${process.env.USER_MONGO}:${process.env.PASS_MONGO}@CoderCluster.vdti2wf.mongodb.net/${process.env.DB_MONGO}?retryWrites=true&w=majority`,
     (error) => {
         if (error) {
             console.log("Error al conectar a la base de datos");

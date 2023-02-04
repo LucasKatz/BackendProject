@@ -1,4 +1,4 @@
-const socket = io("/chat");
+const socket = io();
 let chatBox = document.getElementById("chatBox");
 
 let user;
@@ -51,7 +51,7 @@ socket.on("messageLogs", (data) => {
   log.innerHTML = message;
 });
 
-socket.broadcast("new-user-connected", (data) => {
+socket.on("new-user-connected", (data) => {
   if (data.id !== socket.id)
     Swal.fire({
       text: `${data.user} se ha conectado al chat`,
