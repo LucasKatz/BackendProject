@@ -6,7 +6,7 @@ Swal.fire({
   title: "Inicia sesion!",
   text: "Ingresa tu nombre de usuario",
   input: "text",
-  confirmButtonText: "Cool",
+  confirmButtonText: "Registrarse",
   allowOutsideClick: false,
   inputValidator: (value) => {
     if (!value) {
@@ -51,7 +51,7 @@ socket.on("messageLogs", (data) => {
   log.innerHTML = message;
 });
 
-socket.broadcast("new-user-connected", (data) => {
+socket.on("new-user-connected", (data) => {
   if (data.id !== socket.id)
     Swal.fire({
       text: `${data.user} se ha conectado al chat`,

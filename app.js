@@ -3,6 +3,7 @@ import chatRoute from "./routers/chatRouter.js";
 import express from 'express';
 import handlebars from 'express-handlebars';
 import { Server } from 'socket.io';
+import messageRoute from "./routers/messageRouter.js"
 import fs from "fs"
 import viewsRouter from './routers/viewsRouter.js';
 
@@ -23,10 +24,17 @@ app.set('view engine','handlebars');
 app.use(express.static(__dirname+'/public'));
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+app.post("/socketMessage", (req, res) => {
+    const { message } = req.body;
+    socketServer.emit("message", message);
+
+    res.send("ok");
+});
 
 // Rutas.
 app.use('/', viewsRouter);
 app.use("/chat", chatRoute);
+app.use("/messages", messageRoute)
 
 
 const readJson= async () => {
@@ -73,7 +81,7 @@ socketServer.on("chatConnection", (socket) => {
         id: socket.id,
         });
     });
-    socket.on("chatMessage", (data) => {
+    socket.on("message", (data) => {
         messages.push(data);
         socketServer.emit("messageLogs", messages);
         messageModel.create(data);
