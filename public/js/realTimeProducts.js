@@ -1,7 +1,7 @@
 const paragraph = document.getElementById('paragraph')
 const input = document.getElementById('input')
 
-const socket = io();
+const socket = io("/viewsRouter");
 
 //Listeners
 input.addEventListener('keyup', (event)=>{

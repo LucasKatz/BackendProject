@@ -1,4 +1,4 @@
-const socket = io();
+const socket = io("/chat");
 let chatBox = document.getElementById("chatBox");
 
 let user;
@@ -23,7 +23,7 @@ Swal.fire({
 chatBox.addEventListener("keyup", (e) => {
   if (e.key === "Enter") {
     if (chatBox.value.trim().length > 0) {
-      socket.emit("chatMessage", {
+      socket.emit("message", {
         user: user,
         message: chatBox.value,
       });
@@ -51,7 +51,7 @@ socket.on("messageLogs", (data) => {
   log.innerHTML = message;
 });
 
-socket.on("new-user-connected", (data) => {
+socket.broadcast("new-user-connected", (data) => {
   if (data.id !== socket.id)
     Swal.fire({
       text: `${data.user} se ha conectado al chat`,
