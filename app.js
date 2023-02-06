@@ -17,6 +17,13 @@ dotenv.config();
 
 const messages = [];
 
+
+//Consts Mongo
+const USER_MONGO=process.env.USER_MONGO
+const PASS_MONGO=process.env.PASS_MONGO
+const DB_MONGO=process.env.DB_MONGO
+
+
 // Configuracion Express.
 app.engine("handlebars", handlebars.engine());
 app.set("views", __dirname + "/public/views");
@@ -90,18 +97,24 @@ socketChat.on("connection", (socket) => {
   });
 });
 
-mongoose.connect (
-    `mongodb+srv://${process.env.USER_MONGO}:${process.env.PASS_MONGO}@codercluster.vdti2wf.mongodb.net/${process.env.DB_MONGO}?retryWrites=true&w=majority`,
+const environment = async () => {
+  try {
+    await mongoose.connect (
+    `mongodb+srv://${USER_MONGO}:${PASS_MONGO}@codercluster.vdti2wf.mongodb.net/${DB_MONGO}?retryWrites=true&w=majority`,
 
-    (error) => {
-        if (error) {
-            console.log("Error al conectar a la base de datos");
-        } else {
-            console.log("Conectado a la base de datos");
-        }
-    }
-)
-
-
+    );
+    console.log("Conectado a la base de datos");
+  } catch (error) {
+    console.log(`Error al conectar a a la base de datos: ${error}`);
+  }
+};
 
 
+const isValidStartDB = () => {
+  if (USER_MONGO&& PASS_MONGO) return true;
+  else return false;
+};
+
+
+console.log("isValidStartDB", isValidStartDB());
+isValidStartDB() && environment();
