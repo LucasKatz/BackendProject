@@ -4,7 +4,7 @@ import express from "express";
 import handlebars from "express-handlebars";
 import { Server } from "socket.io";
 import messageRoute from "./routers/messageRouter.js";
-import { messageModel } from "./models/chatModel.js";
+import { messageModel } from "./DAO/models/chatModel.js";
 import fs from "fs";
 import viewsRouter from "./routers/viewsRouter.js";
 
