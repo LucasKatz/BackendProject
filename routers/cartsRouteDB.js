@@ -34,4 +34,15 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+router.put("/:id", async (req, res) => {
+  const { id } = req.params;
+  const product = req.body;
+  try {
+    const response = await cartManager.update(id, product);
+    res.status(200).send({ message: "Carrito actualizado", response });
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
+
 export default router;
