@@ -58,7 +58,18 @@ class ProductManager {
           throw err;
         }
       }
+
+      async update (productId, product){
+        try {
+          const result = await productModel.findByIdAndUpdate(productId, product)
+          return result
+        }
+        catch (err) {
+          throw err;
+        }
+      }
     }
+    
 
 
 export { CartManager, ProductManager };

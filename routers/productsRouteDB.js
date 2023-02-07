@@ -64,7 +64,49 @@ router.delete("/:id", async (req, res) => {
   } catch (err) {
     res.status(500).send(err.message);
   }
+  
 });
 
+router.put("/:id", async (req, res) => {
+  const { id } = req.params;
+  const {
+    title,
+    description,
+    code,
+    price,
+    thumbnail,
+    stock,
+    category,
+    status,
+  } = req.body;
+  console.log(req.body);
+  if (
+    !title ||
+    !description ||
+    !code ||
+    !price ||
+    !thumbnail ||
+    !stock ||
+    !category
+  ) {
+    res.status(400).send({ error: "Faltan datos" });
+    return;
+  }
+  try {
+    const result = await productManager.update(id, {
+      title,
+      description,
+      code,
+      price,
+      thumbnail,
+      stock,
+      category,
+      status,
+    });
+    res.status(200).send({ message: "Producto actualizado", result });
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
 
 export default router;
