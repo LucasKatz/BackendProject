@@ -23,4 +23,15 @@ router.post("/", async(req, res) => {
   }
 });
 
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const response = await cartManager.delete(id);
+
+    res.status(200).send({ message: "Carrito eliminado", response });
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
+
 export default router;

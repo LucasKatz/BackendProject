@@ -41,9 +41,9 @@ class ProductManager {
         }
       }
     
-      async create() {
+      async create(product) {
         try {
-          const newProduct = new productModel();
+          const newProduct = new productModel(product);
           await newProduct.save();
           return newProduct;
         } catch (err) {
