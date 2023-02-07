@@ -13,4 +13,14 @@ router.get("/", async(req, res) => {
   }
 });
 
+
+router.post("/", async(req, res) => {
+  try {
+    await cartManager.create();
+    res.status(200).send("Carrito creado")
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
+
 export default router;

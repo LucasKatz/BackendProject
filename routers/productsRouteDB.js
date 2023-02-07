@@ -13,4 +13,47 @@ router.get("/", async(req, res) => {
   }
 });
 
+router.post("/", async(req, res) => {
+  const {
+    title,
+    description,
+    code,
+    price,
+    thumbnail,
+    stock,
+    category,
+    status,
+  } = req.body;
+
+  if(
+    !title ||
+    !description||
+    !code||
+    !price||
+    !thumbnail||
+    !stock||
+    !category||
+    !status
+  ) {
+    res.status(400).send({error: "Faltan Datos"})
+    return;
+  }
+  try {
+    const response = await productManager.create({
+      title,
+      description,
+      code,
+      price,
+      thumbnail,
+      stock,
+      category,
+      status,
+    });
+    res.status(200).send({message:"Producto creado", response})
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
+
+
 export default router;
