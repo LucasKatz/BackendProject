@@ -29,3 +29,36 @@ class CartManager {
     }
   }
 }
+
+
+class ProductManager {
+    async read() {
+        try {
+          const products = await productModel.find();
+          return products;
+        } catch (err) {
+          throw err;
+        }
+      }
+    
+      async create() {
+        try {
+          const newProduct = new productModel();
+          await newProduct.save();
+          return newProduct;
+        } catch (err) {
+          throw err;
+        }
+      }
+      async delete(productId) {
+        try {
+          const result = await productModel.findByIdAndDelete(productId);
+          return result;
+        } catch (err) {
+          throw err;
+        }
+      }
+    }
+
+
+export { CartManager, ProductManager };

@@ -7,6 +7,8 @@ import messageRoute from "./routers/messageRouter.js";
 import { messageModel } from "./DAO/models/chatModel.js";
 import fs from "fs";
 import viewsRouter from "./routers/viewsRouter.js";
+import productsRouteDB from "./routers/productsRouteDB.js"
+import cartsRouteDB from "./routers/cartsRouteDB.js"
 
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
@@ -44,6 +46,8 @@ app.post("/socketMessage", (req, res) => {
 app.use("/", viewsRouter);
 app.use("/chat", chatRoute);
 app.use("/messages", messageRoute);
+app.use("/api/productsDB", productsRouteDB)
+app.use("/api/cartDB", cartsRouteDB)
 
 const httpServer = app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
