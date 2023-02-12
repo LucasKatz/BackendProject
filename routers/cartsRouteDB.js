@@ -23,7 +23,9 @@ router.post("/", async(req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+
+//ruta que borra el carrito completo
+router.delete("/api/carts/:cid", async (req, res) => {
   const { id } = req.params;
   try {
     const response = await cartManager.delete(id);
@@ -34,11 +36,28 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+//Actualiza productos dentro de un carrito
+router.put("/api/carts/:cid", async (req, res) => {
   const { id } = req.params;
   const product = req.body;
   try {
     const response = await cartManager.update(id, product);
+    res.status(200).send({ message: "Carrito actualizado", response });
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
+
+
+//Actualiza stock de productos dentro de un carrito
+router.put("/api/carts/:cid", async (req, res) => {
+  const { id } = req.params;
+  const product = req.body;
+  const newStock = req.body
+
+
+  try {
+    const response = await cartManager.update(id, newStock);
     res.status(200).send({ message: "Carrito actualizado", response });
   } catch (err) {
     res.status(500).send(err.message);
