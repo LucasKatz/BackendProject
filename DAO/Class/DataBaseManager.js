@@ -69,6 +69,44 @@ class CartManager {
     }
   }
 
+  //Elimina un solo elemento dentro de un carrito especifico
+  async deleteOne(cartId, product) {
+    const myProductToDelete = {
+      _id: product._id,
+    };
+    try {
+      const result = await cartModel.find({ _id: cartId });
+      console.log(result[0]);
+
+      if (result[0].products.length >= 1) {
+        const resultSave = await cartModel.findByIdAndDelete(cartId, {
+          myProductToDelete,
+        });
+        return resultSave;
+
+      } else {
+        return console.log ("Producto no encontrado")
+    
+      }
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async updateProductInCart(cartId, productToUpdate, qty){
+try {
+    let cart = await cartModel.find({ _id: cartId });
+    let product = cart.products.find(prod=>prod.product == productToUpdate);
+    let productIndex = cart.products.indexOf(product);
+
+    cart.products[productIndex].quantity = qty;
+
+    return cartModel.updateOne({_id: cartId}, {products: cart.products})
+  }
+  catch (err) {
+    throw err;
+  }
+}
 }
 
 
