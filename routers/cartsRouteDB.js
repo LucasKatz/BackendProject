@@ -36,7 +36,19 @@ router.delete("/api/carts/:cid", async (req, res) => {
   }
 });
 
-//Actualiza productos dentro de un carrito
+//ruta que borra el producto seleccionado del carrito (trabajar)
+router.delete("/api/carts/:cid/products/:pid", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const response = await cartManager.delete(id);
+
+    res.status(200).send({ message: "Carrito eliminado", response });
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
+
+//Actualiza productos dentro de un carrito (trabajar)
 router.put("/api/carts/:cid", async (req, res) => {
   const { id } = req.params;
   const product = req.body;
@@ -49,8 +61,8 @@ router.put("/api/carts/:cid", async (req, res) => {
 });
 
 
-//Actualiza stock de productos dentro de un carrito
-router.put("/api/carts/:cid", async (req, res) => {
+//Actualiza stock de productos dentro de un carrito (trabajar)
+router.put("/api/carts/:cid/products/:pid", async (req, res) => {
   const { id } = req.params;
   const product = req.body;
   const newStock = req.body
