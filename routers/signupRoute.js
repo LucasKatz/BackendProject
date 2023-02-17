@@ -4,7 +4,7 @@ import userModel from "../DAO/models/userModel.js";
 const router = Router();
 
 router.get("/", async (req, res) => {
-    res.render("login", { style: "css/login.css" });
+    res.render("signup", { style: "css/signup.css" });
 });
 
 router.post("/", async (req, res) => {

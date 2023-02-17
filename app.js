@@ -10,6 +10,7 @@ import viewsRouter from "./routers/viewsRouter.js";
 import productsRouteDB from "./routers/productsRouteDB.js"
 import cartsRouteDB from "./routers/cartsRouteDB.js"
 import loginRouter from "./routers/loginRoute.js"
+import signupRouter from "./routers/signupRoute.js"
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
 
@@ -50,6 +51,7 @@ app.use("/messages", messageRoute);
 app.use("/api/productsDB", productsRouteDB)
 app.use("/api/cartDB", cartsRouteDB)
 app.use("/login", loginRouter )
+app.use("/signup", signupRouter)
 
 const httpServer = app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
