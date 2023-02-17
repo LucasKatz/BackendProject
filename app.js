@@ -9,7 +9,7 @@ import fs from "fs";
 import viewsRouter from "./routers/viewsRouter.js";
 import productsRouteDB from "./routers/productsRouteDB.js"
 import cartsRouteDB from "./routers/cartsRouteDB.js"
-
+import loginRouter from "./routers/loginRoute.js"
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
 
@@ -35,6 +35,7 @@ app.use(express.static(__dirname + "/public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+
 app.post("/socketMessage", (req, res) => {
   const { message } = req.body;
   socketServer.emit("message", message);
@@ -48,6 +49,7 @@ app.use("/chat", chatRoute);
 app.use("/messages", messageRoute);
 app.use("/api/productsDB", productsRouteDB)
 app.use("/api/cartDB", cartsRouteDB)
+app.use("/login", loginRouter )
 
 const httpServer = app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
