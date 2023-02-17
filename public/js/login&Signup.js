@@ -8,18 +8,10 @@ elementExists("send") &&
     fetch(`/login?username=${username}&password=${password}`, {});
     console.log("aqui voy api")
         .then((response) => response.json())
-        //.then((data) => console.log(data))
+        .then((data) => console.log(data))
         .catch((error) => console.error(error));
     });
 
-//elementExists("getButton") &&
- //   document.getElementById("getButton").addEventListener("click", function () {
-  //  fetch("/getSignedCookie").then((response) => {
-   //     response.json().then((data) => {
-  //          console.log(data);
-  //      });
-  //  });
- //   });
 
 elementExists("signup") &&
     document.getElementById("signup").addEventListener("click", function () {
@@ -29,7 +21,6 @@ elementExists("signup") &&
         const password= document.getElementById("password").value;
         const age = document.getElementById("age").value;
 if(!first_name || !last_name|| !email||!password||!age){
-return alert ("Todos los campos son obligatorios")
 }else {
     fetch("/signup", {
         method: "POST",
