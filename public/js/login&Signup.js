@@ -28,8 +28,9 @@ elementExists("signup") &&
         const email= document.getElementById("email").value;
         const password= document.getElementById("password").value;
         const age = document.getElementById("age").value;
-if(!first_name || !last_name|| !email||!password||!age)
+if(!first_name || !last_name|| !email||!password||!age){
 return alert ("Todos los campos son obligatorios")
+}else {
     fetch("/signup", {
         method: "POST",
         headers: {
@@ -46,4 +47,5 @@ return alert ("Todos los campos son obligatorios")
         .then((response) => response.json())
         .then((data) => console.log(data))
         .catch((error) => console.error(error));
+}
     });
