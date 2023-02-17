@@ -8,7 +8,20 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-    const {username, password}=req.body;
+    const {first_name, last_name, email, password, age}=req.body;
+   try{
+    const newUser = new userModel({
+        first_name,
+        last_name,
+        email,
+        password,
+        age
+    })
+    res.redirect("/login")
+    res.status(201).json({message:"Usuario creado", data:user})
+}catch (error) {
+res.status(500).json({error:error.message})
+}
 });
 
 export default router;

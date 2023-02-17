@@ -23,19 +23,27 @@ elementExists("send") &&
 
 elementExists("signup") &&
     document.getElementById("signup").addEventListener("click", function () {
-        const myForm = document.getElementById("myForm");
-        const formData = new FormData(myForm);
-        const data = Object.fromEntries(formData);
-        console.log(data);
-
+        const first_name= document.getElementById("first_name").value;
+        const last_name= document.getElementById("last_name").value;
+        const email= document.getElementById("email").value;
+        const password= document.getElementById("password").value;
+        const age = document.getElementById("age").value;
+if(!first_name || !last_name|| !email||!password||!age)
+return alert ("Todos los campos son obligatorios")
     fetch("/signup", {
         method: "POST",
         headers: {
         "Content-Type": "application/json",
     },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+            first_name,
+            last_name,
+            email,
+            password,
+            age  
+        }),
     })
         .then((response) => response.json())
-        //.then((data) => console.log(data))
+        .then((data) => console.log(data))
         .catch((error) => console.error(error));
     });
