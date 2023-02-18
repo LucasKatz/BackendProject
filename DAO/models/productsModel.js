@@ -8,14 +8,14 @@ const productSchema = new mongoose.Schema({
     type:Number,
     unique:true,
   },
-  title: String,
-  description: String,
-  code: String,
-  price: Number,
-  thumbnail: String,
-  stock: Number,
-  category: String,
-  status: Boolean,
+  title: {type:String, required:true},
+  description: {type:String, required:true},
+  code: {type:String, required:true},
+  price:{type:Number, required:true},
+  thumbnail: {type:String, required:true},
+  stock: {type:Number, required:true},
+  category: {type:String, required:true},
+  status: {type:Boolean, required:true},
 });
 
 productSchema.plugin(mongoosePaginate);

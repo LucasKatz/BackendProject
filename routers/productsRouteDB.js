@@ -6,6 +6,18 @@ const productManager = new ProductManager();
 
 router.get("/", async(req, res) => {
   try {
+    const category = req.query.category;
+
+    const stock = req.query.stock;
+
+    const page = req.query.page || 1;
+
+    const limit = req.query.limit || 10;
+
+    const sort = req.query.sort || 1;
+
+    const url = req.protocol + '://' + req.get('host') + req.originalUrl;
+
     const product = await productManager.read();
     res.send(product);
   } catch (err) {
