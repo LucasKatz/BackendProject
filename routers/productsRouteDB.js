@@ -14,10 +14,9 @@ router.get("/", async(req, res) => {
 
     const limit = req.query.limit || 10;
 
-    const sort = req.query.sort || 1;
+    const sort = req.query.sort || null;
 
     const url = req.protocol + '://' + req.get('host') + req.originalUrl;
-
     const product = await productManager.read();
     res.send(product);
   } catch (err) {
