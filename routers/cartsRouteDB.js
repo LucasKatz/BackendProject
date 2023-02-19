@@ -51,12 +51,12 @@ router.delete("/api/carts/:cid/products/:pid", async (req, res) => {
   }
 });
 
-//Actualiza productos dentro de un carrito (trabajar)
+//Actualiza productos dentro de un carrito 
 router.put("/api/carts/:cid", async (req, res) => {
-  const { id } = req.params;
+  const cartId  = req.params;
   const product = req.body;
   try {
-    const response = await cartManager.update(id, product);
+    const response = await cartManager.update(cartId, product);
     res.status(200).send({ message: "Carrito actualizado", response });
   } catch (err) {
     res.status(500).send(err.message);
