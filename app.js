@@ -123,6 +123,13 @@ const isValidStartDB = () => {
   else return false;
 };
 
+// Middleware para los datos de sesión.
+app.use((req, res, next)=>{     
+  res.locals.session = req.session;
+  next();
+})
+
+
 
 console.log("isValidStartDB", isValidStartDB());
 isValidStartDB() && environment();

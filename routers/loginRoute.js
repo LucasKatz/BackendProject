@@ -11,13 +11,13 @@ router.post("/", async (req, res) => {
     const {username, password}=req.body;
     try{
         const response = await userModel.findOne({email:username, password:password});
-        if(response=adminCoder) {
+        if(response) {
         res.status(200).json({message:"logged in", data:response})
-        console.alert("Bienvenido Admin")
-    }else if (response){
+        console.alert("Bienvenido", {username})
+    } /*else if (response){
         res.status(200).json({message:"logged in", data:response})
         console.alert("Bienvenido",{username})
-    }else {
+    }*/else {
         res.status(400).json({message:"error", data:"Usuario no encontrado"})
     }
     }catch (error){

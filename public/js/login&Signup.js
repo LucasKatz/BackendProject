@@ -8,7 +8,7 @@ elementExists("send") &&
     fetch(`/login?username=${username}&password=${password}`, {});
     console.log("Usuario Logueado")
         .then((response) => response.json())
-        .then((data) => console.log(data))
+        .then((data) => data.message =="success" ? window.location.href="/api/productsDB" : alert ("algo ha pasado"))
         .catch((error) => console.error(error));
     });
 
