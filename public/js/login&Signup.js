@@ -6,7 +6,7 @@ elementExists("send") &&
     const password = document.getElementById("password").value;
 
     fetch(`/login?username=${username}&password=${password}`, {});
-    console.log("aqui voy api")
+    console.log("Usuario Logueado")
         .then((response) => response.json())
         .then((data) => console.log(data))
         .catch((error) => console.error(error));

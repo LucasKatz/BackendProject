@@ -9,7 +9,7 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
     const {first_name, last_name, email, password, age}=req.body;
-   try{
+    try{
     const newUser = new userModel({
         first_name,
         last_name,
