@@ -11,8 +11,12 @@ import productsRouteDB from "./routers/productsRouteDB.js"
 import cartsRouteDB from "./routers/cartsRouteDB.js"
 import loginRouter from "./routers/loginRoute.js"
 import signupRouter from "./routers/signupRoute.js"
+import sessionsRouter from "./routers/sessionsRoute.js";
 import mongoose from "mongoose";
+import session from 'express-session';
+import MongoStore from 'connect-mongo';
 import * as dotenv from "dotenv";
+
 
 const app = express();
 const PORT = 8080;
@@ -52,6 +56,16 @@ app.use("/api/productsDB", productsRouteDB)
 app.use("/api/cartDB", cartsRouteDB)
 app.use("/login", loginRouter )
 app.use("/signup", signupRouter)
+app.use('/api/sessions/', sessionsRouter);
+app.use(session({
+  store: MongoStore.create({
+      mongoUrl:`mongodb+srv://${USER_MONGO}:${PASS_MONGO}@codercluster.vdti2wf.mongodb.net/${DB_MONGO}?retryWrites=true&w=majority`,
+      mongoOptions:{useNewUrlParser:true,useUnifiedTopology:true},
+      ttl:15
+  }),
+  resave:true,
+  saveUninitialized:true
+}))
 
 const httpServer = app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

@@ -12,6 +12,10 @@ elementExists("send") &&
         .catch((error) => console.error(error));
     });
 
+document.getElementById("ingreso").addEventListener("click", function(){
+    window.location.href="/login"
+})
+
 
 elementExists("signup") &&
     document.getElementById("signup").addEventListener("click", function () {
