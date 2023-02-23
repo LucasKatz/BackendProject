@@ -7,7 +7,7 @@ const cartManager = new CartManager();
 
 
 //ruta que lee los productos que hay dentro de un carrito
-router.get("/", async(req, res) => {
+router.get("/:cid", async(req, res) => {
   try {
     const cart = await cartManager.read();
     res.send(cart);
