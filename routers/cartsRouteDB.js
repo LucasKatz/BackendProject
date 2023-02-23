@@ -26,6 +26,21 @@ router.post("/", async(req, res) => {
   }
 });
 
+// Agrega un producto al carrito.
+router.post('/:cid/product/:pid', async (req, res)=>{
+  try {
+      let productId = req.params.pid;
+      let cartId = req.params.cid;
+  
+      await cartManager.update(cartId, productId);
+  
+      res.send({status: 'success', message: "Producto cargado con exito al carrito"});
+  } catch (error) {
+      res.status(404).send({status:'error', message: error.message});
+  }
+})
+
+
 
 //ruta que borra el carrito completo
 router.delete("/api/carts/:cid", async (req, res) => {
@@ -41,9 +56,10 @@ router.delete("/api/carts/:cid", async (req, res) => {
 
 //ruta que borra el producto seleccionado del carrito 
 router.delete("/api/carts/:cid/products/:pid", async (req, res) => {
-  const { id } = req.params;
   try {
-    const response = await cartManager.deleteOne(id);
+  const cartId = req.params.cid;
+  const productToDelete=req.params.pid
+    const response = await cartManager.deleteOne(cartId,productToDelete);
 
     res.status(200).send({ message: "Producto Eliminado", response });
   } catch (err) {

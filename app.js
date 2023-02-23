@@ -53,7 +53,7 @@ app.use("/", viewsRouter);
 app.use("/chat", chatRoute);
 app.use("/messages", messageRoute);
 app.use("/api/productsDB", productsRouteDB)
-app.use("/api/cartDB", cartsRouteDB)
+app.use("/api/carts", cartsRouteDB)
 app.use("/login", loginRouter )
 app.use("/signup", signupRouter)
 app.use('/api/sessions/', sessionsRouter);
