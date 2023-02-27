@@ -16,9 +16,8 @@ elementExists("send") &&
         }),
     })
         .then((response) => response.json())
-        .then((data) =>
-        data.message === "logged in"
-        ? (window.location.href = "/api/productsDB")
+        .then ((data) =>( data.message === "logged in")
+        ? (window.location.href = "/api/productsDB" , alert("Usuario logueado con exito"))
         : alert("Algo ha pasado")
         )
         .catch((error) => console.error(error));
@@ -28,6 +27,10 @@ elementExists("send") &&
 
 document.getElementById("ingreso").addEventListener("click", function(){
     window.location.href="/login"
+})
+
+document.getElementById("logout").addEventListener("click", function(){
+    window.location.href="/logout"
 })
 
 

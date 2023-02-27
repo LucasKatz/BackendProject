@@ -37,7 +37,7 @@ sessionsRouter.get('/logout', (req, res)=>{
     req.session.destroy(err=>{
         if(err) res.send({status:'error', message:'Error al cerrar la sesión: '+err});
 
-        res.redirect('/signup');
+        res.redirect('/login');
     });
 })
 
