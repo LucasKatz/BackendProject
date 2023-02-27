@@ -29,9 +29,6 @@ document.getElementById("ingreso").addEventListener("click", function(){
     window.location.href="/login"
 })
 
-document.getElementById("logout").addEventListener("click", function(){
-    window.location.href="/logout"
-})
 
 
 elementExists("signup") &&
