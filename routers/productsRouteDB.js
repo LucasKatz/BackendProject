@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { ProductManager } from "../DAO/Class/DataBaseManager.js";
+import productModel from "../DAO/models/productsModel.js";
 
 const router = Router();
 const productManager = new ProductManager();
@@ -93,7 +94,7 @@ router.post("/", async(req, res) => {
     return;
   }
   try {
-    const response = await productManager.create({
+    const response = await productModel.create({
       title,
       description,
       code,
@@ -112,7 +113,7 @@ router.post("/", async(req, res) => {
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const response = await productManager.delete(id);
+    const response = await productModel.findByIdAndDelete(id);
 
     res.status(200).send({ message: "Producto eliminado", response });
   } catch (err) {
@@ -147,7 +148,7 @@ router.put("/:id", async (req, res) => {
     return;
   }
   try {
-    const result = await productManager.update(id, {
+    const result = await productModel.findByIdAndUpdate(id, {
       title,
       description,
       code,
