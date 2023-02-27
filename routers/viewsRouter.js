@@ -22,4 +22,10 @@ viewsRouter.get('/realtimeproducts', async (req, res)=>{
     res.render('realTimeProducts', {});
 })
 
+viewsRouter.get('/login', async (req, res)=>{
+
+    res.render('login', {});
+})
+
+
 export default viewsRouter;
