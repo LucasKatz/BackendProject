@@ -63,6 +63,7 @@ app.use(session({
       mongoOptions:{useNewUrlParser:true,useUnifiedTopology:true},
       ttl:15
   }),
+  secret:'coderProject',
   resave:true,
   saveUninitialized:true
 }))

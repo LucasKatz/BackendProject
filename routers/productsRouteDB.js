@@ -61,7 +61,7 @@ router.get("/", async (req, res) => {
         };
       }
     );
-    res.send(respuesta);
+    res.render("products.handlebars")
   } catch (err) {
     console.log(err);
     res.send(err);
