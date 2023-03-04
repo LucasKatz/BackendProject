@@ -61,7 +61,7 @@ router.get("/", async (req, res) => {
         };
       }
     );
-    res.render("products.handlebars")
+    res.render("products", {products})
   } catch (err) {
     console.log(err);
     res.send(err);
