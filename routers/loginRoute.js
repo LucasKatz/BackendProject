@@ -19,10 +19,16 @@ router.post("/", async (req, res) => {
             email: username,
             password: password,
         });
-        if (response) {
+        if (response == admin) {
             req.session.user = response;
+            alert ("Bienvenido Admin")
         res.status(200).json({ message: "logged in", data: response });
-    }else {
+    } else if (response !== admin){
+        req.session.user = response;
+        alert ("Bienvenido User")
+        res.status(200).json({ message: "logged in", data: response });
+    }
+    else {
         res.status(400).json({message:"error", data:"Usuario no encontrado"})
     }
     }catch (error){
