@@ -21,7 +21,7 @@ sessionsRouter.post("/login", async (req, res)=>{
     // Busqueda de usuario.
     let user = await userDB.findUser(username,password);
 
-    // Si no se eocntro usuario...
+    // Si no se encuentra al  usuario...
     if(user.length === 0){
         return res.redirect("/signup");
     }

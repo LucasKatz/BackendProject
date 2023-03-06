@@ -15,14 +15,13 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
     const {username, password}=req.body;
     try{
-        const response = await userModel.findOne({email:username, password:password});
-        console.log(response)
-        if(1 == 1) {
-            // req.session.user = "Jorge"
-            res.status(200).json({message:"logged in", data:response})
-    } else if (response){
-        // req.session.user = "Jorge"
-        res.status(200).json({message:"logged in", data:response})
+        const response = await userModel.findOne({
+            email: username,
+            password: password,
+        });
+        if (response) {
+            req.session.user = response;
+        res.status(200).json({ message: "logged in", data: response });
     }else {
         res.status(400).json({message:"error", data:"Usuario no encontrado"})
     }
