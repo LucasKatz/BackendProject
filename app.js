@@ -48,15 +48,7 @@ app.post("/socketMessage", (req, res) => {
   res.send("ok");
 });
 
-// Rutas.
-app.use("/", viewsRouter);
-app.use("/chat", chatRoute);
-app.use("/messages", messageRoute);
-app.use("/api/productsDB", productsRouteDB)
-app.use("/api/carts", cartsRouteDB)
-app.use("/login", loginRouter )
-app.use("/signup", signupRouter)
-app.use('/api/sessions/', sessionsRouter);
+
 app.use(session({
   store: MongoStore.create({
       mongoUrl:`mongodb+srv://${USER_MONGO}:${PASS_MONGO}@codercluster.vdti2wf.mongodb.net/${DB_MONGO}?retryWrites=true&w=majority`,
@@ -67,6 +59,12 @@ app.use(session({
   resave:true,
   saveUninitialized:true
 }))
+
+// Middleware para los datos de sesión.
+app.use((req, res, next)=>{     
+  res.locals.session = req.session;
+  next();
+})
 
 const httpServer = app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
@@ -138,13 +136,17 @@ const isValidStartDB = () => {
   else return false;
 };
 
-// Middleware para los datos de sesión.
-app.use((req, res, next)=>{     
-  res.locals.session = req.session;
-  next();
-})
 
 
+// Rutas.
+app.use("/", viewsRouter);
+app.use("/chat", chatRoute);
+app.use("/messages", messageRoute);
+app.use("/api/productsDB", productsRouteDB)
+app.use("/api/carts", cartsRouteDB)
+app.use("/login", loginRouter )
+app.use("/signup", signupRouter)
+app.use('/api/sessions/', sessionsRouter);
 
 console.log("isValidStartDB", isValidStartDB());
 isValidStartDB() && environment();

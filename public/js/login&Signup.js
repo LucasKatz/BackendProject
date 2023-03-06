@@ -15,19 +15,23 @@ elementExists("send") &&
         password,
         }),
     })
-        .then((response) => response.json())
-        .then ((data) =>( data.message === "logged in")
-        ? (window.location.href = "/api/productsDB" , alert("Usuario logueado con exito"))
-        : alert("Algo ha pasado")
-        )
-        .catch((error) => console.error(error));
+    .then(response=> response.json())
+    .then (data =>{
+        console.log(data)
+        (data.message === "logged in")
+            ? window.location.href = "/api/productsDB"
+            : alert("Algo ha pasado")
+        }
+    )
+    .catch((error) => console.error(error));
     });
 
 
 
-document.getElementById("ingreso").addEventListener("click", function(){
-    window.location.href="/login"
-})
+elementExists("ingreso") &&
+    document.getElementById("ingreso").addEventListener("click", function(){
+        window.location.href="/login"
+    })
 
 
 
