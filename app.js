@@ -149,6 +149,7 @@ app.use("/api/carts", cartsRouteDB)
 app.use("/login", loginRouter )
 app.use("/signup", signupRouter)
 app.use('/api/sessions/', sessionsRouter);
+app.use('/logout', sessionsRouter)
 
 
 console.log("isValidStartDB", isValidStartDB());
