@@ -142,7 +142,7 @@ const isValidStartDB = () => {
 app.use("/", viewsRouter);
 app.use("/chat", chatRoute);
 app.use("/messages", messageRoute);
-app.use("/api/productsDB", productsRouteDB)
+app.use("/products", productsRouteDB)
 app.use("/api/carts", cartsRouteDB)
 app.use("/login", loginRouter )
 app.use("/signup", signupRouter)

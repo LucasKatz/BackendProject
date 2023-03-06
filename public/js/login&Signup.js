@@ -17,10 +17,12 @@ elementExists("send") &&
     })
     .then(response=> response.json())
     .then (data =>{
-        console.log(data)
-        (data.message === "logged in")
-            ? window.location.href = "/api/productsDB"
-            : alert("Algo ha pasado")
+        if (data.message === "logged in") {
+                console.log('Intentando redireccionar...')
+                window.location.href = "/products"
+            } else {
+                alert("Algo ha pasado")
+            }
         }
     )
     .catch((error) => console.error(error));
