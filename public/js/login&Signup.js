@@ -21,7 +21,7 @@ elementExists("send") &&
                 console.log('Intentando redireccionar...')
                 window.location.href = "/products"
             } else {
-                alert("Algo ha pasado")
+                alert("Credenciales incorrectas")
             }
         }
     )

@@ -14,26 +14,26 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
     const {username, password}=req.body;
+
     try{
         const response = await userModel.findOne({
             email: username,
             password: password,
         });
-        if (response == admin) {
+        if (response) {
             req.session.user = response;
-            alert ("Bienvenido Admin")
         res.status(200).json({ message: "logged in", data: response });
-    } else if (response !== admin){
-        req.session.user = response;
-        alert ("Bienvenido User")
-        res.status(200).json({ message: "logged in", data: response });
-    }
-    else {
+
+    }else {
         res.status(400).json({message:"error", data:"Usuario no encontrado"})
     }
     }catch (error){
         res.status(500).json({error:error.message})
     }
+
+
+
 });
+
 
 export default router;
