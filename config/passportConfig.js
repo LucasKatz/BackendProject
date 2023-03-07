@@ -2,7 +2,7 @@ import passport from "passport";
 import local from "passport-local"
 import userModel from "../DAO/models/userModel.js";
 import GitHubStrategy from "passport-github2"
-import { createHash, isValidPassword } from "../utils";
+import { createHash, isValidPassword } from "../utils.js";
 
 const localStrategy = local.Strategy;
 
@@ -34,7 +34,26 @@ const initializePassport = () => {
         }
     )
     )
+    //Login con Passport y Usuario + Password
+    passport.use('login', new localStrategy({usernameField:'email'}, async (username, password, done)=>{
+            try {
+                const user = await userModel.findOne(username);
+                if(!user){
+                    console.log("Usuario no encontrado.");
+                    return done(null, false);
+                }
+                if(!isValidPassword(user, password)) return done(null, false);
 
+                return done(null, user);
+            } catch (error) {
+                return done("Error en estrategia de login: "+error);
+            }
+        })
+    )
+
+
+
+    //Login con Github
     passport.use('github', new GitHubStrategy( {
         clientID: "Iv1.cfa4971b975bc167",
         clientSecret:"39a3af54b7c6626a56daffc0b87687e1f28f91f4",
@@ -57,7 +76,7 @@ const initializePassport = () => {
             done (null,user)
         } 
         }catch (error){
-            return done (error)
+            return done ("Error en estrategia de login: "+error)
         }
     }
     ))
