@@ -17,6 +17,8 @@ import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import * as dotenv from "dotenv";
 import forgotRoutes from "./routers/forgotRoutes.js"
+import passport from "passport";
+import initializePassport from "./config/passportConfig.js";
 
 
 const app = express();
@@ -60,6 +62,11 @@ app.use(session({
   resave:true,
   saveUninitialized:true
 }))
+
+initializePassport();
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 // Middleware para los datos de sesión.
 app.use((req, res, next)=>{     
