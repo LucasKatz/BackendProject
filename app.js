@@ -1,21 +1,23 @@
 import __dirname from "./utils.js";
-import chatRoute from "./routers/chatRouter.js";
 import express from "express";
 import handlebars from "express-handlebars";
 import { Server } from "socket.io";
-import messageRoute from "./routers/messageRouter.js";
-import { messageModel } from "./DAO/models/chatModel.js";
 import fs from "fs";
+import mongoose from "mongoose";
+import session from 'express-session';
+import MongoStore from 'connect-mongo';
+import * as dotenv from "dotenv";
+
 import viewsRouter from "./routers/viewsRouter.js";
 import productsRouteDB from "./routers/productsRouteDB.js"
 import cartsRouteDB from "./routers/cartsRouteDB.js"
 import loginRouter from "./routers/loginRoute.js"
 import signupRouter from "./routers/signupRoute.js"
 import sessionsRouter from "./routers/sessionsRoute.js";
-import mongoose from "mongoose";
-import session from 'express-session';
-import MongoStore from 'connect-mongo';
-import * as dotenv from "dotenv";
+import messageRoute from "./routers/messageRouter.js";
+import { messageModel } from "./DAO/models/chatModel.js";
+import chatRoute from "./routers/chatRouter.js";
+import forgotRoutes from "./routers/forgotRoutes.js"
 
 
 const app = express();
@@ -150,6 +152,7 @@ app.use("/login", loginRouter )
 app.use("/signup", signupRouter)
 app.use('/api/sessions/', sessionsRouter);
 app.use('/logout', sessionsRouter)
+app.use ('/forgot' , forgotRoutes)
 
 
 console.log("isValidStartDB", isValidStartDB());
