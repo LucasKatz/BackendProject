@@ -46,7 +46,7 @@ sessionsRouter.post('/login', passport.authenticate('login', {failureRedirect: '
 sessionsRouter.get('/github', passport.authenticate('github', {scope:['user:email']}), (req, res)=>{})
 
 // Login  exitoso.
-sessionsRouter.get('/api/sessions/githubcallback', passport.authenticate('github', {failureRedirect:'/login'}), (req, res)=>{
+sessionsRouter.get('/githubcallback', passport.authenticate('github', {failureRedirect:'/login'}), (req, res)=>{
     req.session.user = req.user;
 
     res.redirect('/api/productsDB');
