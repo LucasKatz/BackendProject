@@ -1,5 +1,5 @@
 import { Router } from "express";
-import userModel from "../model/users.js";
+import userModel from "../DAO/models/userModel.js";
 import { isValidPassword, createHash } from "../utils.js";
 
 const router = Router();
@@ -11,13 +11,13 @@ router.get("/", (req, res) => {
 router.post("/", async (req, res) => {
     const { username, password, repeatPassword } = req.body;
     let newPassword = createHash(password);
-    console.log(repeatPassword, newPassword);
 
     if (!username || !password) {
     res.status(400).json({
         message: "error",
         data: "Faltan campos",
     });
+    return;
     }
     if (!isValidPassword(repeatPassword, newPassword)) {
     res.status(400).json({
@@ -45,7 +45,7 @@ router.post("/", async (req, res) => {
         );
         if (respuesta) {
         res.status(200).json({
-            message: "success",
+            message: "logged in",
             data: "Contraseña actualizada",
         });
         return;

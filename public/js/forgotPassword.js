@@ -1,18 +1,18 @@
 elementExists("forgotPassword") &&
-    document
+  document
     .getElementById("forgotPassword")
     .addEventListener("click", function () {
-        const email = document.getElementById("username").value;
-        const password = document.getElementById("password").value;
-        const repeatPassword = document.getElementById("repeatPassword").value;
+      const email = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      const repeatPassword = document.getElementById("repeatPassword").value;
 
-        fetch("/forgot", {
+      fetch("/forgot", {
         method: "POST",
         headers: {
-            "Content-Type": "application/json",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password, repeatPassword }),
-        })
+      })
         .then((response) => response.json())
         .then((data) => console.log(data))
         .catch((error) => console.error(error));
