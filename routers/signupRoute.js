@@ -5,7 +5,7 @@ import { createHash } from "../utils.js";
 const router = Router();
 
 router.get("/", async (req, res) => {
-    res.render("signup", { style: "css/signup.css" });
+    res.render("signup");
 });
 
 router.post("/", async (req, res) => {
