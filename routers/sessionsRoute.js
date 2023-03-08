@@ -32,13 +32,13 @@ sessionsRouter.post('/login', passport.authenticate('login', {failureRedirect: '
         email: req.user.email
     }
     
-    res.redirect('/api/productsDB');
+    res.redirect('/products');
 
     // Se borra la password.
     delete user.password;
     req.session.user = user[0];
 
-    res.redirect('/api/productsDB');
+    res.redirect('/products');
 })
 
 //Login con Github
