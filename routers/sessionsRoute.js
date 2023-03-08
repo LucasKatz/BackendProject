@@ -49,7 +49,7 @@ sessionsRouter.get('/github', passport.authenticate('github', {scope:['user:emai
 sessionsRouter.get('/githubcallback', passport.authenticate('github', {failureRedirect:'/login'}), (req, res)=>{
     req.session.user = req.user;
 
-    res.redirect('/api/productsDB');
+    res.redirect('/products');
 })
 
 sessionsRouter.get('/logout', (req, res)=>{
