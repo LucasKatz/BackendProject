@@ -19,6 +19,7 @@ import * as dotenv from "dotenv";
 import forgotRoutes from "./routers/forgotRoutes.js"
 import passport from "passport";
 import initializePassport from "./config/passportConfig.js";
+import cookieParser from "cookie-parser";
 
 
 const app = express();
