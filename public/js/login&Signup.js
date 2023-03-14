@@ -32,7 +32,7 @@ elementExists("send") &&
 
 elementExists("ingreso") &&
     document.getElementById("ingreso").addEventListener("click", function(){
-        window.location.href="/login"
+        window.location.href="/current"
     })
 
 

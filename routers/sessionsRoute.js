@@ -44,7 +44,7 @@ sessionsRouter.post('/login', passport.authenticate('login', {failureRedirect: '
     res.redirect('/products');
 })
 
-sessionsRouter.get("/current", auth, async (req,res)=>{
+sessionsRouter.get("/current", async (req,res)=>{
     if (await req.session?.user){
         const userData = await userModel.findOne({
             email: req.session.user.email
