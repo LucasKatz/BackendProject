@@ -51,6 +51,8 @@ sessionsRouter.get("/current", async (req,res)=>{
         });
         const {first_name, last_name} = userData
         res.render("user")
+
+        //Si esto no funciona probar res.render("products" , {first_name, last_name})
     }
         
 })
