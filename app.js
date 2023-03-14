@@ -12,6 +12,7 @@ import cartsRouteDB from "./routers/cartsRouteDB.js"
 import loginRouter from "./routers/loginRoute.js"
 import signupRouter from "./routers/signupRoute.js"
 import sessionsRouter from "./routers/sessionsRoute.js";
+import currentUser from "./routers/sessionsRoute"
 import mongoose from "mongoose";
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
@@ -160,6 +161,7 @@ app.use("/signup", signupRouter)
 app.use('/api/sessions/', sessionsRouter);
 app.use('/logout', sessionsRouter)
 app.use('/forgot', forgotRoutes)
+app.use ("/current" , currentUser)
 
 console.log("isValidStartDB", isValidStartDB());
 isValidStartDB() && environment();

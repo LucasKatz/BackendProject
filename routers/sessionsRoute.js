@@ -1,6 +1,7 @@
 import { Router } from "express";
 import userDB from "../DAO/models/userModel.js";
 import passport from "passport";
+import userModel from "../DAO/models/userModel.js";
 
 const sessionsRouter = Router();
 const user = new userDB();
@@ -32,7 +33,18 @@ sessionsRouter.post('/login', passport.authenticate('login', {failureRedirect: '
         email: req.user.email
     }
     
-    res.redirect('/products');
+    sessionsRouter.get("/products", auth, async (req,res)=>{
+        if (await req.session?.user){
+            const userData = await userModel.findOne({
+                email: req.session.user.email
+            });
+            const {first_name, last_name} = userData
+            res.render("products", {first_name,last_name})
+        }
+            
+    })
+
+    //res.redirect('/products');
 
     // Se borra la password.
     delete user.password;
