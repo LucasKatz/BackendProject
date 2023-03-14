@@ -33,24 +33,26 @@ sessionsRouter.post('/login', passport.authenticate('login', {failureRedirect: '
         email: req.user.email
     }
     
-    sessionsRouter.get("/products", auth, async (req,res)=>{
-        if (await req.session?.user){
-            const userData = await userModel.findOne({
-                email: req.session.user.email
-            });
-            const {first_name, last_name} = userData
-            res.render("products", {first_name,last_name})
-        }
-            
-    })
+ 
 
-    //res.redirect('/products');
+    res.redirect('/products');
 
     // Se borra la password.
     delete user.password;
     req.session.user = user[0];
 
     res.redirect('/products');
+})
+
+sessionsRouter.get("/current", auth, async (req,res)=>{
+    if (await req.session?.user){
+        const userData = await userModel.findOne({
+            email: req.session.user.email
+        });
+        const {first_name, last_name} = userData
+        res.render("user")
+    }
+        
 })
 
 //Login con Github

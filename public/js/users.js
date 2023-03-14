@@ -19,4 +19,8 @@ class UserDB{
 
 }
 
+document.getElementById("verProductos").addEventListener("click", function(){
+    window.location.href="/products "
+})
+
 export default UserDB;

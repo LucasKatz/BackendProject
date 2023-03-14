@@ -23,8 +23,10 @@ const initializePassport = () => {
                     first_name,
                     last_name,
                     email,
-                    password: createHash(password),
                     age,
+                    password: createHash(password),
+                    rol,
+                    cart
                 }
                 let result = await userModel.create (newUser);
             }
