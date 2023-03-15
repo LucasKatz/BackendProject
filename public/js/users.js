@@ -1,6 +1,11 @@
 import userModel from './models/user.model.js';
 import cartModel from './models/cart.model.js';
 
+document.getElementById("verProductos").addEventListener("click", function(){
+    window.location.href="/products "
+})
+
+
 class UserDB{
 
     constructor(){}
@@ -19,8 +24,5 @@ class UserDB{
 
 }
 
-document.getElementById("verProductos").addEventListener("click", function(){
-    window.location.href="/products "
-})
 
 export default UserDB;

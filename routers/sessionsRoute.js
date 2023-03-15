@@ -21,7 +21,7 @@ sessionsRouter.get('/failregister', async (req, res)=>{
 
 // Login de usuarios.
 sessionsRouter.post('/login', passport.authenticate('login', {failureRedirect: 'faillogin'}), (req, res)=>{
-   // Si no se encuentra al  usuario...
+    // Si no se encuentra al  usuario...
     if(user.length === 0){
     return res.redirect("/signup");
 }
@@ -32,16 +32,14 @@ sessionsRouter.post('/login', passport.authenticate('login', {failureRedirect: '
         age: req.user.age,
         email: req.user.email
     }
-    
- 
 
-    res.redirect('/products');
+    res.redirect('/current');
 
-    // Se borra la password.
+     // Se borra la password.
     delete user.password;
     req.session.user = user[0];
 
-    res.redirect('/products');
+    res.redirect('/current');
 })
 
 sessionsRouter.get("/current", async (req,res)=>{

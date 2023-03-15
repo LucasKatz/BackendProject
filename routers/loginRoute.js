@@ -1,47 +1,69 @@
 import { Router } from "express";
+import userDB from "../DAO/models/userModel.js";
+import passport from "passport";
 import userModel from "../DAO/models/userModel.js";
 import { isValidPassword } from "../utils.js";
 
-const  admin = { 
-    username: "adminCoder@coder.com",
-    password: "adminCod3r123"
+const sessionsRouter = Router();
+const user = new userDB();
+
+sessionsRouter.get('/',  (req, res)=>{ 
+    res.render("login");
+})
+
+// Login de usuarios.
+sessionsRouter.post('/login', passport.authenticate('login', {failureRedirect: 'faillogin'}), (req, res)=>{
+    // Si no se encuentra al  usuario...
+    if(user.length === 0){
+    return res.redirect("/signup");
 }
 
-const router = Router();
-
-router.get("/", async (req, res) => {
-    res.render("login");
-});
-
-router.post("/", async (req, res) => {
-    const {username, password}=req.body;
-
-    try{
-        const response = await userModel.findOne({
-            email: username,
-        });
-        if (response) {
-            if (isValidPassword(password, response.password)) {
-                req.session.user = response;
-                res.status(200).json({ message: "logged in", data: response });
-            } else {
-                res.status(401).json({
-                message: "error",
-                data: "Error de credenciales.",
-                });
-            }
-            } else {
-            res.status(404).json({
-                message: "error",
-                data: "Algo ha pasado, consulta al administrador",
-            });
-            }
-    }catch (error){
-        res.status(500).json({error:error.message})
+    req.session.user = {
+        first_name: req.user.first_name,
+        last_name: req.user.last_name,
+        age: req.user.age,
+        email: req.user.email
     }
-});
 
+    res.redirect('/current');
 
+     // Se borra la password.
+    delete user.password;
+    req.session.user = user[0];
 
+    res.redirect('/current');
+})
 
-export default router;
+sessionsRouter.get("/current", async (req,res)=>{
+    if (await req.session?.user){
+        const userData = await userModel.findOne({
+            email: req.session.user.email
+        });
+        const {first_name, last_name} = userData
+        res.render("user")
+
+        //Si esto no funciona probar res.render("products" , {first_name, last_name})
+    }
+        
+})
+
+//Login con Github
+
+sessionsRouter.get('/github', passport.authenticate('github', {scope:['user:email']}), (req, res)=>{})
+
+// Login  exitoso.
+sessionsRouter.get('/githubcallback', passport.authenticate('github', {failureRedirect:'/login'}), (req, res)=>{
+    req.session.user = req.user;
+
+    res.redirect('/products');
+})
+
+sessionsRouter.get('/logout', (req, res)=>{
+    req.session.destroy(err=>{
+        if(err) res.send({status:'error', message:'Error al cerrar la sesión: '+err});
+
+        res.redirect('/login');
+    });
+})
+
+export default sessionsRouter;
