@@ -1,14 +1,17 @@
 import { Router } from "express";
 import userModel from "../DAO/models/userModel.js";
 import { createHash } from "../utils.js";
+import userDB from "../DAO/models/userModel.js";
+import passport from "passport";
 
-const router = Router();
 
-router.get("/", async (req, res) => {
+const sessionsRouter = Router();
+const user = new userDB();
+sessionsRouter.get("/", async (req, res) => {
     res.render("signup");
 });
 
-router.post("/", async (req, res) => {
+sessionsRouter.post('/signup',passport.authenticate('signup', {failureRedirect:'/failregister'}), async (req, res)=>{
     const {first_name, last_name, email, password, age}=req.body;
     try{
     const newUser = new userModel({
@@ -25,4 +28,4 @@ res.status(500).json({error:error.message})
 }
 });
 
-export default router;
+export default sessionsRouter;
