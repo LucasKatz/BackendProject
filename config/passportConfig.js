@@ -8,12 +8,15 @@ const localStrategy = local.Strategy;
 
 const initializePassport = () => {
 
-    passport.use('/signup', new localStrategy(
-        {passReqToCallback:true, usernameField:'email'}, async (req,username,password,done)=>{
+    passport.use(
+        "signup", 
+        new localStrategy(
+        {passReqToCallback:true, usernameField:'email'},
+        async (req,username,password,done)=>{
             const{first_name, last_name, email,age} = req.body;
             
             try {
-                let user = await userModel.findOne({email:username})
+                let user = await userModel.findOne({email:username});
                 if (user){
                     console.log("El usuario ya está registrado")
                     return done (null,false)
@@ -25,10 +28,9 @@ const initializePassport = () => {
                     email,
                     age,
                     password: createHash(password),
-                    rol,
-                    cart
                 }
                 let result = await userModel.create (newUser);
+                return done (null,result);
             }
             catch (error){
                 return done ("Error al obtener el usuario" + error)

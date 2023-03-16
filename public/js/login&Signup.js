@@ -52,14 +52,24 @@ if(!first_name || !last_name|| !email||!password||!age){
             first_name,
             last_name,
             email,
-            age,  
-            password
+            password,
+            age,
         })),
     })
         .then((response) => response.json())
-        .then((data) => console.log(data))
-        .catch((error) => console.error(error));
-}
+        .then((data) => {
+            if (data.message === "Usuario Creado"){
+                window.location.href = "/products"
+            }else {
+                console.alert ("Credenciales Incorrectas")
+            }
+        }
+        
+    )}
     });
 
 
+    document.getElementById("ver").addEventListener("click", function(){
+        window.location.href=" /products "
+    })
+    
