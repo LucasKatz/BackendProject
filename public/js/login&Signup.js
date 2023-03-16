@@ -44,20 +44,23 @@ elementExists("signup") &&
         const email= document.getElementById("email").value;
         const password= document.getElementById("password").value;
         const age = document.getElementById("age").value;
+
+
 if(!first_name || !last_name|| !email||!password||!age){
+    console.alert("Los campos estan incompletos")
 }else {
     fetch("/signup", {
         method: "POST",
         headers: {
         "Content-Type": "application/json",
     },
-        body: JSON.stringify({
-            first_name,
-            last_name,
-            email,
-            password,
-            age  
-        }),
+    body: JSON.stringify({
+        first_name,
+        last_name,
+        email,
+        password,
+        age  
+    }),
     })
         .then((response) => response.json())
         .then((data) => console.log(data))
