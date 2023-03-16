@@ -39,10 +39,9 @@ elementExists("ingreso") &&
 
 elementExists("signup") &&
     document.getElementById("signup").addEventListener("click", function () {
-        const myForm = document.getElementById("newUserForm");
-        const formData = new FormData(myForm);
-        const data = Object.fromEntries(formData);
+    
 if(!first_name || !last_name|| !email||!password||!age){
+    console.alert("Por favor rellenar todos los campos")
 }else {
     fetch("/signup", {
         method: "POST",

@@ -20,6 +20,8 @@ sessionsRouter.post('/signup',passport.authenticate('signup', {failureRedirect:'
         email,
         password: createHash(password),
         age,
+        rol,
+        cartID
     })
     await newUser.save() 
     res.status(201).json({message:"Usuario creado", data:newUser})
