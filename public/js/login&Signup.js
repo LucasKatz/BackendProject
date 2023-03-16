@@ -39,11 +39,9 @@ elementExists("ingreso") &&
 
 elementExists("signup") &&
     document.getElementById("signup").addEventListener("click", function () {
-        const first_name= document.getElementById("first_name").value;
-        const last_name= document.getElementById("last_name").value;
-        const email= document.getElementById("email").value;
-        const password= document.getElementById("password").value;
-        const age = document.getElementById("age").value;
+        const myForm = document.getElementById("newUserForm");
+        const formData = new FormData(myForm);
+        const data = Object.fromEntries(formData);
 if(!first_name || !last_name|| !email||!password||!age){
 }else {
     fetch("/signup", {
@@ -51,13 +49,13 @@ if(!first_name || !last_name|| !email||!password||!age){
         headers: {
         "Content-Type": "application/json",
     },
-        body: JSON.stringify({
+        body: JSON.stringify(({
             first_name,
             last_name,
             email,
             age,  
             password
-        }),
+        })),
     })
         .then((response) => response.json())
         .then((data) => console.log(data))

@@ -1,27 +1,31 @@
 import { Router } from "express";
+import userModel from "../DAO/models/userModel.js";
+import { createHash } from "../utils.js";
 import userDB from "../DAO/models/userModel.js";
 import passport from "passport";
-import userModel from "../DAO/models/userModel.js";
+
 
 const sessionsRouter = Router();
 const user = new userDB();
-
-//Registro de Nuevo Usuario
-sessionsRouter.get('/',  (req, res)=>{ 
+sessionsRouter.get("/", async (req, res) => {
     res.render("signup");
-})
-
+});
 
 sessionsRouter.post('/signup',passport.authenticate('signup', {failureRedirect:'/failregister'}), async (req, res)=>{
-    const userToBeAdded = req.body;
-    let user = await userDB.addUser(userToBeAdded);
-    res.redirect("/login");
-})
-
-sessionsRouter.get('/failregister', async (req, res)=>{ 
-    console.log('Ha habido un error. Por favor intente nuevamente')
-    res.send({errro:'Falla al Registrarse'})
-})
-
+    const {first_name, last_name, email, password, age}=req.body;
+    try{
+    const newUser = new userModel({
+        first_name,
+        last_name,
+        email,
+        password: createHash(password),
+        age,
+    })
+    await newUser.save() 
+    res.status(201).json({message:"Usuario creado", data:newUser})
+}catch (error) {
+res.status(500).json({error:error.message})
+}
+});
 
 export default sessionsRouter;
