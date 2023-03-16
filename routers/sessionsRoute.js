@@ -9,11 +9,24 @@ const user = new userDB();
 //Registro de Nuevo Usuario
 
 sessionsRouter.post('/',passport.authenticate('signup', {failureRedirect:'/failregister'}), async (req, res)=>{
-    const userToBeAdded = req.body;
-    let user = await userDB.addUser(userToBeAdded);
-    console.log (user)
-    res.redirect("/login");
-})
+    const {first_name, last_name, email, password, age}=req.body;
+    try{
+    const newUser = new userModel({
+        first_name,
+        last_name,
+        email,
+        password: createHash(password),
+        age,
+        rol,
+        cart
+    })
+    await newUser.save() 
+    res.status(201).json({message:"Usuario creado", data:newUser})
+}catch (error) {
+res.status(500).json({error:error.message})
+}
+});
+
 
 sessionsRouter.get('/failregister', async (req, res)=>{ 
     console.log('Ha habido un error. Por favor intente nuevamente')
