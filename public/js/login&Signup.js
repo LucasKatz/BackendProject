@@ -19,7 +19,7 @@ elementExists("send") &&
     .then (data =>{
         if (data.message === "logged in") {
                 console.log('Intentando redireccionar...')
-                window.location.href = "/products"
+                window.location.href = "/login"
             } else {
                 alert("Credenciales incorrectas")
             }
