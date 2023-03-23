@@ -62,7 +62,7 @@ sessionsRouter.get("/current", async (req,res)=>{
             email: req.session.user.email
         });
         const {first_name, last_name} = userData
-        res.render("user")
+        res.render(userData)
 
         //Si esto no funciona probar res.render("products" , {first_name, last_name})
     }
