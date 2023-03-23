@@ -3,6 +3,9 @@ import local from "passport-local"
 import userModel from "../DAO/models/userModel.js";
 import GitHubStrategy from "passport-github2"
 import { createHash, isValidPassword } from "../utils.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const localStrategy = local.Strategy;
 
@@ -15,7 +18,7 @@ const initializePassport = () => {
             const{first_name, last_name, email,age} = req.body;
             
             try {
-                let user = await userModel.findOne({email:username})
+                let user = await userModel.findOne({email:username});
                 if (user){
                     console.log("El usuario ya está registrado")
                     return done (null,false)
@@ -58,9 +61,9 @@ const initializePassport = () => {
 
     //Login con Github
     passport.use('github', new GitHubStrategy( {
-        clientID: "Iv1.cfa4971b975bc167",
-        clientSecret:"39a3af54b7c6626a56daffc0b87687e1f28f91f4",
-        callbackURL:"http://localhost:8080/api/sessions/githubcallback"
+        clientID: process.env.CLIENT_ID,
+        clientSecret:process.env.CLIENT_SECRET,
+        callbackURL:process.env.CALLBACK_URL
     } ,async (accessToken, refreshToken,profile,done) => {
         try {
             console.log(profile)

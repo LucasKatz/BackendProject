@@ -8,20 +8,34 @@ const user = new userDB();
 
 //Registro de Nuevo Usuario
 
-sessionsRouter.post('/signup',passport.authenticate('signup', {failureRedirect:'/failregister'}), async (req, res)=>{
-    const userToBeAdded = req.body;
-    let user = await userDB.addUser(userToBeAdded);
-    res.redirect("/login");
-})
+sessionsRouter.post('/',passport.authenticate('signup', {failureRedirect:'/failregister'}), async (req, res)=>{
+    const {first_name, last_name, email, password, age}=req.body;
+    try{
+    const newUser = new userModel({
+        first_name,
+        last_name,
+        email,
+        password: createHash(password),
+        age,
+        rol,
+        cart
+    })
+    await newUser.save() 
+    res.status(201).json({message:"Usuario creado", data:newUser})
+}catch (error) {
+res.status(500).json({error:error.message})
+}
+});
+
 
 sessionsRouter.get('/failregister', async (req, res)=>{ 
     console.log('Ha habido un error. Por favor intente nuevamente')
-    res.send({errro:'Falla al Registrarse'})
+    res.send({error:'Falla al Registrarse'})
 })
 
 // Login de usuarios.
 sessionsRouter.post('/login', passport.authenticate('login', {failureRedirect: 'faillogin'}), (req, res)=>{
-   // Si no se encuentra al  usuario...
+    // Si no se encuentra al  usuario...
     if(user.length === 0){
     return res.redirect("/signup");
 }
@@ -32,16 +46,14 @@ sessionsRouter.post('/login', passport.authenticate('login', {failureRedirect: '
         age: req.user.age,
         email: req.user.email
     }
-    
- 
 
-    res.redirect('/products');
+    res.redirect('/current');
 
-    // Se borra la password.
+     // Se borra la password.
     delete user.password;
     req.session.user = user[0];
 
-    res.redirect('/products');
+    res.redirect('/current');
 })
 
 sessionsRouter.get("/", async (req,res)=>{
@@ -49,7 +61,6 @@ sessionsRouter.get("/", async (req,res)=>{
         const userData = await userModel.findOne({
             email: req.session.user.email
         });
-        const {first_name, last_name} = userData
         res.render("user")
 
         //Si esto no funciona probar res.render("products" , {first_name, last_name})

@@ -163,5 +163,6 @@ app.use('/logout', sessionsRouter)
 app.use('/forgot', forgotRoutes)
 app.use ("/current" , currentUser)
 
+
 console.log("isValidStartDB", isValidStartDB());
 isValidStartDB() && environment();

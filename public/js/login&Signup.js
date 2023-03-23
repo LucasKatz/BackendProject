@@ -65,15 +65,17 @@ if(!first_name || !last_name|| !email||!password||!age){
         .then((response) => response.json())
         .then((data) => {
             if (data.message === "Usuario Creado"){
-                window.location.href = "/login";
+                window.location.href = "/products"
             }else {
-                alert ("Credenciales Incorrectas")
+                console.alert ("Credenciales Incorrectas")
             }
-        })
-    }
+        }
+        
+    )}
     });
 
 
     document.getElementById("ver").addEventListener("click", function(){
-        window.location.href="/products"
+        window.location.href=" /products "
     })
+    
