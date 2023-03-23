@@ -7,6 +7,7 @@ import passport from "passport";
 
 const sessionsRouter = Router();
 const user = new userDB();
+
 sessionsRouter.get("/", async (req, res) => {
     res.render("signup");
 });
@@ -21,7 +22,7 @@ sessionsRouter.post('/signup',passport.authenticate('signup', {failureRedirect:'
         password: createHash(password),
         age,
         rol,
-        cart
+        cartID
     })
     await newUser.save() 
     res.status(201).json({message:"Usuario creado", data:newUser})

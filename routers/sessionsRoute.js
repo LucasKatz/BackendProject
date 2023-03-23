@@ -56,13 +56,17 @@ sessionsRouter.post('/login', passport.authenticate('login', {failureRedirect: '
     res.redirect('/current');
 })
 
-sessionsRouter.get("/current", async (req,res)=>{
+sessionsRouter.get("/", async (req,res)=>{
     if (await req.session?.user){
         const userData = await userModel.findOne({
             email: req.session.user.email
         });
+<<<<<<< HEAD
         const {first_name, last_name} = userData
         res.render(userData)
+=======
+        res.render("user")
+>>>>>>> 18a63a4a44f3e30a8a74fa8ff4fdfdddc60f1b8f
 
         //Si esto no funciona probar res.render("products" , {first_name, last_name})
     }
