@@ -61,6 +61,8 @@ sessionsRouter.get("/", async (req,res)=>{
         const userData = await userModel.findOne({
             email: req.session.user.email
         });
+        const {first_name, last_name} = userData
+        res.render(userData)
         res.render("user")
 
         //Si esto no funciona probar res.render("products" , {first_name, last_name})
