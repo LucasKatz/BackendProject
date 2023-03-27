@@ -1,6 +1,7 @@
 import express from 'express';
 const viewsRouter = express.Router();
 import fs from 'fs';
+import { getProducts, realTimeProducts } from '../Controllers/viewsRouterController';
 
 const readFile= async () => {
 
@@ -17,15 +18,9 @@ const readFile= async () => {
     res.render("home", {products} );
 });*/
 
-viewsRouter.get('/realtimeproducts', async (req, res)=>{
+viewsRouter.get('/realtimeproducts', realTimeProducts)
 
-    res.render('realTimeProducts', {});
-})
-
-viewsRouter.get('/', async (req, res)=>{
-
-    res.render('login', {});
-})
+viewsRouter.get('/', getProducts)
 
 
 export default viewsRouter;
