@@ -20,6 +20,28 @@ sessionsRouter.post('/login', loginUser)
 
 sessionsRouter.get("/", renderUser)
 
+    res.redirect('/current');
+
+     // Se borra la password.
+    delete user.password;
+    req.session.user = user[0];
+
+    res.redirect('/current');
+})
+
+sessionsRouter.get("/", async (req,res)=>{
+    if (await req.session?.user){
+        const userData = await userModel.findOne({
+            email: req.session.user.email
+        });
+        const {first_name, last_name} = userData
+        res.render(userData)
+        res.render("user")
+
+        //Si esto no funciona probar res.render("products" , {first_name, last_name})
+    }
+        
+})
 
 //Login con Github
 
