@@ -4,6 +4,9 @@ import { createHash } from "../utils.js";
 import userDB from "../DAO/models/userModel.js";
 import passport from "passport";
 
+const sessionsRouter = Router();
+const user = new userDB();
+
 export const renderSignup =  async (req, res) => {
     res.render("signup");
 }
