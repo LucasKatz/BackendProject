@@ -1,9 +1,7 @@
 import { Router } from "express";
 import { CartManager } from "../DAO/Class/DataBaseManager.js";
-import productModel from "../DAO/models/productsModel.js";
-import cartModel from "../DAO/models/cartsModel.js";
 import { addProductToCart, deleteCart, deleteSelectedProduct, newCart, readProductsInCart, updateStockInCart, updateProducts } from "../Controllers/cartsRouteDBController.js";
-import { deleteModel } from "mongoose";
+
 
 const router = Router();
 const cartManager = new CartManager();
