@@ -1,9 +1,8 @@
 import { Router } from "express";
+import { renderChat } from "../Controllers/chatRouteController.js";
 
 const router = Router();
 
-router.get("/", (req, res) => {
-  res.render("chat", { title: "Chat" });
-});
+router.get("/", renderChat );
 
 export default router;
