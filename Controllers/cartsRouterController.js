@@ -19,7 +19,7 @@ export const cartLogic = (req, res) => {
   export const cartSearch = (req, res) => {
     const carritoId = req.params.cid;
 
-    const searchInCart = cartDB.find(product => product.id === Number(req.params.cid)) 
+    const searchInCart = carritoId.find(product => product.id === Number(req.params.cid)) 
 
     if (searchInCart == undefined) {
       console.log( "Product not found")
