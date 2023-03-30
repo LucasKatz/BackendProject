@@ -1,7 +1,9 @@
 import { Router } from "express";
 import { CartManager } from "../DAO/Class/DataBaseManager.js";
+import productModel from "../DAO/models/productsModel.js";
+import cartModel from "../DAO/models/cartsModel.js";
 import { addProductToCart, deleteCart, deleteSelectedProduct, newCart, readProductsInCart, updateStockInCart } from "../Controllers/cartsRouteDBController.js";
-
+import { deleteModel } from "mongoose";
 
 const router = Router();
 const cartManager = new CartManager();
@@ -41,7 +43,7 @@ router.delete("/:cid", deleteCart);
 router.delete("/:cid/products/:pid", deleteSelectedProduct);
 
 //Actualiza productos dentro de un carrito 
-router.put("/:cid", updateProductInCart);
+router.put("/api/carts/:cid", updateProductInCart);
 
 
 //Actualiza stock de productos dentro de un carrito 
