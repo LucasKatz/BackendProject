@@ -75,7 +75,7 @@ if(!first_name || !last_name|| !email||!password||!age){
     });
 
 
-    document.getElementById("ver").addEventListener("click", function(){
+   /* document.getElementById("ver").addEventListener("click", function(){
         window.location.href=" /products "
     })
-    
+*/    

@@ -20,7 +20,7 @@ import * as dotenv from "dotenv";
 import forgotRoutes from "./routers/forgotRoutes.js"
 import passport from "passport";
 import initializePassport from "./config/passportConfig.js";
-import cookieParser from "cookie-parser";
+import nodemailer from "nodemailer"
 
 
 const app = express();
@@ -162,6 +162,30 @@ app.use('/api/sessions/', sessionsRouter);
 app.use('/logout', sessionsRouter)
 app.use('/forgot', forgotRoutes)
 app.use ("/current" , currentUser)
+
+//inicializar el envio de mail
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  port:587,
+  auth:{
+    user:"l.katz92@gmail.com",
+    pass:" wgtmyxoujarkujym"
+  }
+
+})
+
+app.get('/mail', async (req,res) =>{
+  let result = await transporter.sendMail({
+    from:'CoderHouse 37570 <coderhouse37570@gmail.com',
+    to:'l.katz92@gmail.com',
+    subject:'Prueba de Envio de Correo',
+    text:'Este es un mail de prueba',
+    html: '<h1>Probando probando 1 2 3 probando</h1>'
+
+  })
+  res.send('Correo Enviado')
+})
 
 
 console.log("isValidStartDB", isValidStartDB());
