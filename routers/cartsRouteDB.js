@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { CartManager } from "../DAO/Class/DataBaseManager.js";
-import { addProductToCart, deleteCart, deleteSelectedProduct, newCart, readProductsInCart, updateStockInCart, updateProducts } from "../Controllers/cartsRouteDBController.js";
+import { addProductToCart, deleteCart, deleteSelectedProduct, newCart, readProductsInCart, updateStockInCart, updateProducts, purchaseAndCart } from "../Controllers/cartsRouteDBController.js";
 
 
 const router = Router();
@@ -46,5 +46,7 @@ router.put("/api/carts/:cid", updateProducts);
 
 //Actualiza stock de productos dentro de un carrito 
 router.put("/api/carts/:cid/products/:pid", updateStockInCart);
+
+router.post('/:cid/purchase', purchaseAndCart)
 
 export default router;

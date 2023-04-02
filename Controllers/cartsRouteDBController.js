@@ -134,3 +134,30 @@ export const readProductsInCart = async(req, res) => {
       res.status(404).send({status:'error', message: error.message});
   }
   }
+
+  export const purchaseAndCart = async (req, res) => {
+    const cartId = req.params.cid;
+    const cart = await cartModel.findOne({_id: cartId});
+    if (!cart) {
+    return res.status(404).send({ error: 'El carrito no existe' });
+    }
+    if (!cart.products.length) {
+    return res.status(400).send({ error: 'El carrito no tiene productos' });
+    }
+    for (const item of cart.products) {
+    const product = await productModel.findOne({_id: item.product});
+    if (!product) {
+    return res.status(404).send({ error: "El producto ${item.product} no existe" });
+    }
+    if (product.stock < item.quantity) {
+    return res.status(400).send({ error: "El producto ${product.name} no tiene suficiente stock" });
+    }
+    }
+    for (const item of cart.products) {
+    const product = await productModel.findOne({_id: item.product});
+    product.stock -= item.quantity;
+    await product.save();
+    }
+    await cart.delete();
+    res.status(200).send({ message: 'Compra realizada correctamente' });
+    };
