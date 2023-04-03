@@ -29,7 +29,7 @@ res.status(500).json({error:error.message})
 
 export const failRegister = async (req, res)=>{ 
     console.log('Ha habido un error. Por favor intente nuevamente')
-    res.send({error:'Falla al Registrarse'})
+    res.render ('failRegister')
 };
 
 export const loginUser = passport.authenticate('login', {failureRedirect: 'faillogin'}) //comma here?

@@ -22,6 +22,7 @@ import passport from "passport";
 import initializePassport from "./config/passportConfig.js";
 import nodemailer from "nodemailer"
 import  Twilio from "twilio";
+import { failRegister } from "./Controllers/sessionsRouteController.js";
 
 
 const app = express();
@@ -163,6 +164,7 @@ app.use('/api/sessions/', sessionsRouter);
 app.use('/logout', sessionsRouter)
 app.use('/forgot', forgotRoutes)
 app.use ("/current" , currentUser)
+app.use("/failregister", failRegister)
 
 //inicializar el envio de mail
 

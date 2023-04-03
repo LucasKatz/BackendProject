@@ -62,6 +62,7 @@ if(!first_name || !last_name|| !email||!password||!age){
         email,
         password,
         age,
+
     }),
     })
         .then((response) => response.json())
