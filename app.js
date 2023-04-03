@@ -21,6 +21,7 @@ import forgotRoutes from "./routers/forgotRoutes.js"
 import passport from "passport";
 import initializePassport from "./config/passportConfig.js";
 import nodemailer from "nodemailer"
+import  Twilio from "twilio";
 
 
 const app = express();
@@ -187,6 +188,37 @@ app.get('/mail', async (req,res) =>{
   res.send('Correo Enviado')
 })
 
+
+const TwilioAccountSid = 'ACf73ce9f782faaf542ec08542f770fe9c';
+const TwilioAuthToken= "42d874ed89d986bfe728a381b60918f0";
+const TwilioPhoneNumber="+15855523701"
+
+const client = Twilio (
+  TwilioAccountSid,
+  TwilioAuthToken,
+  TwilioPhoneNumber
+)
+
+app.get('/mail', async (req,res) =>{
+  let result = await client.messages.create({
+    from:TwilioPhoneNumber,
+    to:"541122876495",
+    body: "Mensaje de Prueba Backend 37570"
+})
+
+res.send ("SMS Enviado")
+})
+
+app.post('/customSMS', async (req,res) =>{
+  let {name, product} = req.body
+  let result = await client.messages.create({
+    from:TwilioPhoneNumber,
+    to:"541122876495",
+    body: ` Hola ${name}. Gracias por tu compra. Tu producto es ${product}`
+})
+
+res.send ("SMS Enviado")
+})
 
 console.log("isValidStartDB", isValidStartDB());
 isValidStartDB() && environment();

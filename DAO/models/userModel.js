@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
         default: 'Usuario'
     },
 
-    cart:{
+    cartID:{
         type: String,
         default: ""
     }

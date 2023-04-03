@@ -32,7 +32,7 @@ elementExists("send") &&
 
 elementExists("ingreso") &&
     document.getElementById("ingreso").addEventListener("click", function(){
-        window.location.href="/current"
+        window.location.href="/login"
     })
 
 
@@ -44,10 +44,12 @@ elementExists("signup") &&
         const email= document.getElementById("email").value;
         const password= document.getElementById("password").value;
         const age = document.getElementById("age").value;
+        const rol ="user"
+        const cartID =""
 
 
 if(!first_name || !last_name|| !email||!password||!age){
-    console.alert("Los campos estan incompletos")
+    alert("Los campos estan incompletos")
 }else {
     fetch("/signup", {
         method: "POST",
@@ -59,7 +61,7 @@ if(!first_name || !last_name|| !email||!password||!age){
         last_name,
         email,
         password,
-        age, 
+        age,
     }),
     })
         .then((response) => response.json())
@@ -67,7 +69,7 @@ if(!first_name || !last_name|| !email||!password||!age){
             if (data.message === "Usuario Creado"){
                 window.location.href = "/products"
             }else {
-                console.alert ("Credenciales Incorrectas")
+                alert ("Credenciales Incorrectas")
             }
         }
         
@@ -75,7 +77,7 @@ if(!first_name || !last_name|| !email||!password||!age){
     });
 
 
-   /* document.getElementById("ver").addEventListener("click", function(){
+    document.getElementById("ver").addEventListener("click", function (){
         window.location.href=" /products "
     })
-*/    
+
