@@ -10,7 +10,7 @@ const user = new userDB();
 
 //Registro de Nuevo Usuario
 
-sessionsRouter.post('/',userSignup)
+sessionsRouter.post('/', userSignup)
 
 
 sessionsRouter.get('/failregister', failRegister)

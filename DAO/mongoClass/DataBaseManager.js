@@ -151,4 +151,4 @@ class ProductManager {
     
 
 
-export { CartManager, ProductManager };
+export default{ CartManager, ProductManager };
