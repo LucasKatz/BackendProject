@@ -70,6 +70,7 @@ export const paginatedProducts = async (req, res) => {
 };
 
 export const postProducts = async (req, res) => {
+  req.role !== "admin" ? res.status(401).send("Usuario no autorizado"):null;
   const {
     title,
     description,
@@ -123,6 +124,7 @@ export const deleteProduct = async (req, res) => {
 };
 
 export const updateSpecifiedProduct = async (req, res) => {
+  req.role !== "admin" ? res.status(401).send("Usuario no autorizado"):null;
   const { id } = req.params;
   const {
     title,

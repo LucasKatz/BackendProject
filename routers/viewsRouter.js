@@ -19,9 +19,9 @@ const readFile= async () => {
     res.render("home", {products} );
 });*/
 
-viewsRouter.get('/realtimeproducts', realTimeProducts)
+viewsRouter.get('/realtimeproducts', authMiddleware(), realTimeProducts)
 
-viewsRouter.get('/', getProducts)
+viewsRouter.get('/', authMiddleware(), getProducts)
 
 viewsRouter.get('/failregister', failRegister)
 

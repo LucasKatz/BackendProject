@@ -4,7 +4,7 @@ import ticketModel from "../DAO/models/ticket.model.js";
 
 const router = Router();
 
-router.get("/", async (req, res) => {
+router.get("/", authMiddleware(), async (req, res) => {
   try {
     const tickets = await ticketModel.find();
     res.status(200).json(tickets);
@@ -13,7 +13,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", authMiddleware(), async (req, res) => {
   try {
     const ticket = await ticketModel.findById(req.params.id);
     res.status(200).json(ticket);
@@ -22,7 +22,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", authMiddleware(), async (req, res) => {
   const myTicket = {
     code: Crypto.randomBytes(16).toString("hex").substring(0, 4),
     purchase_datetime: req.body.purchase_datetime,
@@ -39,7 +39,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/", async (req, res) => {
+router.put("/",authMiddleware(),async (req, res) => {
   const myTicket = {
     purchase_datetime: req.body.purchase_datetime,
     amount: req.body.amount,
@@ -55,7 +55,7 @@ router.put("/", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", authMiddleware(), async (req, res) => {
   try {
     const ticket = await ticketModel.findByIdAndDelete(req.params.id);
     res.status(200).json(ticket);

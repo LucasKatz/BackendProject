@@ -3,6 +3,6 @@ import { renderChat } from "../Controllers/chatRouteController.js";
 
 const router = Router();
 
-router.get("/", renderChat );
+router.get("/", authMiddleware(), renderChat );
 
 export default router;
