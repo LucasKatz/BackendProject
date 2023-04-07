@@ -4,25 +4,25 @@ import ticketModel from "../DAO/models/ticket.model.js";
 
 const router = Router();
 
-router.get("/", authMiddleware(), async (req, res) => {
+export const getTicketModel = async (req, res) => {
   try {
     const tickets = await ticketModel.find();
     res.status(200).json(tickets);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-});
+};
 
-router.get("/:id", authMiddleware(), async (req, res) => {
+export const getSpecificTicket = async (req, res) => {
   try {
     const ticket = await ticketModel.findById(req.params.id);
     res.status(200).json(ticket);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-});
+};
 
-router.post("/", authMiddleware(), async (req, res) => {
+export const createTicket = async (req, res) => {
   const myTicket = {
     code: Crypto.randomBytes(16).toString("hex").substring(0, 4),
     purchase_datetime: req.body.purchase_datetime,
@@ -37,9 +37,9 @@ router.post("/", authMiddleware(), async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-});
+};
 
-router.put("/",authMiddleware(),async (req, res) => {
+export const updateTicket =async (req, res) => {
   const myTicket = {
     purchase_datetime: req.body.purchase_datetime,
     amount: req.body.amount,
@@ -53,15 +53,14 @@ router.put("/",authMiddleware(),async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-});
+};
 
-router.delete("/:id", authMiddleware(), async (req, res) => {
+export const deleteTicket = async (req, res) => {
   try {
     const ticket = await ticketModel.findByIdAndDelete(req.params.id);
     res.status(200).json(ticket);
   } catch (error) {
     res.status(500).json({ error: error.message });
-  }
-});
+  }};
 
 export default router;
