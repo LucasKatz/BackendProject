@@ -1,6 +1,6 @@
-const persistence = process.argv[2] || "MEMORY";
+const DB_TYPE = process.env.DB_TYPE || "MONGO";
 
 //nodemon src/app.js MONGO
 //0           1       2
 
-export default persistence;
+export default DB_TYPE;

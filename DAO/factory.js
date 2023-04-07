@@ -1,12 +1,11 @@
 import config from "../config/config.js";
-import mongoose from "mongoose";
 import DatabaseManagerMongo from "./mongoClass/DataBaseManager.js";
 import DatabaseManagerMemory from "./memory/DataBaseManager.js";
 
 let DATA;
-switch (config) {
+switch (config) { //si aca pongo config solo, inicia con mongo y va bien, pero si pongo config.DB_TYPE ahi vuelve al mismo error
   case "MONGO":
-    console.log("iniciara con  mongo");
+    console.log("iniciara con mongo");
 
     DATA = {
       CartManager: DatabaseManagerMongo.CartManager,
@@ -15,11 +14,11 @@ switch (config) {
 
     break;
   case "MEMORY":
-    console.log("iniciara con  memoria");
+    console.log("iniciara con memoria");
     DATA = {
       CartManager: DatabaseManagerMemory.CartManager,
       ProductManager: DatabaseManagerMemory.ProductManager,
     };
+    break;
 }
-
 export default DATA;
