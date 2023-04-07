@@ -5,7 +5,7 @@ import authMiddleware from "../auth.js";
 
 const router = Router();
 
-router.get("/", authMiddleware(), getMessages);
+router.get("/", authMiddleware, getMessages);
 
-router.get("/", authMiddleware(), saveMessages);
+router.get("/", authMiddleware, saveMessages);
 export default router;

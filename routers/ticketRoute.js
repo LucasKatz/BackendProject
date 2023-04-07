@@ -1,4 +1,5 @@
 import { Router } from "express";
+import authMiddleware from "../auth.js";
 import { getTicketModel, getSpecificTicket, createTicket, updateTicket, deleteTicket } from "../Controllers/ticketRouteController.js";
 
 const router = Router();

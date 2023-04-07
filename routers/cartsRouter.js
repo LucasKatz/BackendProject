@@ -7,12 +7,12 @@ import authMiddleware from '../auth';
 const cartDB = JSON.parse(fs.readFileSync('./database/cart.JSON', 'utf-8')) //y esto elimino tambien, verdad?
 
 
-routerCarts.post("/", authMiddleware(), cartLogic);
+routerCarts.post("/", authMiddleware, cartLogic);
 
 
-routerCarts.get("/:cid", authMiddleware(),cartSearch);
+routerCarts.get("/:cid", authMiddleware,cartSearch);
 
 
-routerCarts.post("/:cid/product/:pid",authMiddleware(),addAlCart)
+routerCarts.post("/:cid/product/:pid",authMiddleware,addAlCart)
 
 module.exports =  routerCarts

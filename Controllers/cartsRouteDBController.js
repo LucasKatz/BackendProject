@@ -3,7 +3,9 @@ import DATA from "../DAO/factory.js";
 import productModel from "../DAO/models/productsModel.js";
 import cartModel from "../DAO/models/cartsModel.js";
 
-const { CartManager } = DATA;
+
+
+const  {CartManager}  = DATA;
 const cartManager = new CartManager();
 
 export const readProductsInCart = async (req, res) => {

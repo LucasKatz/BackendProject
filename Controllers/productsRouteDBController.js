@@ -1,6 +1,7 @@
 import DATA from "../DAO/factory.js";
 import productModel from "../DAO/models/productsModel.js";
 
+
 console.log("esto trae data", DATA);
 const { ProductManager } = DATA;
 console.log(DATA);
@@ -70,7 +71,6 @@ export const paginatedProducts = async (req, res) => {
 };
 
 export const postProducts = async (req, res) => {
-  req.role !== "admin" ? res.status(401).send("Usuario no autorizado"):null;
   const {
     title,
     description,
@@ -124,7 +124,6 @@ export const deleteProduct = async (req, res) => {
 };
 
 export const updateSpecifiedProduct = async (req, res) => {
-  req.role !== "admin" ? res.status(401).send("Usuario no autorizado"):null;
   const { id } = req.params;
   const {
     title,

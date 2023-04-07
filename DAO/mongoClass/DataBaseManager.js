@@ -44,8 +44,6 @@ class CartManager {
           products: result[0].products,
         });
         return resultSave;
-
- 
       } else {
         const index = result[0].products.findIndex(
           (product) => product._id === myProduct._id
@@ -83,72 +81,74 @@ class CartManager {
           myProductToDelete,
         });
         return resultSave;
-
       } else {
-        return console.log ("Producto no encontrado")
-    
+        return console.log("Producto no encontrado");
       }
     } catch (err) {
       throw err;
     }
   }
 
-  async updateProductInCart(cartId, productToUpdate, qty){
-try {
-    let cart = await cartModel.find({ _id: cartId });
-    let product = cart.products.find(prod=>prod.product == productToUpdate);
-    let productIndex = cart.products.indexOf(product);
+  async updateProductInCart(cartId, productToUpdate, qty) {
+    try {
+      let cart = await cartModel.find({ _id: cartId });
+      let product = cart.products.find(
+        (prod) => prod.product == productToUpdate
+      );
+      let productIndex = cart.products.indexOf(product);
 
-    cart.products[productIndex].quantity = qty;
+      cart.products[productIndex].quantity = qty;
 
-    return cartModel.updateOne({_id: cartId}, {products: cart.products})
-  }
-  catch (err) {
-    throw err;
+      return cartModel.updateOne({ _id: cartId }, { products: cart.products });
+    } catch (err) {
+      throw err;
+    }
   }
 }
-}
-
 
 class ProductManager {
-    async read() {
-        try {
-          const products = await productModel.find();
-          return products;
-        } catch (err) {
-          throw err;
-        }
-      }
-    
-      async create(product) {
-        try {
-          const newProduct = new productModel(product);
-          await newProduct.save();
-          return newProduct;
-        } catch (err) {
-          throw err;
-        }
-      }
-      async delete(productId) {
-        try {
-          const result = await productModel.findByIdAndDelete(productId);
-          return result;
-        } catch (err) {
-          throw err;
-        }
-      }
-
-      async update (productId, product){
-        try {
-          const result = await productModel.findByIdAndUpdate(productId, product)
-          return result
-        }
-        catch (err) {
-          throw err;
-        }
-      }
+  async read() {
+    try {
+      const products = await productModel.find();
+      return products;
+    } catch (err) {
+      throw err;
     }
-    
+  }
 
+  async create(product) {
+    try {
+      const newProduct = new productModel(product);
+      await newProduct.save();
+      return newProduct;
+    } catch (err) {
+      throw err;
+    }
+  }
+  async delete(productId) {
+    try {
+      const result = await productModel.findByIdAndDelete(productId);
+      return result;
+    } catch (err) {
+      throw err;
+    }
+  }
 
-export default{ CartManager, ProductManager };
+  async update(productId, product) {
+    try {
+      const result = await productModel.findByIdAndUpdate(productId, product);
+      return result;
+    } catch (err) {
+      throw err;
+    }
+  }
+}
+
+export { CartManager, ProductManager };
+
+const DATA = {
+  CartManager,
+  ProductManager,
+};
+
+export default DATA;

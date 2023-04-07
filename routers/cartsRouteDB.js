@@ -16,10 +16,10 @@ const { CartManager } = DATA;
 const cartManager = new CartManager();
 
 //ruta que lee los productos que hay dentro de un carrito
-router.get("/:cid", authMiddleware(), readProductsInCart);
+router.get("/:cid", authMiddleware, readProductsInCart);
 
 //ruta que crea un nuevo carrito
-router.post("/", authMiddleware(), newCart);
+router.post("/", authMiddleware, newCart);
 
 // Agrega un producto al carrito.
 /*router.post('/:cid/product/:pid', async (req, res)=>{
@@ -38,18 +38,18 @@ router.post("/", authMiddleware(), newCart);
 //RUTA POST QUE AGREGA PRODUCTO A CARRITO CON EL FORMATO PEDIDO EN DIAPOS
 
 // La ruta api/carts/:cid/products/:pid (método post) agrega un producto a un carrito
-router.post("/:cid/products/:pid", authMiddleware(), addProductToCart);
+router.post("/:cid/products/:pid", authMiddleware, addProductToCart);
 
 //ruta que borra el carrito completo
-router.delete("/:cid", authMiddleware(), deleteCart);
+router.delete("/:cid", authMiddleware, deleteCart);
 
 //ruta que borra el producto seleccionado del carrito
-router.delete("/api/carts/:cid/products/:pid", authMiddleware(), deleteSelectedProduct);
+router.delete("/api/carts/:cid/products/:pid", authMiddleware, deleteSelectedProduct);
 
 //Actualiza productos dentro de un carrito
-router.put("/api/carts/:cid", authMiddleware(), updateProducts);
+router.put("/api/carts/:cid", authMiddleware, updateProducts);
 
 //Actualiza stock de productos dentro de un carrito
-router.put("/api/carts/:cid/products/:pid", authMiddleware(), updateStockInCart);
+router.put("/api/carts/:cid/products/:pid", authMiddleware, updateStockInCart);
 
 export default router;
