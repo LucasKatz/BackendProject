@@ -4,14 +4,14 @@ import { getTicketModel, getSpecificTicket, createTicket, updateTicket, deleteTi
 
 const router = Router();
 
-router.get("/", authMiddleware(),getTicketModel);
+router.get("/", authMiddleware,getTicketModel);
 
-router.get("/:id", authMiddleware(), getSpecificTicket);
+router.get("/:id", authMiddleware, getSpecificTicket);
 
-router.post("/", authMiddleware(), createTicket);
+router.post("/", authMiddleware, createTicket);
 
-router.put("/",authMiddleware(),updateTicket);
+router.put("/",authMiddleware,updateTicket);
 
-router.delete("/:id", authMiddleware(), deleteTicket);
+router.delete("/:id", authMiddleware, deleteTicket);
 
 export default router;
