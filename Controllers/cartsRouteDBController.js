@@ -3,10 +3,10 @@ import DATA from "../DAO/factory.js";
 import productModel from "../DAO/models/productsModel.js";
 import cartModel from "../DAO/models/cartsModel.js";
 
-
-
 const  {CartManager}  = DATA;
 const cartManager = new CartManager();
+
+export const noStockProducts = []
 
 export const readProductsInCart = async (req, res) => {
   try {
@@ -34,6 +34,8 @@ export const newCart = async (req, res) => {
 };
 
 export const addProductToCart = async (req, res) => {
+ 
+
   req.role !== "user" ? res.status(401).send("Usuario no autorizado"):null;
   const cartId = req.params.cid;
   const productId = req.params.pid;
@@ -63,6 +65,7 @@ export const addProductToCart = async (req, res) => {
   //Comprobación de stock
   let checkStock = productExist.stock;
   if (parseInt(quantity) > checkStock) {
+    productExist.push(noStockProducts)
     res
       .status(400)
       .send({ status: "Error", message: "No hay stock suficiente" });

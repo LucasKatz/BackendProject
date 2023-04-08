@@ -8,7 +8,7 @@ router.get("/", authMiddleware,getTicketModel);
 
 router.get("/:id", authMiddleware, getSpecificTicket);
 
-router.post("/", authMiddleware, createTicket);
+router.post("/:cid/purchase", authMiddleware, createTicket);
 
 router.put("/",authMiddleware,updateTicket);
 

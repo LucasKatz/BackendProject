@@ -1,6 +1,7 @@
 import { Router } from "express";
 import Crypto from "crypto";
 import ticketModel from "../DAO/models/ticket.model.js";
+import { noStockProducts } from "./cartsRouteDBController.js";
 
 const router = Router();
 
@@ -30,6 +31,7 @@ export const createTicket = async (req, res) => {
     purchaser: req.body.purchaser,
     created_at: new Date(),
     updated_at: new Date(),
+    noStockProducts
   };
   try {
     const ticket = await ticketModel.create(myTicket);
@@ -55,12 +57,32 @@ export const updateTicket =async (req, res) => {
   }
 };
 
-export const deleteTicket = async (req, res) => {
+/*export const deleteTicket = async (req, res) => {
   try {
     const ticket = await ticketModel.findByIdAndDelete(req.params.id);
     res.status(200).json(ticket);
   } catch (error) {
     res.status(500).json({ error: error.message });
-  }};
+  }};*/
+
+
+  //Este metodo de delete ticket deja SOLO el array de productos que no se pudieron comprar
+  export const deleteTicket = async (req, res) => {
+    try {
+      const ticket = await ticketModel.findOneAndUpdate(
+        { _id: req.params.id },
+        { $unset: { code: Crypto.randomBytes(16).toString("hex").substring(0, 4),
+        purchase_datetime: req.body.purchase_datetime,
+        amount: req.body.amount,
+        purchaser: req.body.purchaser,
+        created_at: new Date(),
+        updated_at: new Date(),} },
+        { new: true }
+      );
+      res.status(200).json(ticket);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }; 
 
 export default router;
