@@ -134,11 +134,3 @@ export const readProductsInCart = async(req, res) => {
       res.status(404).send({status:'error', message: error.message});
   }
   }
-
-  export const finalizarCompra= async (req,res) =>{
-/*Aca va el contenido que tendria que permitir realizar las siguientes operaciones:
-Si el producto tiene suficiente stock para la cantidad indicada en el producto del carrito, entonces restarlo del stock del producto y continuar.
-Si el producto no tiene suficiente stock para la cantidad indicada en el producto del carrito, entonces no agregar el producto al proceso de compra. 
-
-*/
-  }

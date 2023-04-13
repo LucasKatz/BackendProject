@@ -2,7 +2,7 @@ import { Router } from "express";
 import { CartManager } from "../DAO/Class/DataBaseManager.js";
 import productModel from "../DAO/models/productsModel.js";
 import cartModel from "../DAO/models/cartsModel.js";
-import { addProductToCart, deleteCart, deleteSelectedProduct, newCart, readProductsInCart, updateStockInCart } from "../Controllers/cartsRouteDBController.js";
+import { addProductToCart, deleteCart, deleteSelectedProduct, newCart, readProductsInCart, updateStockInCart, updateProducts } from "../Controllers/cartsRouteDBController.js";
 import { deleteModel } from "mongoose";
 
 const router = Router();
@@ -43,13 +43,13 @@ router.delete("/:cid", deleteCart);
 router.delete("/:cid/products/:pid", deleteSelectedProduct);
 
 //Actualiza productos dentro de un carrito 
-router.put("/api/carts/:cid", updateProductInCart);
+router.put("/api/carts/:cid", updateProducts);
 
 
 //Actualiza stock de productos dentro de un carrito 
 router.put("/:cid/products/:pid", updateStockInCart);
 
 //ruta que permite finalizar la compra de los productos de un carrito
-router.post("/:cid/purchase", finalizarCompra)
+router.post("/:cid/purchase")
 
 export default router;
