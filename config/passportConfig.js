@@ -11,9 +11,10 @@ const localStrategy = local.Strategy;
 
 const initializePassport = () => {
 
-    passport.use("signup",
+    passport.use(
+        "signup", 
         new localStrategy(
-        {passReqToCallback:true, usernameField:'email'}, 
+        {passReqToCallback:true, usernameField:'email'},
         async (req,username,password,done)=>{
             const{first_name, last_name, email,age} = req.body;
             
@@ -32,7 +33,7 @@ const initializePassport = () => {
                     password: createHash(password),
                 }
                 let result = await userModel.create (newUser);
-                return done(null,result)
+                return done (null,result);
             }
             catch (error){
                 return done ("Error al obtener el usuario" + error)
@@ -75,7 +76,6 @@ const initializePassport = () => {
                 email:profile._json.email,
                 password: '',
                 age:31,
-                
             }
             let result = await userModel.create(newUser)
             done(null,result)

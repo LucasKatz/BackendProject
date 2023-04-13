@@ -1,9 +1,9 @@
-import config from "../config/config.js";
+import DB_TYPE from "../config/config.js";
 import DatabaseManagerMongo from "./mongoClass/DataBaseManager.js";
 import DatabaseManagerMemory from "./memory/DataBaseManager.js";
 
 let DATA;
-switch (config) { //si aca pongo config solo, inicia con mongo y va bien, pero si pongo config.DB_TYPE ahi vuelve al mismo error
+switch (DB_TYPE) { 
   case "MONGO":
     console.log("iniciara con mongo");
 
