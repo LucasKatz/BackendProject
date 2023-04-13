@@ -192,7 +192,7 @@ app.get('/mail', async (req,res) =>{
 
 
 const TwilioAccountSid = 'ACf73ce9f782faaf542ec08542f770fe9c';
-const TwilioAuthToken= "42d874ed89d986bfe728a381b60918f0";
+const TwilioAuthToken= "48fe3f25913ab5941925a9cbe265a170";
 const TwilioPhoneNumber="+15855523701"
 
 const client = Twilio (
@@ -201,10 +201,10 @@ const client = Twilio (
   TwilioPhoneNumber
 )
 
-app.get('/mail', async (req,res) =>{
+app.get('/sms', async (req,res) =>{
   let result = await client.messages.create({
     from:TwilioPhoneNumber,
-    to:"541122876495",
+    to:"+541122876495",
     body: "Mensaje de Prueba Backend 37570"
 })
 
@@ -215,7 +215,7 @@ app.post('/customSMS', async (req,res) =>{
   let {name, product} = req.body
   let result = await client.messages.create({
     from:TwilioPhoneNumber,
-    to:"541122876495",
+    to:"+541122876495",
     body: ` Hola ${name}. Gracias por tu compra. Tu producto es ${product}`
 })
 

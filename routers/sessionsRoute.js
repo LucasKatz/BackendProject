@@ -1,8 +1,6 @@
 import { Router } from "express";
 import userDB from "../DAO/models/userModel.js";
-import passport from "passport";
-import userModel from "../DAO/models/userModel.js";
-import {userSignup,failRegister, loginUser, renderUser, githubLogin, githubCall, logout} from '../Controllers/sessionsRouteController.js'
+import {failRegister, renderUser, githubLogin, githubCall, logout, userSignup, loginUser} from '../Controllers/sessionsRouteController.js'
 
 
 const sessionsRouter = Router();

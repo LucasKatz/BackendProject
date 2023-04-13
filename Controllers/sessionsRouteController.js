@@ -68,7 +68,7 @@ export const renderUser =  async (req,res)=>{
         
 };
 
-export const githubLogin = (passport.authenticate('github', {scope:['user:email']}), (req, res)=>{}) //between ( ) ??
+export const githubLogin = (passport.authenticate('github', {scope:['user:email']}), (req, res)=>{}) 
 
 export const githubCall = (passport.authenticate('github', {failureRedirect:'/login'}), (req, res)=>{
     req.session.user = req.user;
