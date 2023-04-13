@@ -44,4 +44,3 @@ export const postLogin = async (req, res) => {
 
 export default router;
 
-//En los controladores los router de const y export estan de más, no?? 
