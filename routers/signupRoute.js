@@ -9,7 +9,7 @@ const user = new userModel();
 
 sessionsRouter.get("/",renderSignup);
 
-sessionsRouter.post("/", passport.authenticate('signup', {failureRedirect:'/failregister'}), signupUserRoute);
-
+sessionsRouter.post("/", signupUserRoute);
+// passport.authenticate('signup', {failureRedirect:'/failregister'}),
 
 export default sessionsRouter;

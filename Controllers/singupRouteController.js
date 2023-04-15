@@ -3,7 +3,7 @@ import userModel from "../DAO/models/userModel.js";
 import { createHash } from "../utils.js";
 
 
-const sessionsRouter = Router();
+const signupRouter = Router();
 const user = new userModel();
 
 export const renderSignup =  async (req, res) => {
@@ -23,8 +23,11 @@ export const signupUserRoute =  async (req, res)=>{
         cartID
     })
     await newUser.save() 
-    res.status(201).json({message:"Usuario creado", data:newUser})
+
+    res.status(201).json({message:"Usuario Creado", data:newUser})
 }catch (error) {
+    console.log("Error message:", error.message); // Add this console.log statement
+    console.log("Request body:", req.body); // Add this console.log statement
 res.status(500).json({error:error.message})
 }
 }
