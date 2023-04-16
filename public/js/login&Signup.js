@@ -75,7 +75,7 @@ if(!first_name || !last_name|| !email||!password||!age){
         .then((data) => {
             console.log (data)
             if (data.message === "Usuario Creado"){
-                window.location.href = "/products"
+                window.location.href = "/login"
             }else {
                 alert ("Credenciales Incorrectas")
             }

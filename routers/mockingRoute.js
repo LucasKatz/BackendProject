@@ -2,12 +2,12 @@ import { Router } from "express";
 import { createMockProducts } from "../Controllers/mockRouteController";
 
 
-const router = Router();
+const Mockrouter = Router();
 
-router.get("/mockingproducts", createMockProducts);
-
-
+Mockrouter.get("/mockingproducts", createMockProducts);
 
 
 
-export default router;
+
+
+export default Mockrouter;
