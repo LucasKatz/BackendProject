@@ -123,6 +123,18 @@ export const deleteProduct = async (req, res) => {
   }
 };
 
+
+export const showSpecificProduct = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const response = await productModel.findById(id);
+
+    res.render(200).send({ message: "Detalles de su Producto", response });
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+};
+
 export const updateSpecifiedProduct = async (req, res) => {
   const { id } = req.params;
   const {
