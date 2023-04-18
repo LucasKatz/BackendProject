@@ -3,5 +3,6 @@ export const  authMiddleware = async (req,res,next)=>{
     return next()
     }
     return res.status(401).redirect("/login")
+    
 }
 export default authMiddleware
