@@ -1,7 +1,8 @@
 import DATA from "../DAO/factory.js";
 import productModel from "../DAO/models/productsModel.js";
-
-
+import CustomMistake from "../mistakes/customMistake.js";
+import Errores from "../mistakes/kindOfError.js";
+import { ProductsMistakeInfo } from "../mistakes/mistakeMiddleware.js";
 
 const { ProductManager } = DATA;
 console.log(DATA);
@@ -91,7 +92,22 @@ export const postProducts = async (req, res) => {
     !stock ||
     !category ||
     !status
-  ) {
+  ) { 
+    CustomMistake.createError({
+      name: "Error al agregar producto",
+      cause: ProductsMistakeInfo({
+        title,
+        description,
+        code,
+        price,
+        thumbnail,
+        stock,
+        category,
+        status,
+      }),
+      message:"Error al intentar agregar un nuevo producto a la DB",
+      code: Errores.TIPO_INVALIDO
+  })
     res.status(400).send({ error: "Faltan Datos" });
     return;
   }
