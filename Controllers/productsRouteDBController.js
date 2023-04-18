@@ -2,7 +2,7 @@ import DATA from "../DAO/factory.js";
 import productModel from "../DAO/models/productsModel.js";
 
 
-console.log("esto trae data", DATA);
+
 const { ProductManager } = DATA;
 console.log(DATA);
 const productManager = new ProductManager();

@@ -7,7 +7,7 @@ import authMiddleware from "../auth.js";
 const router = Router();
 const productManager = new ProductManager(); // I should delete this, right?
 
-router.get("/", authMiddleware, paginatedProducts);
+router.get("/", paginatedProducts);
 
 router.post("/",authMiddleware,postProducts);
 

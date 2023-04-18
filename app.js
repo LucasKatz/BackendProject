@@ -154,7 +154,7 @@ const isValidStartDB = () => {
 
 
 // Rutas.
-app.use("/", viewsRouter);
+app.use("/", productsRouteDB);
 app.use("/chat", chatRoute);
 app.use("/messages", messageRoute);
 app.use("/products", productsRouteDB)
