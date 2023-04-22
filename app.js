@@ -24,7 +24,7 @@ import nodemailer from "nodemailer"
 import  Twilio from "twilio";
 import { failRegister } from "./Controllers/sessionsRouteController.js";
 import errorHandler from "./mistakes/errorInfo.js";
-
+import loggerTestingRoute from "./routers/loggerTest.js";
 
 const app = express();
 const PORT = 8080;
@@ -167,6 +167,7 @@ app.use('/forgot', forgotRoutes)
 app.use ("/current" , currentUser)
 app.use("/failregister", failRegister)
 app.use (errorHandler)
+app.use("/loggerTest", loggerTestingRoute)
 
 
 //inicializar el envio de mail
