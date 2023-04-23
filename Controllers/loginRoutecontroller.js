@@ -37,6 +37,7 @@ export const postLogin = async (req, res) => {
             });
             }
     }catch (error){
+        req.logger.error(`${req.method} en ${req.url}- ${new  Date().toISOString()}`)
         res.status(500).json({error:error.message})
     }
 }

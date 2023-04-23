@@ -29,6 +29,7 @@ export const newCart = async (req, res) => {
     await cartManager.create();
     res.status(200).send("Carrito creado");
   } catch (err) {
+    req.logger.error(`${req.method} en ${req.url}- ${new  Date().toISOString()}`)
     res.status(500).send(err.message);
   }
 };
