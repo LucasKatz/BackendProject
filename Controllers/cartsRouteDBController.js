@@ -29,7 +29,7 @@ export const newCart = async (req, res) => {
     await cartManager.create();
     res.status(200).send("Carrito creado");
   } catch (err) {
-    req.logger.error(`${req.method} en ${req.url}- ${new  Date().toISOString()}`)
+    //req.logger.error(`${req.method} en ${req.url}- ${new  Date().toISOString()}`)
     res.status(500).send(err.message);
   }
 };
@@ -144,7 +144,7 @@ export const updateStockInCart = async (req, res) => {
 
     res.status(200).send({ message: "Stock actualizado", response });
   } catch (error) {
-    console.log(error.message);
+    
     res.status(404).send({ status: "error", message: error.message });
   }
 };

@@ -66,7 +66,6 @@ export const paginatedProducts = async (req, res) => {
     );
     res.render("products", { products: respuesta });
   } catch (err) {
-    console.log(err);
     res.send(err);
   }
 };
@@ -124,7 +123,7 @@ export const postProducts = async (req, res) => {
     });
     res.status(200).send({ message: "Producto creado", response });
   } catch (err) {
-    req.logger.error(`${req.method} en ${req.url}- ${new  Date().toISOString()}`)
+    //req.logger.error(`${req.method} en ${req.url}- ${new  Date().toISOString()}`)
     res.status(500).send(err.message);
   }
 };
