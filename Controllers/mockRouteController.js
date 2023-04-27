@@ -2,7 +2,7 @@ import {faker} from "@faker-js/faker"
 
 faker.locale="es"
 
-export const createMockProducts = () => {
+const createMockProducts = () => {
     let numberOfProducts = 100
 
     let fakeProducts = []
@@ -22,5 +22,7 @@ export const createNewProduct = () =>{
         status: faker.datatype.boolean(),
     }
 }
+
+export default createMockProducts
 
 //Saque "category" y "thumbnails" porqué no eran compatibles con Faker
