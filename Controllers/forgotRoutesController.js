@@ -97,6 +97,10 @@ export const resetPassword = async (req, res) => {
         return res.status(400).json({ error: "La nueva contraseña no puede ser igual a la anterior" });
     }
 
+    if (passwordResetToken.expiration < Date.now()) {
+        return res.render("reset"); // Renderizamos una vista especial para solicitar un nuevo correo de restablecimiento
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     await userModel.findByIdAndUpdate(userId, { password: hashedPassword }, { new: true });
