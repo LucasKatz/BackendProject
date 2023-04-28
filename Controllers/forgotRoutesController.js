@@ -5,6 +5,7 @@ import nodemailer from "nodemailer"
 import mongoose, { Schema } from "mongoose";
 import bcrypt from 'bcrypt'
 
+
 mongoose.model("Usuarios", userModel.schema);
 
 
@@ -42,7 +43,7 @@ export const postForgot = async (req, res) => {
         // send email with reset link
         const transporter = nodemailer.createTransport({
             service: "gmail",
-        port:587,
+        port:8080,
         auth:{
             user:"l.katz92@gmail.com",
             pass:" wgtmyxoujarkujym"
@@ -66,47 +67,47 @@ export const postForgot = async (req, res) => {
 
 export const resetPassword = async (req, res) => {
     const { token, password, repeatPassword } = req.body;
-  
+
     try {
-      const passwordResetToken = await PasswordResetToken.findOne({ token }).populate("userId");
-  
-      if (!passwordResetToken) {
+    const passwordResetToken = await PasswordResetToken.findOne({ token }).populate("userId");
+
+    if (!passwordResetToken) {
         return res.status(404).json({ error: "El token no es válido o ha expirado" });
-      }
-  
-      const { userId } = passwordResetToken;
-  
-      if (!password || !repeatPassword) {
-        return res.status(400).json({ error: "Faltan campos" });
-      }
-  
-      if (password !== repeatPassword) {
-        return res.status(400).json({ error: "Las contraseñas no coinciden" });
-      }
-  
-      const user = await userModel.findById(userId);
-  
-      if (!user) {
-        return res.status(404).json({ error: "El usuario no existe" });
-      }
-  
-      const isSamePassword = await bcrypt.compare(password, user.password);
-  
-      if (isSamePassword) {
-        return res.status(400).json({ error: "La nueva contraseña no puede ser igual a la anterior" });
-      }
-  
-      const hashedPassword = await bcrypt.hash(password, 10);
-  
-      await userModel.findByIdAndUpdate(userId, { password: hashedPassword });
-  
-      await passwordResetToken.findByIdAndDelete(passwordResetToken._id);
-  
-      res.json({ message: "La contraseña se ha actualizado correctamente" });
-    } catch (error) {
-      res.status(500).json({ error: error.message });
     }
-  };
+
+    const { userId } = passwordResetToken;
+
+    if (!password || !repeatPassword) {
+        return res.status(400).json({ error: "Faltan campos" });
+    }
+
+    if (password !== repeatPassword) {
+        return res.status(400).json({ error: "Las contraseñas no coinciden" });
+    }
+
+    const user = await userModel.findById(userId);
+
+    if (!user) {
+        return res.status(404).json({ error: "El usuario no existe" });
+    }
+
+    const isSamePassword = await bcrypt.compare(password, user.password);
+
+    if (isSamePassword) {
+        return res.status(400).json({ error: "La nueva contraseña no puede ser igual a la anterior" });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    await userModel.findByIdAndUpdate(userId, { password: hashedPassword }, { new: true });
+
+    await passwordResetToken.findByIdAndDelete(passwordResetToken._id);
+
+    res.json({ message: "La contraseña se ha actualizado correctamente" });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
 
 /* const { username, password, repeatPassword } = req.body;
     let newPassword = createHash(password);
