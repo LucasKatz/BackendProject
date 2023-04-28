@@ -26,6 +26,7 @@ import { failRegister } from "./Controllers/sessionsRouteController.js";
 import errorHandler from "./mistakes/errorInfo.js";
 import loggerTestingRoute from "./routers/loggerTest.js";
 import Mockrouter from "./routers/mockingRoute.js";
+import { renderReset, resetPassword } from "./Controllers/forgotRoutesController.js";
 
 const app = express();
 const PORT = 8080;
@@ -165,11 +166,14 @@ app.use("/signup", signupRouter)
 app.use('/api/sessions/', sessionsRouter);
 app.use('/logout', sessionsRouter)
 app.use('/forgot', forgotRoutes)
+app.use ('/reset/:token', renderReset)
+app.use ("/reset", resetPassword)
 app.use ("/current" , currentUser)
 app.use("/failregister", failRegister)
 app.use (errorHandler)
 app.use("/loggerTest", loggerTestingRoute)
 app.use("/mockingRoute", Mockrouter)
+
 
 
 //inicializar el envio de mail
