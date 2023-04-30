@@ -86,6 +86,7 @@ export const resetPassword = async (req, res) => {
     }
 
     const user = await userModel.findById(userId);
+    console.log(userId)
 
     if (!user) {
         return res.status(404).json({ error: "El usuario no existe" });
@@ -102,6 +103,7 @@ export const resetPassword = async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
+    console.log(hashedPassword)
 
     await userModel.findByIdAndUpdate(userId, { password: hashedPassword }, { new: true });
 

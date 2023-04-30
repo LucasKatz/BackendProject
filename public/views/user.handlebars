@@ -14,8 +14,11 @@
 <div> <h1> Datos del Usuario Logueado</h1></div>
     <div>
         {{#if session.user}}
-            <h2 class="text-center">Bienvenido {{session.user.first_name}}!</h1>
-            <h3>Nombre completo: {{session.user.last_name}}, {{session.user.first_name}}</h5>
+            <h2 class="text-center">Bienvenido {{session.user.first_name}}!</h2>
+            <h3>Nombre completo: {{session.user.last_name}}, {{session.user.first_name}}</h3>
+            <h3>Role: {{user.rol}}</h3>
+            <button type="submit" name="rol" value="premium" id="premiumButton">Cambiar a Premium</button>
+            <button type="submit" name="rol" value="user" id="userButton">Cambiar a Usuario</button>
         {{/if}}
     </div>
 

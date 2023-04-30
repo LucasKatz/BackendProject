@@ -6,7 +6,7 @@ import userModel from "../DAO/models/userModel.js";
 const sessionsRouter = Router();
 const user = new userDB();
 
-export const userSignup = passport.authenticate('signup', {failureRedirect:'/failregister'}) //comma here?
+export const userSignup = passport.authenticate('signup', {failureRedirect:'/failregister'}) 
  async (req, res)=>{
     const {first_name, last_name, email, password, age}=req.body;
     try{

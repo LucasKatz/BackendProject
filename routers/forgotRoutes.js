@@ -6,10 +6,10 @@ const router = Router();
 
 router.get("/",renderForgot);
 
-router.get ("/reset/:token", renderReset)
+router.get ("/", renderReset)
 
 router.post ("/", postForgot)
 
-router.post("/reset", resetPassword);
+router.post("/", resetPassword);
 
 export default router;
