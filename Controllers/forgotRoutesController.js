@@ -4,6 +4,7 @@ import PasswordResetToken from "../DAO/models/passwordToken.js"
 import nodemailer from "nodemailer"
 import mongoose, { Schema } from "mongoose";
 import bcrypt from 'bcrypt'
+import UserManager from "../DAO/mongoClass/userManager.js";
 
 
 mongoose.model("Usuarios", userModel.schema);
