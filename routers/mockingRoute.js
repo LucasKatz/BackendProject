@@ -4,10 +4,6 @@ import createMockProducts from '../Controllers/mockRouteController.js'
 
 const Mockrouter = Router();
 
-Mockrouter.get("/mockingproducts", createMockProducts);
-
-
-
-
+Mockrouter.get("/", createMockProducts);
 
 export default Mockrouter;

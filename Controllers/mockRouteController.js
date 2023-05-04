@@ -7,14 +7,16 @@ const createMockProducts = () => {
 
     let fakeProducts = []
 
-    for (let i = 0; i<numberOfProducts; i++)
-    fakeProducts.push(createNewProduct)
-
+    for (let i = 0; i<numberOfProducts; i++){
+    const product = createNewProduct();
+    fakeProducts.push(product)
+    }
+    return fakeProducts
 }
 
 export const createNewProduct = () =>{
     return {
-        title: faker.name.title(),
+        title:faker.name.firstName(),
         description: faker.lorem.lines(),
         code: faker.random.alphaNumeric(),
         price:faker.random.numeric(),
