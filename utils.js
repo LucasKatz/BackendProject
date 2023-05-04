@@ -19,9 +19,9 @@ export const createNewProduct = () =>{
     return {
         title: faker.commerce.productName(),
         description: faker.commerce.productDescription(),
-        code: faker.random.alphaNumeric(),
+        code: faker.random.alphaNumeric,
         price:faker.random.numeric(),
-        stock:faker.random.numeric(1),
+        stock:faker.random.numeric(),
         category: faker.commerce.productAdjective(),
         status: true,
     }
