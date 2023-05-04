@@ -13,3 +13,16 @@ export const isValidPassword = (password, user) =>
     bcrypt.compareSync(password, user);
 
 export default __dirname;
+
+
+export const createNewProduct = () =>{
+    return {
+        title: faker.commerce.productName(),
+        description: faker.commerce.productDescription(),
+        code: faker.random.alphaNumeric(),
+        price:faker.random.numeric(),
+        stock:faker.random.numeric(1),
+        category: faker.commerce.productAdjective(),
+        status: true,
+    }
+}
