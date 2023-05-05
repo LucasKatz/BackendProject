@@ -6,7 +6,6 @@ import { Server } from "socket.io";
 import messageRoute from "./routers/messageRouter.js";
 import { messageModel } from "./DAO/models/chatModel.js";
 import fs from "fs";
-import viewsRouter from "./routers/viewsRouter.js";
 import productsRouteDB from "./routers/productsRouteDB.js"
 import cartsRouteDB from "./routers/cartsRouteDB.js"
 import loginRouter from "./routers/loginRoute.js"
@@ -27,10 +26,25 @@ import errorHandler from "./mistakes/errorInfo.js";
 import loggerTestingRoute from "./routers/loggerTest.js";
 import Mockrouter from "./routers/mockingRoute.js";
 import { renderReset, resetPassword } from "./Controllers/forgotRoutesController.js";
+import _dirname from "./utils.js";
+import swaggerJSDoc from "swagger-jsdoc";
+import swaggerUiExpress  from "swagger-ui-express";
+
+dotenv.config();
 
 const app = express();
 const PORT = 8080;
-dotenv.config();
+const swaggerOptions = {
+  definition:{
+    openapi:'3.0.1',
+    info:{
+      title:"Documentacion de Backend de un ECommerce",
+      description:"API que documenta la funcion de los endpoints del proyecto"
+    }
+  },
+    apis:[`${__dirname}/dics/**/*.yaml`]
+}
+const specs = swaggerJSDoc(swaggerOptions)
 
 const messages = [];
 
@@ -49,6 +63,7 @@ app.set("view engine", "handlebars");
 app.use(express.static(__dirname + "/public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/apidocs', swaggerUiExpress.serve,swaggerUiExpress.setup(specs) )
 
 
 app.post("/socketMessage", (req, res) => {
