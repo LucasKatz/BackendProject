@@ -1,0 +1,43 @@
+paths:
+  /products:
+    get:
+      summary: "Obtiene todos los productos"
+      tags: 
+        - Products
+      responses:
+        "200":
+          description: "Los productos fueron obtenidos con exito"
+        "500":
+          description: "Error intentando acceder al listado de productos"
+componentes:
+  schemas:
+    Products:
+      type: object
+      properties: 
+        _id:
+          type: ObjectId
+          description: Id autogenerado por Mongo
+        title:
+          type: String
+          description: Nombre del Producto
+        description:
+          type: String
+          description: Nombre del Producto
+        code:
+          type: String
+          description: Nombre del Producto
+        price:
+          type: String
+          description: Nombre del Producto 
+        thumbnail:
+          type: String
+          description: Nombre del Producto  
+        stock:
+          type: String
+          description: Nombre del Producto
+        category:
+          type: String
+          description: Nombre del Producto  
+        status:
+          type: String
+          description: Nombre del Producto

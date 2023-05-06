@@ -42,7 +42,7 @@ const swaggerOptions = {
       description:"API que documenta la funcion de los endpoints del proyecto"
     }
   },
-    apis:[`${__dirname}/dics/**/*.yaml`]
+    apis:[`${__dirname}/Swagger/Docs/**/*.yaml`]
 }
 const specs = swaggerJSDoc(swaggerOptions)
 
