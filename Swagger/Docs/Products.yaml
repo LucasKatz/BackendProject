@@ -9,6 +9,82 @@ paths:
           description: "Los productos fueron obtenidos con exito"
         "500":
           description: "Error intentando acceder al listado de productos"
+
+    post:
+      summary: "Agrega un producto a la base de datos"
+      tags: 
+        - Products
+      responses:
+        "200":
+          description: "El producto fue agregado con exito"
+        "500":
+          description: "Error intentando agregar un producto al listado de productos" 
+  
+  /products/:id:
+    put:
+      summary: "Actualiza un producto especifico por ID"
+      tags: 
+        - Products
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: id del producto que desea solicitar
+        schema:
+          $type: string 
+      responses:
+        "200":
+          description: "El producto fue obtenidos con exito"
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schema/products'
+        "500":
+          description: "Error intentando actualizar el producto"
+
+    delete:
+      summary: "Elimina un producto especifico por ID"
+      tags: 
+        - Products
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: id del producto que desea eliminar
+        schema:
+          $type: string 
+      responses:
+        "200":
+          description: "El producto fue eliminado con exito"
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schema/products'
+        "500":
+          description: "Error intentando eliminar el producto"
+    
+  /products/:pid:
+    get:
+      summary: "Muestra los detalles de un producto por ID"
+      tags: 
+        - Products
+      parameters:
+      - name: pid
+        in: path
+        required: true
+        description: id del producto que desea solicitar
+        schema:
+          $type: string   
+      responses:
+        "200":
+          description: "Detalles de su Producto"
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schema/products'
+        "500":
+          description: "Error intentando mostrar el producto"
+
 components:
   schemas:
     Products:
