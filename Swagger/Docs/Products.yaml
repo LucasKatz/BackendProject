@@ -9,7 +9,7 @@ paths:
           description: "Los productos fueron obtenidos con exito"
         "500":
           description: "Error intentando acceder al listado de productos"
-componentes:
+components:
   schemas:
     Products:
       type: object
@@ -22,22 +22,32 @@ componentes:
           description: Nombre del Producto
         description:
           type: String
-          description: Nombre del Producto
+          description: Descripcion del producto
         code:
           type: String
-          description: Nombre del Producto
+          description: Codigo referente al producto
         price:
-          type: String
-          description: Nombre del Producto 
+          type: Number
+          description: Precio del Producto
         thumbnail:
           type: String
-          description: Nombre del Producto  
+          description: Link a la imagen del producto
         stock:
-          type: String
-          description: Nombre del Producto
+          type: Number
+          description: Cantidad disponible del producto
         category:
           type: String
-          description: Nombre del Producto  
+          description: Categoria a la que pertenece el producto 
         status:
-          type: String
-          description: Nombre del Producto
+          type: Boolean
+          description: true
+      example:
+          _id: ObjectId("9962ff9a-4761-4cdf-b27e-961a7921406a")
+          title: Lampara Tokio
+          description: Lampara de pie con bombilla simple
+          code: 9962ff9a-4761
+          price: 12300
+          thumbnail: Link a la imagen
+          stock: 4
+          category: Lampara de pie
+          status: true 
