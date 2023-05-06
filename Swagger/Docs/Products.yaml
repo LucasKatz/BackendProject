@@ -32,13 +32,20 @@ paths:
         description: id del producto que desea solicitar
         schema:
           $type: string 
-      responses:
-        "200":
-          description: "El producto fue obtenidos con exito"
+        requestBody:
+          required: true
           content:
             application/json:
               schema:
-                $ref: '#components/schema/products'
+                $ref: '#components/schemas/Products'
+
+      responses:
+        "200":
+          description: "El producto fue actualizado con exito"
+          content:
+            application/json:
+              schema:
+                $ref: '#components/requestBodies/updateProduct'
         "500":
           description: "Error intentando actualizar el producto"
 
@@ -59,7 +66,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#components/schema/products'
+                $ref: '#components/schemas/Products'
         "500":
           description: "Error intentando eliminar el producto"
     
@@ -120,10 +127,50 @@ components:
       example:
           _id: ObjectId("9962ff9a-4761-4cdf-b27e-961a7921406a")
           title: Lampara Tokio
-          description: Lampara de pie con bombilla simple
+          description: Lampara de pie con foco simple
           code: 9962ff9a-4761
           price: 12300
           thumbnail: Link a la imagen
           stock: 4
           category: Lampara de pie
-          status: true 
+          status: true
+  requestBodies:
+    updateProduct:
+      properties: 
+      _id:
+        type: ObjectId
+        description: Id autogenerado por Mongo
+      title:
+        type: String
+        description: Nombre del Producto
+      description:
+        type: String
+        description: Descripcion del producto
+      code:
+        type: String
+        description: Codigo referente al producto
+      price:
+        type: Number
+        description: Precio del Producto
+      thumbnail:
+        type: String
+        description: Link a la imagen del producto
+      stock:
+        type: Number
+        description: Cantidad disponible del producto
+      category:
+        type: String
+        description: Categoria a la que pertenece el producto 
+      status:
+        type: Boolean
+        description: true
+      example:
+        _id: ObjectId("7aa09cb3-c76a-48f6-a7c1-ef4f0103f3e4 ")
+        title: Lampara Double SH
+        description: Lampara de techo con foco doble
+        code: 961a7921406a
+        price: 18000
+        thumbnail: Link a la imagen
+        stock: 7
+        category: Lampara de techo
+        status: true 
