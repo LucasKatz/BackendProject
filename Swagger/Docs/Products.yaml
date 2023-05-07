@@ -32,13 +32,12 @@ paths:
         description: id del producto que desea solicitar
         schema:
           $type: string 
-        requestBody:
-          required: true
-          content:
-            application/json:
-              schema:
-                $ref: '#components/schemas/Products'
-
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/Products'
       responses:
         "200":
           description: "El producto fue actualizado con exito"
@@ -88,7 +87,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#components/schema/products'
+                $ref: '#components/schemas/Products'
         "500":
           description: "Error intentando mostrar el producto"
 
@@ -96,7 +95,7 @@ components:
   schemas:
     Products:
       type: object
-      properties: 
+      properties:
         _id:
           type: ObjectId
           description: Id autogenerado por Mongo
@@ -125,45 +124,46 @@ components:
           type: Boolean
           description: true
       example:
-          _id: ObjectId("9962ff9a-4761-4cdf-b27e-961a7921406a")
-          title: Lampara Tokio
-          description: Lampara de pie con foco simple
-          code: 9962ff9a-4761
-          price: 12300
-          thumbnail: Link a la imagen
-          stock: 4
-          category: Lampara de pie
-          status: true
+        _id: ObjectId("9962ff9a-4761-4cdf-b27e-961a7921406a")
+        title: Lampara Tokio
+        description: Lampara de pie con foco simple
+        code: 9962ff9a-4761
+        price: 12300
+        thumbnail: Link a la imagen
+        stock: 4
+        category: Lampara de pie
+        status: true
   requestBodies:
     updateProduct:
-      properties: 
-      _id:
-        type: ObjectId
-        description: Id autogenerado por Mongo
-      title:
-        type: String
-        description: Nombre del Producto
-      description:
-        type: String
-        description: Descripcion del producto
-      code:
-        type: String
-        description: Codigo referente al producto
-      price:
-        type: Number
-        description: Precio del Producto
-      thumbnail:
-        type: String
-        description: Link a la imagen del producto
-      stock:
-        type: Number
-        description: Cantidad disponible del producto
-      category:
-        type: String
-        description: Categoria a la que pertenece el producto 
-      status:
-        type: Boolean
-        description: true
+      type: Object
+      properties:
+        _id:
+          type: ObjectId
+          description: Id autogenerado por Mongo
+        title:
+          type: String
+          description: Nombre del Producto
+        description:
+          type: String
+          description: Descripcion del producto
+        code:
+          type: String
+          description: Codigo referente al producto
+        price:
+          type: Number
+          description: Precio del Producto
+        thumbnail:
+          type: String
+          description: Link a la imagen del producto
+        stock:
+          type: Number
+          description: Cantidad disponible del producto
+        category:
+          type: String
+          description: Categoria a la que pertenece el producto 
+        status:
+          type: Boolean
+          description: true
       example:
         _id: ObjectId("7aa09cb3-c76a-48f6-a7c1-ef4f0103f3e4 ")
         title: Lampara Double SH
@@ -173,4 +173,4 @@ components:
         thumbnail: Link a la imagen
         stock: 7
         category: Lampara de techo
-        status: true 
+        status: true
