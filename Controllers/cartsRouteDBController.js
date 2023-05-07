@@ -35,7 +35,6 @@ export const newCart = async (req, res) => {
 };
 
 export const addProductToCart = async (req, res) => {
- 
 
   req.role !== "user" ? res.status(401).send("Usuario no autorizado"):null;
   const cartId = req.params.cid;
