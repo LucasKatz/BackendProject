@@ -33,13 +33,16 @@ export const paginatedProducts = async (req, res) => {
     }
   }
   try {
-    const respuesta = await productModel.paginate(
+    const listproducts = await productModel.paginate ({}, {lean:true})
+    let response = listproducts.docs
+    res.render("products", {products:response});
+    /*const respuesta = await productModel.paginate(
       query,
       {
         page: page || 1,
         limit: limit,
         sort: { price: sort },
-      },
+      },{lean:true},
       (err, res) => {
         res.hasPrevPage
           ? (prevURL = url.replace(`page=${res.page}`, `page=${res.prevPage}`))
@@ -61,10 +64,11 @@ export const paginatedProducts = async (req, res) => {
           hasNextPage: res.hasNextPage,
           prevLink: prevURL,
           nextLink: nextURL,
+
         };
-      }
+      },
     );
-    res.render("products", { products: respuesta });
+    res.render("products", { products: respuesta });*/
   } catch (err) {
     res.send(err);
   }
