@@ -1,4 +1,4 @@
- <nav style="display: flex; justify-content: center; align-items: center;">
+<nav style="display: flex; justify-content: center; align-items: center;">
     <ul style="display: flex; list-style: none; margin: 0; padding: 0;">
         <li style="margin: 0 10px;"><a href="/signup">Signup</a></li>
         <li style="margin: 0 10px;"><a href="/login">Login</a></li>
@@ -11,52 +11,47 @@
     </ul>
 </nav>
 
+
 <div id="productsConteiner">
-        <h1 class="text-white text-center">Lista de productos</h1>
-        <div >
+    <h1 class="text-white text-center">Lista de productos</h1>
+<div>
+    <div id="messageDiv"></div>
 
-            <div id="messageDiv"></div>
-
-            {{#each products}}
-                    <div>
-                        <h2 class="card-title">{{this.title}}</h2>
-                        <div class="card-body">
-                            <img src={{this.thumbnail}}>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                <input type="number" class="productQuantity" min="1" value="1">
-                <button class="productQuantityButton">Agregar al carrito</button>
-            </div>
-
-            {{/each}}
+    {{#each products}}
+    <div>
+        <h2>{{this.title}}</h2>
+        <a href="/products/{{this._id}}">Ver Detalle</a>
+    
+        <div>
+            <input type="number" class="productQuantity" min="1" value="1">
+            <button class="productQuantityButton">Agregar al carrito</button>
         </div>
-
-        {{#if products.pagination.active}}
-            <nav>
-                <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" href="{{products.pagination.prevLink}}" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    {{#each products.pagination.pagesLinks}}
-                        <li class="page-item"><a class="page-link{{#if active}} active {{/if}}" href="{{link}}">{{page}}</a></li>
-                    {{/each}}
-                    <li class="page-item">
-                        <a class="page-link" href="{{products.pagination.nextLink}}" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        {{/if}}
-
-
     </div>
-    <button id="logout">Logout</button>
+    {{/each}}
+    </div>
+
+    {{#if products.pagination.active}}
+    <nav>
+    <ul class="pagination">
+        <li class="page-item">
+        <a class="page-link" href="{{products.pagination.prevLink}}" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+        </a>
+    </li>
+    {{#each products.pagination.pagesLinks}}
+    <li class="page-item"><a class="page-link{{#if active}} active {{/if}}" href="{{link}}">{{page}}</a></li>
+    {{/each}}
+        <li class="page-item">
+            <a class="page-link" href="{{products.pagination.nextLink}}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+    </nav>
+    {{/if}}
+
+</div>
+<button id="logout">Logout</button>
 </div>
 
 <script src="logout.js" type="application/javascript"></script>
