@@ -35,8 +35,6 @@ export const paginatedProducts = async (req, res) => {
   try {
     const listproducts = await productModel.paginate ({}, {lean:true})
     let response = listproducts.docs
-    res.render("products", {products:response});
-    /*const respuesta = await productModel.paginate(
       query,
       {
         page: page || 1,
@@ -67,8 +65,7 @@ export const paginatedProducts = async (req, res) => {
 
         };
       },
-    );
-    res.render("products", { products: respuesta });*/
+    res.render("products", { products: response });
   } catch (err) {
     res.send(err);
   }
