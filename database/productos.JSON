@@ -14,7 +14,7 @@
 		"description": "Embutido retraible doble cabezal móvil aluminio blanco led",
 		"price": 2200,
 		"thumbnail": "ruta de imagen",
-		"code": 101,
+		"code": 102,
 		"stock": 3
 	},
 	{
@@ -23,7 +23,7 @@
 		"description": "Plafon circular aluminio negro  led",
 		"price": 2200,
 		"thumbnail": "ruta de imagen",
-		"code": 101,
+		"code": 103,
 		"stock": 3
 	},
 	{
@@ -32,7 +32,7 @@
 		"description": "Lámpara de píe difusora aluminio negra led",
 		"price": 2200,
 		"thumbnail": "ruta de imagen",
-		"code": 101,
+		"code": 104,
 		"stock": 3
 	},
 	{
@@ -41,7 +41,7 @@
 		"description": "Aplique circular estanco aluminio negro led",
 		"price": 2200,
 		"thumbnail": "ruta de imagen",
-		"code": 101,
+		"code": 105,
 		"stock": 3
 	},
 	{
@@ -50,85 +50,43 @@
 		"description": "Embutido antideslumbrante aluminio blanco GU10 led",
 		"price": 2200,
 		"thumbnail": "ruta de imagen",
-		"code": 101,
+		"code": 106,
 		"stock": 3
 	},
 	{
 		"id": 7,
-		"title": "Lámpara Tokio",
-		"description": "Lámpara escritorio aluminio negro led",
-		"price": 2200,
+		"title": "Lámpara New York",
+		"description": "Lámpara escritorio de foco simple y potente",
+		"price": 3500,
 		"thumbnail": "ruta de imagen",
-		"code": 101,
+		"code": 107,
 		"stock": 3
 	},
 	{
 		"id": 8,
-		"title": "Lámpara Tokio",
-		"description": "Lámpara escritorio aluminio negro led",
-		"price": 2200,
+		"title": "Lámpara Haimisch",
+		"description": "Plafon rectangular aluminio blanco led",
+		"price": 4400,
 		"thumbnail": "ruta de imagen",
-		"code": 101,
+		"code": 108,
 		"stock": 3
 	},
 	{
 		"id": 9,
-		"title": "Lámpara Tokio",
-		"description": "Lámpara escritorio aluminio negro led",
-		"price": 2200,
+		"title": "Lámpara Roman",
+		"description": "Lámpara de techo con doble foco y plafon de aluminio",
+		"price": 5500,
 		"thumbnail": "ruta de imagen",
-		"code": 101,
+		"code": 109,
 		"stock": 3
 	},
 	{
 		"id": 10,
-		"title": "Lámpara Tokio",
-		"description": "Lámpara escritorio aluminio negro led",
-		"price": 2200,
+		"title": "Lámpara Florence",
+		"description": "Lámpara de pie con plafon invertido",
+		"price": 8000,
 		"thumbnail": "ruta de imagen",
-		"code": 101,
+		"code": 110,
 		"stock": 3
-	},
-	{
-		"title": {
-			"user": "Lucas",
-			"message": "Hola mundo"
-		}
-	},
-	{
-		"title": {
-			"user": "Lucas",
-			"message": "Hola mundo"
-		}
-	},
-	{
-		"title": {
-			"user": "lucas",
-			"message": "hola mundo"
-		}
-	},
-	{
-		"title": {
-			"user": "chueco",
-			"message": "hola mundo"
-		}
-	},
-	{
-		"title": {
-			"user": "Lucas",
-			"message": "Lucas"
-		}
-	},
-	{
-		"title": {
-			"user": "Lucas",
-			"message": "Hola mundo"
-		}
-	},
-	{
-		"title": {
-			"user": "Lucas",
-			"message": "Hola, me dirias si esta confirmada la compra?? Gracias"
-		}
 	}
 ]
