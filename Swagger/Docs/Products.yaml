@@ -7,6 +7,10 @@ paths:
       responses:
         "200":
           description: "Los productos fueron obtenidos con exito"
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Products'
         "500":
           description: "Error intentando acceder al listado de productos"
 
@@ -17,6 +21,10 @@ paths:
       responses:
         "200":
           description: "El producto fue agregado con exito"
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Products'
         "500":
           description: "Error intentando agregar un producto al listado de productos" 
   
@@ -62,10 +70,6 @@ paths:
       responses:
         "200":
           description: "El producto fue eliminado con exito"
-          content:
-            application/json:
-              schema:
-                $ref: '#components/schemas/Products'
         "500":
           description: "Error intentando eliminar el producto"
     

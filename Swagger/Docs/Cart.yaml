@@ -48,6 +48,10 @@ paths:
         in: path
         required: true
         description: id del carrito en el cual hay que agregar el producto
+      - name: pid
+        in: path
+        required: true
+        description: id del producto a agregar
         schema:
           $type: string 
       requestBody:
@@ -143,6 +147,10 @@ paths:
       responses:
         "200":
           description: "El carrito fue creado con exito"
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Cart'
         "500":
           description: "Error intentando crear el carrito"
 
