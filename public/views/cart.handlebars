@@ -1,34 +1,30 @@
- <nav style="display: flex; justify-content: center; align-items: center;">
+ <nav style="display: flex; justify-content: center; align-items: center; background-color: #333; padding: 10px 0;">
     <ul style="display: flex; list-style: none; margin: 0; padding: 0;">
-        <li style="margin: 0 10px;"><a href="/signup">Signup</a></li>
-        <li style="margin: 0 10px;"><a href="/login">Login</a></li>
-        <li style="margin: 0 10px;"><a href="/products">Products</a></li>
-        <li style="margin: 0 10px;"><a href="/:cid">Cart</a></li>
-        <li style="margin: 0 10px;"><a href="/chat">Chat</a></li>
-        <li style="margin: 0 10px;"><a href="/logout">Logout</a></li>
-
-
+        <li style="margin: 0 10px;"><a href="/signup" style="text-decoration: none; color: #fff;">Signup</a></li>
+        <li style="margin: 0 10px;"><a href="/login" style="text-decoration: none; color: #fff;">Login</a></li>
+        <li style="margin: 0 10px;"><a href="/products" style="text-decoration: none; color: #fff;">Products</a></li>
+        <li style="margin: 0 10px;"><a href="/:cid" style="text-decoration: none; color: #fff;">Cart</a></li>
+        <li style="margin: 0 10px;"><a href="/chat" style="text-decoration: none; color: #fff;">Chat</a></li>
+        <li style="margin: 0 10px;"><a href="/logout" style="text-decoration: none; color: #fff;">Logout</a></li>
     </ul>
 </nav>
 
-
-<div class="container-fluid bg-danger d-flex justify-content-center align-items-center" style="min-height: 100vh">
+<div class="container-fluid d-flex justify-content-center align-items-center" style="min-height: 100vh; background-color: #ddd;">
     <div class="col-10 bg-dark opacity-75 p-3">
         <h1 class="text-white text-center">Mi Carrito {{cartId}}</h1>
-        
         {{#each cart.payload}}
-            <div class="row bg-danger border border-dark border-2">
+            <div class="row bg-danger border border-dark border-2 my-2 py-2">
                 <div class="col-3 border-end border-dark">
-                    <h4>{{this.product.title}}</h4>
+                    <h4 class="text-white">{{this.product.title}}</h4>
                 </div>
                 <div class="col-3 border-end border-dark">
-                    <h4>Cantidad: {{this.quantity}}</h4>
+                    <h4 class="text-white">Cantidad: {{this.quantity}}</h4>
                 </div>
                 <div class="col-3 border-end border-dark">
-                    <h4>Precio unit.: ${{this.product.price}}</h4>
+                    <h4 class="text-white">Precio unit.: ${{this.product.price}}</h4>
                 </div>
                 <div class="col-3 border-end border-dark">
-                    <h4>Valor total: ${{this.totalPrice}}</h4>
+                    <h4 class="text-white">Valor total: ${{this.totalPrice}}</h4>
                 </div>
             </div>
         {{/each}}

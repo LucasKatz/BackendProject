@@ -1,37 +1,37 @@
- <nav style="display: flex; justify-content: center; align-items: center;">
+<nav style="display: flex; justify-content: center; align-items: center; background-color: #c63c3c;">
     <ul style="display: flex; list-style: none; margin: 0; padding: 0;">
-        <li style="margin: 0 10px;"><a href="/signup">Signup</a></li>
-        <li style="margin: 0 10px;"><a href="/login">Login</a></li>
-        <li style="margin: 0 10px;"><a href="/products">Products</a></li>
-        <li style="margin: 0 10px;"><a href="/cart">Cart</a></li>
-        <li style="margin: 0 10px;"><a href="/chat">Chat</a></li>
-        <li style="margin: 0 10px;"><a href="/logout">Logout</a></li>
-
-
+        <li style="margin: 0 10px;"><a href="/signup" style="color: #fff">Signup</a></li>
+        <li style="margin: 0 10px;"><a href="/login" style="color: #fff">Login</a></li>
+        <li style="margin: 0 10px;"><a href="/products" style="color: #fff">Products</a></li>
+        <li style="margin: 0 10px;"><a href="/cart" style="color: #fff">Cart</a></li>
+        <li style="margin: 0 10px;"><a href="/chat" style="color: #fff">Chat</a></li>
+        <li style="margin: 0 10px;"><a href="/logout" style="color: #fff">Logout</a></li>
     </ul>
 </nav>
 
 <div>
   <div class="chat-container">
-    <div class="chat-header">
+    <div class="chat-header" style="background-color: #c63c3c; color: white; padding: 10px;">
       <h2>Mi chat</h2>
     </div>
 
-    <div class="chat-window">
+    <div class="chat-window" style="border: 1px solid #c63c3c; padding: 10px; height: 300px; overflow-y: scroll;">
 
       <div id="messageLogs"></div>
 
     </div>
 
-    <div class="chat-input-container">
+    <div class="chat-input-container" style="padding: 10px;">
       <input
         type="text"
         placeholder="Escribe un mensaje..."
         name="message"
         id="chatBox"
+        style="width: 100%; padding: 5px; border: 1px solid #c63c3c; border-radius: 5px;"
       />
     </div>
   </div>
 
 </div>
+
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
