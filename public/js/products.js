@@ -1,4 +1,4 @@
-const socket=io();
+//const socket=io();
 
 let buttonsQuantity = document.querySelectorAll(".productQuantityButton")
 let listProductsContainer = document.getElementById("productsConteiner")
@@ -39,3 +39,10 @@ socket.on("addSuccess",async(data)=>{
     successP.innerText = "* Producto agregado exitósamente al carrito"
     messageDiv.append(successP)
 })
+
+document.querySelectorAll('.showDetailsButton').forEach(button => {
+    button.addEventListener('click', () => {
+        const container = button.parentNode.parentNode.querySelector('.detailsContainer');
+        container.style.display = container.style.display === 'none' ? 'block' : 'none';
+    });
+});

@@ -9,7 +9,7 @@ import {
   updateStockInCart,
   updateProducts,
 } from "../Controllers/cartsRouteDBController.js";
-import authMiddleware from "../auth.js";
+import {authMiddleware} from "../auth.js";
 
 const router = Router();
 const { CartManager } = DATA;

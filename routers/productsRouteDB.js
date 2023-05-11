@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { deleteProduct, paginatedProducts, postProducts, showSpecificProduct, updateSpecifiedProduct } from "../Controllers/productsRouteDBController.js";
 import { ProductManager } from "../DAO/memory/DataBaseManager.js";
-import authMiddleware from "../auth.js";
+import {authMiddleware} from "../auth.js";
 
 
 const router = Router();
