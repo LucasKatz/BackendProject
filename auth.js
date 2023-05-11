@@ -19,12 +19,13 @@ export const checkUserRol = async (req, res, next) => {
 
 
 
-//Middleware para userPremium - falta terminar
-export const  authMiddleware2 = async (req,res,next)=>{
-    if(req.session?.user != undefined || user.rol){
-    return next()
+//Middleware para userPremium 
+export const checkUserPremium = async (req, res, next) => {
+    if (req.session?.user?.rol === 'Premium') {
+        return next();
     }
-    return res.status(401).redirect("/login?message=Debe loguearse para acceder a esta seccion")
-    
-}
-export default authMiddleware
+    return res
+    .status(401)
+    //trabajar en otra vista para rechazar usuarios que no sean premium
+    .redirect("/products");
+};
