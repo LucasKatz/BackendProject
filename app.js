@@ -29,6 +29,7 @@ import { renderReset, resetPassword } from "./Controllers/forgotRoutesController
 import _dirname from "./utils.js";
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUiExpress  from "swagger-ui-express";
+import premiumRouter from "./routers/premiumRoute.js";
 
 dotenv.config();
 
@@ -188,6 +189,7 @@ app.use("/failregister", failRegister)
 app.use (errorHandler)
 app.use("/loggerTest", loggerTestingRoute)
 app.use("/mockingProducts", Mockrouter)
+app.use("/api/users/premium/:uid", premiumRouter)
 
 
 

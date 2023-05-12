@@ -1,7 +1,8 @@
-import { changeRol } from "../Controllers/premiumRol";
+import { changeRol } from "../Controllers/premiumRol.js";
+import { Router } from "express";
 
-const premiumRouter = express.Router();
+const premiumRouter = Router();
 
-premiumRouter.put('/api/users/premium/:uid', changeRol)
+premiumRouter.post('/premium/:uid', changeRol)
 
 export default premiumRouter
