@@ -1,4 +1,5 @@
-import {faker} from "@faker-js/faker"
+
+import { faker } from "@faker-js/faker"
 import { createNewProduct } from "../utils.js"
 
 faker.locale="es"

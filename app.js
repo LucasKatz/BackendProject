@@ -24,7 +24,7 @@ import  Twilio from "twilio";
 import { failRegister } from "./Controllers/sessionsRouteController.js";
 import errorHandler from "./mistakes/errorInfo.js";
 import loggerTestingRoute from "./routers/loggerTest.js";
-import Mockrouter from "./routers/mockingRoute.js";
+import Mockrouter from "./routers/mockingProducts.js"
 import { renderReset, resetPassword } from "./Controllers/forgotRoutesController.js";
 import _dirname from "./utils.js";
 import swaggerJSDoc from "swagger-jsdoc";
@@ -187,7 +187,7 @@ app.use ("/current" , currentUser)
 app.use("/failregister", failRegister)
 app.use (errorHandler)
 app.use("/loggerTest", loggerTestingRoute)
-app.use("/mockingRoute", Mockrouter)
+app.use("/mockingProducts", Mockrouter)
 
 
 
