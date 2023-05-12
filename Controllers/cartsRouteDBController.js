@@ -2,6 +2,7 @@ import { Router } from "express";
 import DATA from "../DAO/factory.js";
 import productModel from "../DAO/models/productsModel.js";
 import cartModel from "../DAO/models/cartsModel.js";
+import userModel from "../DAO/models/userModel.js";
 
 const  {CartManager}  = DATA;
 const cartManager = new CartManager();
@@ -10,8 +11,9 @@ export const noStockProducts = []
 
 export const readProductsInCart = async (req, res) => {
   try {
-    const findCart = await cartModel
-      .findOne({ _id: cartId })
+    const cartId = req.user.cartID;
+    const findCart = await userModel
+      .findById({ cartID: cartId })
       .populate("products.product");
     if (findCart != undefined) {
       res.status(200).send(findCart);
