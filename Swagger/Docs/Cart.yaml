@@ -1,42 +1,6 @@
 paths:
   /:cid:
-    get:
-      summary: "Obtiene todos los productos dentro de un carrito especifico"
-      tags: 
-        - Cart
-      parameters:
-      - name: cid
-        in: path
-        required: true
-        description: id del carrito en el cual hay que agregar el producto
-        schema:
-          $type: string   
-      responses:
-        "200":
-          description: "Los productos fueron obtenidos con exito"
-          content:
-            application/json:
-              schema:
-                $ref: '#components/schemas/Cart'
-        "500":
-          description: "Error intentando acceder al listado de productos"
 
-    delete:
-      summary: "Elimina un carrito especifico por ID"
-      tags: 
-        - Cart
-      parameters:
-      - name: cid
-        in: path
-        required: true
-        description: id del carrito que se desea eliminar
-        schema:
-          $type: string   
-      responses:
-        "200":
-          description: "El carrito fue eliminado con exito"
-        "500":
-          description: "Error intentando eliminar un carrito" 
   
   /:cid/products/:pid:
     post:
@@ -115,6 +79,43 @@ paths:
           description: "Error intentando eliminar el producto"
   
   /api/carts/:cid:
+    get:
+      summary: "Obtiene todos los productos dentro de un carrito especifico"
+      tags: 
+        - Cart
+      parameters:
+      - name: cid
+        in: path
+        required: true
+        description: id del carrito en el cual hay que agregar el producto
+        schema:
+          $type: string   
+      responses:
+        "200":
+          description: "Los productos fueron obtenidos con exito"
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Cart'
+        "500":
+          description: "Error intentando acceder al listado de productos"
+
+    delete:
+      summary: "Elimina un carrito especifico por ID"
+      tags: 
+        - Cart
+      parameters:
+      - name: cid
+        in: path
+        required: true
+        description: id del carrito que se desea eliminar
+        schema:
+          $type: string   
+      responses:
+        "200":
+          description: "El carrito fue eliminado con exito"
+        "500":
+          description: "Error intentando eliminar un carrito" 
     put:
       summary: "Actualiza los productos dentro de un carrito"
       tags: 
@@ -147,10 +148,6 @@ paths:
       responses:
         "200":
           description: "El carrito fue creado con exito"
-          content:
-            application/json:
-              schema:
-                $ref: '#components/schemas/Cart'
         "500":
           description: "Error intentando crear el carrito"
 

@@ -4,7 +4,7 @@ import PasswordResetToken from "../DAO/models/passwordToken.js"
 import nodemailer from "nodemailer"
 import mongoose, { Schema } from "mongoose";
 import bcrypt from 'bcrypt'
-import UserManager from "../DAO/mongoClass/userManager.js";
+
 
 
 mongoose.model("Usuarios", userModel.schema);
@@ -67,7 +67,7 @@ export const postForgot = async (req, res) => {
 
 
 export const resetPassword = async (req, res) => {
-    const { token, password, repeatPassword } = req.body;
+    const { token, password, repeatPassword, email } = req.body;
 
     try {
     const passwordResetToken = await PasswordResetToken.findOne({ token }).populate("userId");
@@ -86,8 +86,8 @@ export const resetPassword = async (req, res) => {
         return res.status(400).json({ error: "Las contraseñas no coinciden" });
     }
 
-    const user = await userModel.findById(userId);
-    console.log(userId)
+    const user = await userModel.findById(email);
+    console.log(email)
 
     if (!user) {
         return res.status(404).json({ error: "El usuario no existe" });
@@ -104,9 +104,8 @@ export const resetPassword = async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    console.log(hashedPassword)
 
-    await userModel.findByIdAndUpdate(userId, { password: hashedPassword }, { new: true });
+    await userModel.findByIdAndUpdate(email, { password: hashedPassword }, { new: true });
 
     await passwordResetToken.findByIdAndDelete(passwordResetToken._id);
 

@@ -18,13 +18,15 @@ paths:
       summary: "Agrega un producto a la base de datos"
       tags: 
         - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/Products'
       responses:
         "200":
           description: "El producto fue agregado con exito"
-          content:
-            application/json:
-              schema:
-                $ref: '#components/schemas/Products'
         "500":
           description: "Error intentando agregar un producto al listado de productos" 
   
@@ -39,7 +41,7 @@ paths:
         required: true
         description: id del producto que desea solicitar
         schema:
-          $type: string 
+          $type: ObjectId
       requestBody:
         required: true
         content:
@@ -49,10 +51,6 @@ paths:
       responses:
         "200":
           description: "El producto fue actualizado con exito"
-          content:
-            application/json:
-              schema:
-                $ref: '#components/requestBodies/updateProduct'
         "500":
           description: "Error intentando actualizar el producto"
 
@@ -66,20 +64,20 @@ paths:
         required: true
         description: id del producto que desea eliminar
         schema:
-          $type: string 
+          $type: ObjectId
       responses:
         "200":
           description: "El producto fue eliminado con exito"
         "500":
           description: "Error intentando eliminar el producto"
     
-  /products/:pid:
+  /products/{pid}:
     get:
       summary: "Muestra los detalles de un producto por ID"
       tags: 
         - Products
       parameters:
-      - name: pid
+      - name: id
         in: path
         required: true
         description: id del producto que desea solicitar
@@ -91,6 +89,7 @@ paths:
           content:
             application/json:
               schema:
+                type: object
                 $ref: '#components/schemas/Products'
         "500":
           description: "Error intentando mostrar el producto"
@@ -103,6 +102,9 @@ components:
         _id:
           type: ObjectId
           description: Id autogenerado por Mongo
+        owner:
+          type: String
+          description: Creador del objeto
         title:
           type: String
           description: Nombre del Producto

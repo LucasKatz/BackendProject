@@ -13,7 +13,7 @@ for(let btn of buttonsQuantity){
         let child = Event.target
         let father = child.parentNode
         let grand = father.parentNode
-        let selectedProductId = grand.childNodes[1].childNodes[1].innerText
+        let selectedProductId = grand.childNodes[1].childNodes[1]
 
         let item ={
             id: selectedProductId    ,

@@ -111,8 +111,17 @@ export const postProducts = async (req, res) => {
     res.status(400).send({ error: "Faltan Datos" });
     return;
   }
+
+  let owner;
+  if(req.session.user){
+    if(req.session.user.role == "Premium"){
+      owner = req.session.user?.email?req.session.user.email:undefined //Para el caso que el usuario proviene de github el email es null  
+    }
+  }
+
   try {
     const response = await productModel.create({
+      owner,
       title,
       description,
       code,
@@ -130,23 +139,42 @@ export const postProducts = async (req, res) => {
 };
 
 export const deleteProduct = async (req, res) => {
-  const { id } = req.params;
+  const  id  = req.params.id;
+  console.log (id)
+
+  //Comrpobación de la existencia del producto
+  const found = await productModel.findById(id);
+
+  if(found==null){
+    res.status(400).send({error:"El producto solicitado no existe"})
+    return 
+  }
+
+   //Comprobación del rol del usuario para eliminar productos
+  if(req.session.user.role == "Premium" && req.session.user.email != productExist.owner){
+    req.logger.warning(`${req.method} en ${req.url}- ${new  Date().toISOString()} - Usuario no autorizado`)
+    res.status(401).send({status:"error", message:"Usuario sin autorización"})
+    return
+  }
+
   try {
     const response = await productModel.findByIdAndDelete(id);
-
     res.status(200).send({ message: "Producto eliminado", response });
   } catch (err) {
     res.status(500).send(err.message);
   }
+
 };
 
 
 export const showSpecificProduct = async (req, res) => {
-  const { id } = req.params;
+  const  id  = req.params.pid;
+  if (typeof id !== 'string') {
+    return res.status(400).send('El id debe ser una cadena de texto');
+  }
   try {
     const response = await productModel.findById(id);
-
-    res.render(200).send({ message: "Detalles de su Producto", response });
+    res.status(200).send({ message: "Detalles de su Producto", response });
   } catch (err) {
     res.status(500).send(err.message);
   }

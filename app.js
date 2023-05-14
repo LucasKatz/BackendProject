@@ -79,7 +79,7 @@ app.use(session({
   store: MongoStore.create({
       mongoUrl:`mongodb+srv://${USER_MONGO}:${PASS_MONGO}@codercluster.vdti2wf.mongodb.net/${DB_MONGO}?retryWrites=true&w=majority`,
       mongoOptions:{useNewUrlParser:true,useUnifiedTopology:true},
-      ttl:15
+      ttl:3600
   }),
   secret:'coderProject',
   resave:true,

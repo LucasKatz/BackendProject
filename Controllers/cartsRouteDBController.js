@@ -13,7 +13,7 @@ export const readProductsInCart = async (req, res) => {
   try {
     const cartId = req.user.cartID;
     const findCart = await userModel
-      .findById({ cartID: cartId })
+      .findOne({ cartID: cartId })
       .populate("products.product");
     if (findCart != undefined) {
       res.status(200).send(findCart);
@@ -38,7 +38,7 @@ export const newCart = async (req, res) => {
 
 export const addProductToCart = async (req, res) => {
 
-  req.role !== "user" ? res.status(401).send("Usuario no autorizado"):null;
+  //req.role !== "user" ? res.status(401).send("Usuario no autorizado"):null;
   const cartId = req.params.cid;
   const productId = req.params.pid;
   const { quantity } = req.body;
@@ -95,7 +95,7 @@ export const addProductToCart = async (req, res) => {
 
     res
       .status(200)
-      .send({ message: "Producto agregado al carrito", selectedCart });
+      .send({ message: "Producto agregado al carrito", selectedCart, result });
   } catch (err) {
     res.status(500).send(err.message);
   }
