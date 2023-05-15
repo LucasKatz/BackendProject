@@ -38,7 +38,7 @@ router.post("/", authMiddleware, newCart);
 //RUTA POST QUE AGREGA PRODUCTO A CARRITO CON EL FORMATO PEDIDO EN DIAPOS
 
 // La ruta api/carts/:cid/products/:pid (método post) agrega un producto a un carrito
-router.post("/:cid/products/:pid", authMiddleware, addProductToCart);
+router.post("/:cid/products/:pid",  addProductToCart); //falta middleware de auth
 
 //ruta que borra el carrito completo
 router.delete("/:cid", authMiddleware, deleteCart);

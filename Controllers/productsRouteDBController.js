@@ -151,11 +151,11 @@ export const deleteProduct = async (req, res) => {
   }
 
    //Comprobación del rol del usuario para eliminar productos
-  if(req.session.user.role == "Premium" && req.session.user.email != productExist.owner){
+  /*if(req.session.user.role == "Premium" && req.session.user.email != productExist.owner){
     req.logger.warning(`${req.method} en ${req.url}- ${new  Date().toISOString()} - Usuario no autorizado`)
     res.status(401).send({status:"error", message:"Usuario sin autorización"})
     return
-  }
+  }*/
 
   try {
     const response = await productModel.findByIdAndDelete(id);
@@ -181,7 +181,8 @@ export const showSpecificProduct = async (req, res) => {
 };
 
 export const updateSpecifiedProduct = async (req, res) => {
-  const { id } = req.params;
+  const  id  = req.params.id;
+  console.log(id)
   const {
     title,
     description,
@@ -200,13 +201,15 @@ export const updateSpecifiedProduct = async (req, res) => {
     !price ||
     !thumbnail ||
     !stock ||
-    !category
+    !category||
+    !status
   ) {
     res.status(400).send({ error: "Faltan datos" });
     return;
   }
   try {
-    const result = await productModel.findByIdAndUpdate(id, {
+    const result = await productModel.findByIdAndUpdate(id, 
+    {
       title,
       description,
       code,
@@ -215,8 +218,10 @@ export const updateSpecifiedProduct = async (req, res) => {
       stock,
       category,
       status,
-    });
+    }, 
+    );
     res.status(200).send({ message: "Producto actualizado", result });
+    console.log(result)
   } catch (err) {
     res.status(500).send(err.message);
   }

@@ -11,10 +11,11 @@ export const noStockProducts = []
 
 export const readProductsInCart = async (req, res) => {
   try {
-    const cartId = req.user.cartID;
+    const cartId = req.params.cid;
+    console.log(cartId)
     const findCart = await userModel
       .findOne({ cartID: cartId })
-      .populate("products.product");
+      .populate("products");
     if (findCart != undefined) {
       res.status(200).send(findCart);
       return findCart;
@@ -102,7 +103,7 @@ export const addProductToCart = async (req, res) => {
 };
 
 export const deleteCart = async (req, res) => {
-  const { id } = req.params;
+  const { id } = req.params.cid;
   try {
     const response = await cartManager.delete(id);
 
