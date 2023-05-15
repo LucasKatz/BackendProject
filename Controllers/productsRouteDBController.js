@@ -218,10 +218,10 @@ export const updateSpecifiedProduct = async (req, res) => {
       stock,
       category,
       status,
-    }, 
-    );
+    } ,
+    { new: true } );
     res.status(200).send({ message: "Producto actualizado", result });
-    console.log(result)
+    //console.log(result)
   } catch (err) {
     res.status(500).send(err.message);
   }
