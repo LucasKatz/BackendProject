@@ -3,6 +3,7 @@ import DATA from "../DAO/factory.js";
 import productModel from "../DAO/models/productsModel.js";
 import cartModel from "../DAO/models/cartsModel.js";
 import userModel from "../DAO/models/userModel.js";
+import mongoose from "mongoose";
 
 const  {CartManager}  = DATA;
 const cartManager = new CartManager();
@@ -37,15 +38,16 @@ export const newCart = async (req, res) => {
   }
 };
 
-export const addProductToCart = async (req, res) => {
+/*export const addProductToCart = async (req, res) => {
 
   //req.role !== "user" ? res.status(401).send("Usuario no autorizado"):null;
   const cartId = req.params.cid;
+  console.log(cartId)
   const productId = req.params.pid;
   const { quantity } = req.body;
 
   //Comprobación de la estructura y validez de la Id de producto y la Id del carrito recibidos por parámetro
-  if (productId.trim().length != 24) {
+  /*if (productId.trim().length != 24) {
     res.status(400).send({ error: "La Id de producto ingresada no es válida" });
     return;
   } else if (cartId.trim().length != 24) {
@@ -100,7 +102,68 @@ export const addProductToCart = async (req, res) => {
   } catch (err) {
     res.status(500).send(err.message);
   }
+};*/
+
+
+
+export const addProductToCart = async (req, res) => {
+  const cartId = req.params.cid;
+  console.log(cartId);
+  const productId = req.params.pid;
+  console.log(productId);
+  const { quantity } = req.body;
+
+  // Comprobación de la estructura y validez de la Id de producto y la Id del carrito recibidos por parámetro
+  const isValidObjectId = mongoose.Types.ObjectId.isValid(productId);
+  if (!isValidObjectId) {
+    res.status(400).send({ error: "La Id de producto ingresada no es válida" });
+    return;
+  }
+
+  const productExist = await productModel.findOne({ id: productId });
+  const cartExist = await cartModel.findById(cartId);
+
+  if (!productExist) {
+    res.status(400).send({ error: "No existe un producto con la Id ingresada" });
+    return;
+  } else if (!cartExist) {
+    res.status(404).send({ error: "No existe un Cart con la Id ingresada" });
+    return;
+  }
+
+  // Comprobación de stock
+  const checkStock = productExist.stock;
+  if (parseInt(quantity) > checkStock) {
+    res.status(400).send({ status: "Error", message: "No hay stock suficiente" });
+    return;
+  }
+
+  try {
+    let selectedCart = await cartModel.find({ _id: cartId });
+    let productExistInCart = selectedCart[0].products.find(
+      (product) => product.product.toString() === productId
+    );
+
+    if (productExistInCart == undefined) {
+      selectedCart[0].products.push({ product: productId, quantity: quantity });
+    } else {
+      let newQuantity = productExistInCart.quantity + quantity;
+      let productIndex = selectedCart[0].products.findIndex(
+        (product) => product.product.toString() === productId
+      );
+      selectedCart[0].products[productIndex].quantity = newQuantity;
+    }
+
+    let result = await cartModel.updateOne({ _id: cartId }, selectedCart[0]);
+
+    res
+      .status(200)
+      .send({ message: "Producto agregado al carrito", selectedCart, result });
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
 };
+
 
 export const deleteCart = async (req, res) => {
   const { id } = req.params.cid;
