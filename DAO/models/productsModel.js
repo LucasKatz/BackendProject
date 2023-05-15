@@ -4,9 +4,7 @@ import mongoosePaginate from "mongoose-paginate-v2";
 const productCollection = "products";
 
 const productSchema = new mongoose.Schema({
- id:{
-    type: String,
-    unique:true,
+ id:{type: String, unique:true,
   },
   owner:{
     type:String,

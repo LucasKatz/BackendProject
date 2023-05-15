@@ -104,30 +104,29 @@ export const newCart = async (req, res) => {
   }
 };*/
 
-
-
 export const addProductToCart = async (req, res) => {
   const cartId = req.params.cid;
   console.log(cartId);
-  const productId = req.params.pid;
+  const productId = req.params.pid.trim();
   console.log(productId);
   const { quantity } = req.body;
 
-  // Comprobación de la estructura y validez de la Id de producto y la Id del carrito recibidos por parámetro
-  const isValidObjectId = mongoose.Types.ObjectId.isValid(productId);
-  if (!isValidObjectId) {
-    res.status(400).send({ error: "La Id de producto ingresada no es válida" });
-    return;
-  }
-
-  const productExist = await productModel.findOne({ id: productId });
-  const cartExist = await cartModel.findById(cartId);
+  const productExist = await productModel.findById(productId);
+  const cartExist = await userModel.findOne({ cartID: cartId });
 
   if (!productExist) {
     res.status(400).send({ error: "No existe un producto con la Id ingresada" });
     return;
   } else if (!cartExist) {
-    res.status(404).send({ error: "No existe un Cart con la Id ingresada" });
+    res.status(404).send({ error: "No existe un usuario con el cartID ingresado" });
+    return;
+  }
+
+  // Obtén el carrito asociado al usuario
+  //const cartExist = await userModel.findById(user.cartID);
+
+  if (!cartExist) {
+    res.status(404).send({ error: "No existe un carrito asociado al usuario" });
     return;
   }
 
@@ -139,23 +138,26 @@ export const addProductToCart = async (req, res) => {
   }
 
   try {
-    let selectedCart = await cartModel.find({ _id: cartId });
-    let productExistInCart = selectedCart[0].products.find(
+    let selectedCart = cartExist;
+    let productExistInCart = selectedCart.products?.find(
       (product) => product.product.toString() === productId
     );
-
+  
     if (productExistInCart == undefined) {
-      selectedCart[0].products.push({ product: productId, quantity: quantity });
+      if (!selectedCart.products) {
+        selectedCart.products = [];
+      }
+      selectedCart.products.push({ product: productId, quantity: quantity });
     } else {
       let newQuantity = productExistInCart.quantity + quantity;
-      let productIndex = selectedCart[0].products.findIndex(
+      let productIndex = selectedCart.products.findIndex(
         (product) => product.product.toString() === productId
       );
-      selectedCart[0].products[productIndex].quantity = newQuantity;
+      selectedCart.products[productIndex].quantity = newQuantity;
     }
-
-    let result = await cartModel.updateOne({ _id: cartId }, selectedCart[0]);
-
+  
+    let result = await selectedCart.save();
+  
     res
       .status(200)
       .send({ message: "Producto agregado al carrito", selectedCart, result });
