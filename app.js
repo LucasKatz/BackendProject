@@ -183,7 +183,7 @@ app.use('/api/sessions/', sessionsRouter);
 app.use('/logout', sessionsRouter)
 app.use('/forgot', forgotRoutes)
 app.use ('/reset', renderReset)
-app.use ("/reset/:token", resetPassword)
+//app.use ("/reset/:token", resetPassword)
 app.use ("/current" , currentUser)
 app.use("/failregister", failRegister)
 app.use (errorHandler)
