@@ -1,9 +1,13 @@
 
 document.getElementById('restablecer').addEventListener('click', async (event) => {
     event.preventDefault();
-    const token = document.querySelector('input[name="token"]').value;
+
     const password = document.querySelector('input[name="Newpassword"]').value;
     const repeatPassword = document.querySelector('input[name="repeatNewPassword"]').value;
+
+    let pathname = window.location.pathname.split("/")
+    let token = pathname[pathname.length-1]
+
 
     const response = await fetch('/reset/:token', {
     method: 'POST',
