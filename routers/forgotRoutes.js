@@ -4,12 +4,12 @@ import { postForgot, renderForgot, renderReset, resetPassword } from "../Control
 
 const router = Router();
 
-router.get("/",renderForgot);
+router.get("/forgot",renderForgot);
 
-router.get ("/", renderReset)
+router.get ("/reset/:token", renderReset)
 
-router.post ("/", postForgot)
+router.post ("/forgot", postForgot)
 
-router.post("/", resetPassword);
+router.post("/reset/:token", resetPassword);
 
 export default router;

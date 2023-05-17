@@ -4,9 +4,18 @@ document.getElementById('restablecer').addEventListener('click', async (event) =
 
     const password = document.querySelector('input[name="Newpassword"]').value;
     const repeatPassword = document.querySelector('input[name="repeatNewPassword"]').value;
+    const email = document.querySelector('input[name="email"]').value;
+
 
     let pathname = window.location.pathname.split("/")
     let token = pathname[pathname.length-1]
+
+    console.log('Body:', JSON.stringify({
+        token,
+        password,
+        repeatPassword,
+        email
+    }));
 
 
     const response = await fetch(`/reset/${token}`, {
@@ -17,7 +26,8 @@ document.getElementById('restablecer').addEventListener('click', async (event) =
         body: JSON.stringify({
         token,
         password,
-        repeatPassword
+        repeatPassword,
+        email
         })
     });
 

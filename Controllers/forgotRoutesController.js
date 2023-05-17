@@ -16,7 +16,8 @@ export const renderForgot =  (req, res) => {
 
 export const renderReset =  (req, res) => {
     const { token } = req.params;
-    res.render('resetPassword', { token });
+    const { email } = req.body;
+    res.render('resetPassword', { token, email });
 };
 
 
@@ -69,6 +70,11 @@ export const postForgot = async (req, res) => {
 export const resetPassword = async (req, res) => {
     const { token, password, repeatPassword, email } = req.body;
 
+    console.log('Token:', token);
+    console.log('Password:', password);
+    console.log('Repeat Password:', repeatPassword);
+    console.log('Email:', email);
+
     try {
     const passwordResetToken = await PasswordResetToken.findOne({ token }).populate("userId");
 
@@ -86,7 +92,7 @@ export const resetPassword = async (req, res) => {
         return res.status(400).json({ error: "Las contraseñas no coinciden" });
     }
 
-    const user = await userModel.findById(email);
+    const user = await userModel.findOne({ email: email });
     console.log(email)
 
     if (!user) {
@@ -105,7 +111,7 @@ export const resetPassword = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    await userModel.findOneAndUpdate(email, { password: hashedPassword }, { new: true });
+    await userModel.findOneAndUpdate({ email: email }, { $set: { password: hashedPassword } }, { new: true });
 
     await passwordResetToken.findByIdAndDelete(passwordResetToken._id);
 
@@ -114,51 +120,3 @@ export const resetPassword = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
-
-/* const { username, password, repeatPassword } = req.body;
-    let newPassword = createHash(password);
-
-    if (!username || !password) {
-    res.status(400).json({
-        message: "error",
-        data: "Faltan campos",
-    });
-    return;
-    }
-    if (!isValidPassword(repeatPassword, newPassword)) {
-    res.status(400).json({
-        message: "error",
-        data: "Las contraseñas no coinciden",
-    });
-    return;
-    }
-
-    try {
-    const response = await userModel.findOne({
-        email: username,
-    });
-
-    if (!response) {
-        res.status(404).json({
-        message: "error",
-        data: "El usuario no existe",
-        });
-        return;
-    } else {
-        const respuesta = await userModel.findOneAndUpdate(
-        { email: username },
-        { password: repeatPassword }
-        );
-        if (respuesta) {
-        res.status(200).json({
-            message: "logged in",
-            data: "Contraseña actualizada",
-        });
-        return;
-        }
-    }
-    } catch (error) {
-    res.status(500).json({ error: error.message });
-    return;
-    }
-}*/

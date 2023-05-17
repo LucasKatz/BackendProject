@@ -30,6 +30,7 @@ import _dirname from "./utils.js";
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUiExpress  from "swagger-ui-express";
 import premiumRouter from "./routers/premiumRoute.js";
+import forgotRouter from "./routers/forgotRoutes.js";
 
 dotenv.config();
 
@@ -172,7 +173,7 @@ const isValidStartDB = () => {
 
 
 // Rutas.
-app.use("/", productsRouteDB);
+
 app.use("/chat", chatRoute);
 app.use("/messages", messageRoute);
 app.use("/products", productsRouteDB)
@@ -181,9 +182,9 @@ app.use("/login", loginRouter )
 app.use("/signup", signupRouter)
 app.use('/api/sessions/', sessionsRouter);
 app.use('/logout', sessionsRouter)
-app.use('/forgot', forgotRoutes)
-app.use ('/reset', renderReset)
-//app.use ("/reset/:token", resetPassword)
+app.use('/', forgotRoutes)
+app.use ('/', forgotRoutes)
+app.use ("/", forgotRoutes)
 app.use ("/current" , currentUser)
 app.use("/failregister", failRegister)
 app.use (errorHandler)
