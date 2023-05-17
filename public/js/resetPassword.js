@@ -9,7 +9,7 @@ document.getElementById('restablecer').addEventListener('click', async (event) =
     let token = pathname[pathname.length-1]
 
 
-    const response = await fetch('/reset/:token', {
+    const response = await fetch(`/reset/${token}`, {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
