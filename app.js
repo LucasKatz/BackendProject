@@ -21,16 +21,13 @@ import passport from "passport";
 import initializePassport from "./config/passportConfig.js";
 import nodemailer from "nodemailer"
 import  Twilio from "twilio";
-import { failRegister } from "./Controllers/sessionsRouteController.js";
 import errorHandler from "./mistakes/errorInfo.js";
 import loggerTestingRoute from "./routers/loggerTest.js";
 import Mockrouter from "./routers/mockingProducts.js"
-import { renderReset, resetPassword } from "./Controllers/forgotRoutesController.js";
 import _dirname from "./utils.js";
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUiExpress  from "swagger-ui-express";
-import premiumRouter from "./routers/premiumRoute.js";
-import forgotRouter from "./routers/forgotRoutes.js";
+
 
 dotenv.config();
 
@@ -186,11 +183,11 @@ app.use('/', forgotRoutes)
 app.use ('/', forgotRoutes)
 app.use ("/", forgotRoutes)
 app.use ("/current" , currentUser)
-app.use("/failregister", failRegister)
+app.use("/", sessionsRouter)
 app.use (errorHandler)
 app.use("/loggerTest", loggerTestingRoute)
 app.use("/mockingProducts", Mockrouter)
-app.use("/api/users/premium/:uid", premiumRouter)
+app.use("/", sessionsRouter)
 
 
 

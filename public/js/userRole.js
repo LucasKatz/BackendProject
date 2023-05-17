@@ -1,37 +1,17 @@
 // Obtener los botones
-const premiumButton = document.getElementById('premiumButton');
-const userButton = document.getElementById('userButton');
+const userButton = document.getElementById('premiumButton');
 
 // Agregar un event listener al botón de cambiar a premium
-premiumButton.addEventListener('click', async () => {
-  try {
-    const response = await fetch(`/api/users/premium/${session.user}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        role: 'premium'
-      })
-    });
-
-    const data = await response.json();
-    console.log(data); 
-  } catch (error) {
-    console.error(error);
-  }
-});
-
-// Agregar un event listener al botón de cambiar a usuario
 userButton.addEventListener('click', async () => {
   try {
-    const response = await fetch(`/api/users/premium/${session.user}`, {
+//como puedo obtener el ID??
+    const response = await fetch(`/premium/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        role: 'user'
+        role: 'premium'  //Como hago de este un valor dinamico??
       })
     });
 
@@ -41,3 +21,4 @@ userButton.addEventListener('click', async () => {
     console.error(error);
   }
 });
+
