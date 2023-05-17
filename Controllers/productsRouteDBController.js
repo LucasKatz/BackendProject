@@ -150,12 +150,7 @@ export const deleteProduct = async (req, res) => {
     return 
   }
 
-   //Comprobación del rol del usuario para eliminar productos
-  /*if(req.session.user.role == "Premium" && req.session.user.email != productExist.owner){
-    req.logger.warning(`${req.method} en ${req.url}- ${new  Date().toISOString()} - Usuario no autorizado`)
-    res.status(401).send({status:"error", message:"Usuario sin autorización"})
-    return
-  }*/
+
 
   try {
     const response = await productModel.findByIdAndDelete(id);

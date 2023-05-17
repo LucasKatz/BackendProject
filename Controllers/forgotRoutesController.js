@@ -105,7 +105,7 @@ export const resetPassword = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    await userModel.findByIdAndUpdate(email, { password: hashedPassword }, { new: true });
+    await userModel.findOneAndUpdate(email, { password: hashedPassword }, { new: true });
 
     await passwordResetToken.findByIdAndDelete(passwordResetToken._id);
 

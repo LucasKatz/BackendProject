@@ -6,7 +6,10 @@ elementExists("forgotPassword") &&
       const password = document.getElementById("password").value;
       const repeatPassword = document.getElementById("repeatPassword").value;
 
-      fetch("/forgot", {
+      let pathname = window.location.pathname.split("/")
+      let token = pathname[pathname.length-1]
+
+      fetch(`/reset/${token}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
