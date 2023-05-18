@@ -73,7 +73,7 @@ export const resetPassword = async (req, res) => {
     console.log('Token:', token);
     console.log('Password:', password);
     console.log('Repeat Password:', repeatPassword);
-    console.log('Email:', email);
+
 
     try {
     const passwordResetToken = await PasswordResetToken.findOne({ token }).populate("userId");
@@ -83,6 +83,7 @@ export const resetPassword = async (req, res) => {
     }
 
     const { userId } = passwordResetToken;
+    console.log(userId)
 
     if (!password || !repeatPassword) {
         return res.status(400).json({ error: "Faltan campos" });

@@ -17,7 +17,7 @@ sessionsRouter.get('/failregister', failRegister)
 // Login de usuarios.
 sessionsRouter.post('/login', loginUser)
 
-sessionsRouter.get("/", authMiddleware, renderUser) //muestra ruta current
+sessionsRouter.get("/current", authMiddleware, renderUser) //muestra ruta current
 
 
 //Login con Github

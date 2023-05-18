@@ -14,7 +14,6 @@ document.getElementById('restablecer').addEventListener('click', async (event) =
         token,
         password,
         repeatPassword,
-        email
     }));
 
 
@@ -27,7 +26,6 @@ document.getElementById('restablecer').addEventListener('click', async (event) =
         token,
         password,
         repeatPassword,
-        email
         })
     });
 
