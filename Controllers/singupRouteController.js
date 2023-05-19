@@ -10,7 +10,7 @@ export const renderSignup =  async (req, res) => {
     res.render("signup");
 }
 
-export const signupUserRoute =  async (req, res)=>{
+/*export const signupUserRoute =  async (req, res)=>{
     const {first_name, last_name, email, password, age, rol, cartID}=req.body;
     try{
     const newUser = new userModel({
@@ -28,4 +28,4 @@ export const signupUserRoute =  async (req, res)=>{
    // req.logger.error(`${req.method} en ${req.url}- ${new  Date().toISOString()}`)
 res.status(500).json({error:error.message})
 }
-}
+}*/

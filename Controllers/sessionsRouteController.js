@@ -17,7 +17,6 @@ export const userSignup = passport.authenticate('signup', {failureRedirect:'/fai
         password: createHash(password),
         age,
         rol,
-        cart
     })
     await newUser.save() 
     res.status(201).json({message:"Usuario creado", data:newUser})
@@ -32,8 +31,8 @@ export const failRegister = async (req, res)=>{
     res.render ('failRegister')
 };
 
-export const loginUser = passport.authenticate('login', {failureRedirect: 'faillogin'}) //comma here?
- async (req, res)=>{ //async??
+export const loginUser = passport.authenticate('login', {failureRedirect: 'faillogin'}) 
+ async (req, res)=>{ 
 
 
     // Si no se encuentra al  usuario...

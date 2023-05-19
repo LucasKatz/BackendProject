@@ -176,7 +176,7 @@ app.use("/messages", messageRoute);
 app.use("/products", productsRouteDB)
 app.use("/api/carts", cartsRouteDB)
 app.use("/login", loginRouter )
-app.use("/signup", signupRouter)
+app.use("/", sessionsRouter)
 app.use('/api/sessions/', sessionsRouter);
 app.use('/logout', sessionsRouter)
 app.use('/', forgotRoutes)

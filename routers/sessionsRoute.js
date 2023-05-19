@@ -2,6 +2,7 @@ import { Router } from "express";
 import userDB from "../DAO/models/userModel.js";
 import {failRegister, renderUser, githubLogin, githubCall, logout, userSignup, loginUser} from '../Controllers/sessionsRouteController.js'
 import { authMiddleware } from "../auth.js";
+import { renderSignup } from "../Controllers/singupRouteController.js";
 import changeRol from "../Controllers/userRoleControllers.js";
 
 
@@ -9,8 +10,10 @@ const sessionsRouter = Router();
 const user = new userDB();
 
 //Registro de Nuevo Usuario
+sessionsRouter.post("/signup",  userSignup);
 
-sessionsRouter.post('/', userSignup)
+
+sessionsRouter.get("/signup",renderSignup);
 
 sessionsRouter.get('/failregister', failRegister)
 

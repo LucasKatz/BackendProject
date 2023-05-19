@@ -1,6 +1,6 @@
 import { Router } from "express";
 import userModel from "../DAO/models/userModel.js";
-import { renderSignup, signupUserRoute } from "../Controllers/singupRouteController.js";
+import { renderSignup} from "../Controllers/singupRouteController.js";
 import passport from "passport";
 
 
@@ -9,7 +9,7 @@ const user = new userModel();
 
 sessionsRouter.get("/",renderSignup);
 
-sessionsRouter.post("/", signupUserRoute);
+//sessionsRouter.post("/", signupUserRoute);
 // passport.authenticate('signup', {failureRedirect:'/failregister'}),
 
 export default sessionsRouter;
