@@ -57,8 +57,14 @@ export const addProductToCart = async (req, res) => {
     return;
   }
 
-  // Obtén el carrito asociado al usuario
+  //Comprobar quien es el creador del producto
 
+  if(req.session.user.rol == "Premium" && req.session.user.email == productExist.owner){
+    res.status(400).send({status:"error", message:"El usuario no esta autorizado"})
+    return
+  }
+
+  // Obtén el carrito asociado al usuario
 
   if (!cartExist) {
     res.status(404).send({ error: "No existe un carrito asociado al usuario" });

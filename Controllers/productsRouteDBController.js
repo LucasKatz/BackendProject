@@ -114,9 +114,10 @@ export const postProducts = async (req, res) => {
 
   let owner;
   if(req.session.user){
-    if(req.session.user.role == "Premium"){
-      owner = req.session.user?.email?req.session.user.email:undefined //Para el caso que el usuario proviene de github el email es null  
+    if(req.session.user.rol == "Premium"){
+      owner = req.session.user?.email?req.session.user.email:undefined //Si el usuario se loggea con Github el email devuelve null
     }
+
   }
 
   try {
@@ -132,6 +133,7 @@ export const postProducts = async (req, res) => {
       status,
     });
     res.status(200).send({ message: "Producto creado", response });
+    console.log(response.owner)
   } catch (err) {
     //req.logger.error(`${req.method} en ${req.url}- ${new  Date().toISOString()}`)
     res.status(500).send(err.message);
@@ -139,27 +141,27 @@ export const postProducts = async (req, res) => {
 };
 
 export const deleteProduct = async (req, res) => {
-  const  id  = req.params.id;
-  console.log (id)
+  const id = req.params.id;
 
-  //Comrpobación de la existencia del producto
+  // Comprobación de la existencia del producto
   const found = await productModel.findById(id);
-
-  if(found==null){
-    res.status(400).send({error:"El producto solicitado no existe"})
-    return 
+  if (found == null) {
+    res.status(400).send({ error: "El producto solicitado no existe" });
+    return;
   }
 
-
-
-  try {
-    const response = await productModel.findByIdAndDelete(id);
-    res.status(200).send({ message: "Producto eliminado", response });
-  } catch (err) {
-    res.status(500).send(err.message);
+  if (req.session.user.rol === "Admin" || (req.session.user.rol === "Premium" && found.owner === req.session.user.email)) {
+    try {
+      const response = await productModel.findByIdAndDelete(id);
+      res.status(200).send({ message: "Producto eliminado", response });
+    } catch (err) {
+      res.status(500).send(err.message);
+    }
+  } else {
+    res.status(401).send({ status: "error", message: "Usuario sin autorización" });
   }
-
 };
+
 
 
 export const showSpecificProduct = async (req, res) => {
