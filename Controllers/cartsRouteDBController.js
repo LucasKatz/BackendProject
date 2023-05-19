@@ -13,20 +13,28 @@ export const noStockProducts = []
 export const readProductsInCart = async (req, res) => {
   try {
     const cartId = req.params.cid;
-    console.log(cartId)
-    const findCart = await userModel
-      .findOne({ cartID: cartId })
-      .populate("products");
-    if (findCart != undefined) {
-      res.status(200).send(findCart);
-      return findCart;
+
+    // Encuentra el cartID en userModel
+    const user = await userModel.findOne({ cartID: cartId });
+
+    if (user) {
+      // Obtiene los productos del carrito utilizando cartModel y el cartID del usuario
+      const cart = await cartModel.findById(user.cartID).populate("products.product");
+
+      if (cart) {
+        res.status(200).send(cart);
+        return cart;
+      } else {
+        res.status(400).send("El Cart solicitado no contiene productos");
+      }
     } else {
-      res.status(400).send("El Cart solicitado no existe");
+      res.status(400).send("El cartID no está asociado a ningún usuario");
     }
   } catch (err) {
     res.status(500).send(err.message);
   }
 };
+
 
 export const newCart = async (req, res) => {
   try {
@@ -127,7 +135,7 @@ export const deleteSelectedProduct = async (req, res) => {
 
     res.status(200).send({ message: "Producto Eliminado", response });
   } catch (err) {
-    res.status(500).send(err.message);
+    res.status(500).send(err.message, {message:"El producto no se encuentra en carrito"});
   }
 };
 
