@@ -117,11 +117,15 @@ export const addProductToCart = async (req, res) => {
 };
 
 export const deleteCart = async (req, res) => {
-  const { id } = req.params.cid;
+  const cartId = req.params.cid;
   try {
-    const response = await cartManager.delete(id);
+    const response = await cartModel.findOneAndUpdate(
+      { cartID: cartId },
+      { $set: { products: [] } },
+      { new: true }
+    );
 
-    res.status(200).send({ message: "Carrito eliminado", response });
+    res.status(200).send({ message: "Carrito vaciado", response });
   } catch (err) {
     res.status(500).send(err.message);
   }
@@ -136,7 +140,9 @@ export const deleteSelectedProduct = async (req, res) => {
       { cartID: cartId },
       { $pull: { products: { product: productToDelete } } },
       { new: true }
+
     );
+
 
     if (response) {
       res.status(200).send({ message: "Producto Eliminado", response });
