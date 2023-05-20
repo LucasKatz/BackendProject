@@ -16,10 +16,14 @@ export const readProductsInCart = async (req, res) => {
 
     // Encuentra el cartID en userModel
     const user = await userModel.findOne({ cartID: cartId });
+    console.log(user)
 
     if (user) {
       // Obtiene los productos del carrito utilizando cartModel y el cartID del usuario
       const cart = await cartModel.findById(user.cartID).populate("products.product");
+      console.log(cart)
+
+      //esos 2 console.logs deberian de coincidir?
 
       if (cart) {
         res.status(200).send(cart);
