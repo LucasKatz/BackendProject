@@ -49,7 +49,7 @@ elementExists("signup") &&
 
 
 
-        //Signup envia la solicitud de registro x duplicado entonces da error la 2da vez porque el usuario ya existe
+
 if(!first_name || !last_name|| !email||!password||!age){
     alert("Los campos estan incompletos")
 }else {

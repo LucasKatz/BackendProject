@@ -1,9 +1,11 @@
 import passport from "passport";
 import local from "passport-local"
 import userModel from "../DAO/models/userModel.js";
+import cartModel from "../DAO/models/cartsModel.js";
 import GitHubStrategy from "passport-github2"
 import { createHash, isValidPassword } from "../utils.js";
 import dotenv from "dotenv";
+import { newCart } from "../Controllers/cartsRouteDBController.js";
 
 dotenv.config();
 
@@ -12,35 +14,39 @@ const localStrategy = local.Strategy;
 const initializePassport = () => {
 
     passport.use(
-        "signup", 
+        "signup",
         new localStrategy(
-        {passReqToCallback:true, usernameField:'email'},
-        async (req,username,password,done)=>{
-            const{first_name, last_name, email,age} = req.body;
-            
+          { passReqToCallback: true, usernameField: "email" },
+          async (req, username, password, done) => {
+            const { first_name, last_name, email, age } = req.body;
+      
             try {
-                let user = await userModel.findOne({email:username});
-                if (user){
-                    console.log("El usuario ya está registrado")
-                    return done (null,false)
-                }
-
-                const newUser = {
-                    first_name,
-                    last_name,
-                    email,
-                    age,
-                    password: createHash(password),
-                }
-                let result = await userModel.create (newUser);
-                return done (null,result);
+              let user = await userModel.findOne({ email: username });
+              if (user) {
+                console.log("El usuario ya está registrado");
+                return done(null, false);
+              }
+      
+              const newCart = await cartModel.create({ products: [] });
+      
+              const newUser = {
+                first_name,
+                last_name,
+                email,
+                age,
+                password: createHash(password),
+                cartID: newCart._id, // Asigna el ID del carrito al campo cartID del usuario
+            };
+      
+              let result = await userModel.create(newUser);
+              return done(null, result);
+            } catch (error) {
+              return done("Error al obtener el usuario" + error);
             }
-            catch (error){
-                return done ("Error al obtener el usuario" + error)
-            }
-        }
-    )
-    )
+          }
+        )
+      );
+      
     //Login con Passport y Usuario + Password
     passport.use('login', new localStrategy({usernameField:'email'}, async (username, password, done)=>{
             try {

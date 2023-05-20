@@ -15,14 +15,14 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: 'Usuario'
     },
-
-    cartID: {
+    cartID:{
         type: mongoose.Schema.Types.ObjectId,
-        default: mongoose.Types.ObjectId,
-        ref:"Cart"
+        ref:"carts"
     }
 
 });
+
+
 
 const userModel = mongoose.model(userCollection, userSchema);
 

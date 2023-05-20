@@ -20,10 +20,9 @@ export const readProductsInCart = async (req, res) => {
 
     if (user) {
       // Obtiene los productos del carrito utilizando cartModel y el cartID del usuario
-      const cart = await cartModel.findById(user.cartID).populate("products.product");
-      console.log(cart)
+      const cart = await cartModel.findOne({ cartID: cartId }).lean().populate("products.product");
 
-      //esos 2 console.logs deberian de coincidir?
+      console.log(cart)
 
       if (cart) {
         res.status(200).send(cart);
@@ -59,7 +58,8 @@ export const addProductToCart = async (req, res) => {
   const { quantity } = req.body;
 
   const productExist = await productModel.findById(productId);
-  const cartExist = await userModel.findOne({ cartID: cartId });
+  const cartExist = await cartModel.findOne({ cartID: cartId });
+  console.log(cartExist);
 
   if (!productExist) {
     res.status(400).send({ error: "No existe un producto con la Id ingresada" });
@@ -69,15 +69,13 @@ export const addProductToCart = async (req, res) => {
     return;
   }
 
-  //Comprobar quien es el creador del producto
-
-  if(req.session.user.rol == "Premium" && req.session.user.email == productExist.owner){
-    res.status(400).send({status:"error", message:"El usuario no esta autorizado"})
-    return
+  // Comprobar quién es el creador del producto
+  if (req.session.user.rol == "Premium" && req.session.user.email == productExist.owner) {
+    res.status(400).send({ status: "error", message: "El usuario no está autorizado" });
+    return;
   }
 
   // Obtén el carrito asociado al usuario
-
   if (!cartExist) {
     res.status(404).send({ error: "No existe un carrito asociado al usuario" });
     return;
@@ -95,7 +93,8 @@ export const addProductToCart = async (req, res) => {
     let productExistInCart = selectedCart.products?.find(
       (product) => product.product.toString() === productId
     );
-  
+    console.log(productExist);
+
     if (productExistInCart == undefined) {
       if (!selectedCart.products) {
         selectedCart.products = [];
@@ -108,17 +107,14 @@ export const addProductToCart = async (req, res) => {
       );
       selectedCart.products[productIndex].quantity = newQuantity;
     }
-  
+
     let result = await selectedCart.save();
-  
-    res
-      .status(200)
-      .send({ message: "Producto agregado al carrito", selectedCart, result });
+
+    res.status(200).send({ message: "Producto agregado al carrito", selectedCart, result });
   } catch (err) {
     res.status(500).send(err.message);
   }
 };
-
 
 export const deleteCart = async (req, res) => {
   const { id } = req.params.cid;
@@ -135,13 +131,23 @@ export const deleteSelectedProduct = async (req, res) => {
   try {
     const cartId = req.params.cid;
     const productToDelete = req.params.pid;
-    const response = await cartManager.deleteOne(cartId, productToDelete);
 
-    res.status(200).send({ message: "Producto Eliminado", response });
+    const response = await cartModel.findOneAndUpdate(
+      { cartID: cartId },
+      { $pull: { products: { product: productToDelete } } },
+      { new: true }
+    );
+
+    if (response) {
+      res.status(200).send({ message: "Producto Eliminado", response });
+    } else {
+      res.status(404).send({ message: "El producto no se encuentra en el carrito" });
+    }
   } catch (err) {
-    res.status(500).send(err.message, {message:"El producto no se encuentra en carrito"});
+    res.status(500).send(err.message);
   }
 };
+
 
 export const updateProducts = async (req, res) => {
   const cartId = req.params.cid;

@@ -28,7 +28,7 @@ router.post("/:cid/products/:pid",  addProductToCart); //falta middleware de aut
 router.delete("/:cid", authMiddleware, deleteCart);
 
 //ruta que borra el producto seleccionado del carrito
-router.delete("/api/carts/:cid/products/:pid", authMiddleware, deleteSelectedProduct);
+router.delete("/api/carts/:cid/products/:pid",  deleteSelectedProduct);
 
 //Actualiza productos dentro de un carrito
 router.put("/api/carts/:cid", authMiddleware, updateProducts);
