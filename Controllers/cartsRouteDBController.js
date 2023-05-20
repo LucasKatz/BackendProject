@@ -22,7 +22,7 @@ export const readProductsInCart = async (req, res) => {
       // Obtiene los productos del carrito utilizando cartModel y el cartID del usuario
       const cart = await cartModel.findOne({ cartID: cartId }).lean().populate("products.product");
 
-      console.log(cart)
+ 
 
       if (cart) {
         res.status(200).send(cart);
@@ -157,14 +157,36 @@ export const deleteSelectedProduct = async (req, res) => {
 
 export const updateProducts = async (req, res) => {
   const cartId = req.params.cid;
-  const product = req.body;
+  const updatedProduct = req.body;
+  
   try {
-    const response = await cartManager.update(cartId, product);
+    const cart = await cartModel.findOne({ cartID: cartId });
+    
+    if (!cart) {
+      res.status(404).send({ message: "El carrito no existe" });
+      return;
+    }
+
+    const productIndex = cart.products.findIndex(
+      (product) => product.product.toString() === updatedProduct.productId
+    );
+    
+    if (productIndex === -1) {
+      res.status(404).send({ message: "El producto no existe en el carrito" });
+      return;
+    }
+    
+    cart.products[productIndex].product = updatedProduct.newProductId;
+    cart.products[productIndex].quantity = updatedProduct.quantity;
+    
+    const response = await cart.save();
+    
     res.status(200).send({ message: "Carrito actualizado", response });
   } catch (err) {
     res.status(500).send(err.message);
   }
 };
+
 
 export const updateStockInCart = async (req, res) => {
   try {

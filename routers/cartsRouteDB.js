@@ -31,7 +31,7 @@ router.delete("/:cid", authMiddleware, deleteCart);
 router.delete("/:cid/products/:pid",  deleteSelectedProduct);
 
 //Actualiza productos dentro de un carrito
-router.put("/api/carts/:cid", authMiddleware, updateProducts);
+router.put("/:cid", authMiddleware, updateProducts);
 
 //Actualiza stock de productos dentro de un carrito
 router.put("/api/carts/:cid/products/:pid", authMiddleware, updateStockInCart);
