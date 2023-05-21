@@ -156,12 +156,11 @@ export const deleteSelectedProduct = async (req, res) => {
 
 
 export const updateProducts = async (req, res) => {
-  const cartId = req.params.cid;
-  const updatedProduct = req.body;
-  
+  const { cartId, updatedProduct } = req.body;
+
   try {
     const cart = await cartModel.findOne({ cartID: cartId });
-    
+
     if (!cart) {
       res.status(404).send({ message: "El carrito no existe" });
       return;
@@ -170,22 +169,23 @@ export const updateProducts = async (req, res) => {
     const productIndex = cart.products.findIndex(
       (product) => product.product.toString() === updatedProduct.productId
     );
-    
+
     if (productIndex === -1) {
       res.status(404).send({ message: "El producto no existe en el carrito" });
       return;
     }
-    
+
     cart.products[productIndex].product = updatedProduct.newProductId;
     cart.products[productIndex].quantity = updatedProduct.quantity;
-    
+
     const response = await cart.save();
-    
+
     res.status(200).send({ message: "Carrito actualizado", response });
   } catch (err) {
     res.status(500).send(err.message);
   }
 };
+
 
 
 export const updateStockInCart = async (req, res) => {
@@ -194,11 +194,28 @@ export const updateStockInCart = async (req, res) => {
     const productId = req.params.pid;
     const { quantity } = req.body;
 
-    await cartManager.updateProductInCart(cartId, productId, quantity);
+    const cart = await cartModel.findOne({ cartID: cartId });
+
+    if (!cart) {
+      res.status(404).send({ message: "El carrito no existe" });
+      return;
+    }
+
+    const productIndex = cart.products.findIndex(
+      (product) => product.product.toString() === productId
+    );
+
+    if (productIndex === -1) {
+      res.status(404).send({ message: "El producto no existe en el carrito" });
+      return;
+    }
+
+    cart.products[productIndex].quantity = quantity;
+
+    const response = await cart.save();
 
     res.status(200).send({ message: "Stock actualizado", response });
   } catch (error) {
-    
-    res.status(404).send({ status: "error", message: error.message });
+    res.status(500).send({ status: "error", message: error.message });
   }
 };
