@@ -1,7 +1,9 @@
 // Obtener los botones
 const userButton = document.getElementById('premiumButton');
+const adminRolButton = document.getElementById('rolButton')
+const adminDeleteButton = document.getElementById('deleteButton')
 
-// Agregar un event listener al botón de cambiar a premium
+// Boton que cambia el rol del usuario
 userButton.addEventListener('click', async () => {
   try {
 
@@ -11,7 +13,7 @@ userButton.addEventListener('click', async () => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        role: ""  //Como hago de este un valor dinamico??
+        role: ""  
       })
     });
 

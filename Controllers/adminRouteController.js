@@ -1,7 +1,5 @@
 import userModel from "../DAO/models/userModel.js";
 
-
-
 export const paginatedUsers = async (req, res) => {
     const page = req.query.page;
     const limit = req.query.limit || 10;
@@ -54,4 +52,49 @@ export const paginatedUsers = async (req, res) => {
       res.status(500).send('Error al obtener los usuarios');
     }
   };
+  
+
+export const deleteUsers = {}
+
+
+
+
+export const adminChangesRol = async (req, res) => {
+    try {
+      const userId = req.body.userId || req.params.userId; // Obtener el ID del usuario de req.body o req.params según corresponda
+  
+      // Comprobación de la existencia del usuario
+      const response = await userModel.findById(userId);
+      if (!response) {
+        return res.status(404).json({ status: "error", message: "El usuario no está registrado" });
+      }
+  
+      // Comprobación de rol del usuario
+      if (response.rol === "Admin") {
+        return res.status(400).json({
+          status: "error",
+          message:
+            "El usuario tiene el rol de Administrador, por lo tanto no es posible realizar el cambio de rol",
+        });
+      }
+  
+      // Acciones para realizar el cambio de rol del usuario
+      let result;
+      if (response.rol === "Premium") {
+        await userModel.findByIdAndUpdate(userId, { rol: "Usuario" });
+        result = await userModel.findById(userId);
+      } else {
+        await userModel.findByIdAndUpdate(userId, { rol: "Premium" });
+        result = await userModel.findById(userId);
+      }
+  
+      console.log(result);
+      res.status(200).json({ status: "success", payload: result });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ status: "error", message: "Error interno del servidor" });
+    }
+  };
+  
+  export default adminChangesRol;
   
