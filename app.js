@@ -180,14 +180,12 @@ app.use("/", sessionsRouter)
 app.use('/api/sessions/', sessionsRouter);
 app.use('/logout', sessionsRouter)
 app.use('/', forgotRoutes)
-app.use ('/', forgotRoutes)
-app.use ("/", forgotRoutes)
 app.use ("/" , currentUser)
 app.use("/", sessionsRouter)
 app.use (errorHandler)
 app.use("/loggerTest", loggerTestingRoute)
 app.use("/mockingProducts", Mockrouter)
-app.use("/", sessionsRouter)
+
 
 
 
