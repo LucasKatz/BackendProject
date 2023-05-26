@@ -70,10 +70,10 @@
             <td>{{email}}</td>
             <td>{{_id}}</td>
             <td style="display: flex; justify-content: center; ">
-               <button type="submit" name="rol" value="premium" id="rolButton" data-user-id="{{_id}}" style="background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">Cambiar Rol</button>
+              <button type="submit" name="rol" value="premium" id="rolButton" class="rolButtonClass" data-user-id="{{_id}}" style="background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">Cambiar Rol</button>
             </td>
             <td style="display: flex; justify-content: center; ">
-               <button type="submit" name="rol" value="premium" id="deleteButton" data-user-id="{{_id}}" style="background-color: red; color: white; border: none; border-radius: 4px; cursor: pointer;">Eliminar</button>
+              <button type="submit" name="rol" value="premium" id="deleteButton" class="deleteButtonClass" data-user-id="{{_id}}" style="background-color: red; color: white; border: none; border-radius: 4px; cursor: pointer;">Eliminar</button>
             </td>
             </tr>
           {{/each}}
