@@ -14,6 +14,6 @@ router.delete("/:id", authMiddleware, deleteProduct);
 
 router.put("/:id",  updateSpecifiedProduct); //falta authMiddleware
 
-router.get("/products/:pid", authMiddleware, showSpecificProduct)
+router.get("/:pid", authMiddleware, showSpecificProduct)
 
 export default router;
