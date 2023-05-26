@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Usuarios</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    
+    .content-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    
+    .content {
+      border: 1px solid #ccc;
+      padding: 20px;
+    }
+    
+    h1 {
+      text-align: center;
+    }
+    
+    table {
+      margin-top: 20px;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+    
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <!-- Código de la barra de navegación -->
+  </nav>
+  <div class="content-container">
+    <div class="content">
+      <h1>Usuarios</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Edad</th>
+            <th>Rol</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each users}}
+            <tr>
+              <td>{{first_name}}</td>
+              <td>{{last_name}}</td>
+              <td>{{age}}</td>
+              <td>{{rol}}</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

@@ -26,6 +26,7 @@ import Mockrouter from "./routers/mockingProducts.js"
 import _dirname from "./utils.js";
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUiExpress  from "swagger-ui-express";
+import adminRouter from "./routers/adminRoute.js";
 
 
 dotenv.config();
@@ -184,6 +185,7 @@ app.use("/", sessionsRouter)
 app.use (errorHandler)
 app.use("/loggerTest", loggerTestingRoute)
 app.use("/mockingProducts", Mockrouter)
+app.use("/", adminRouter)
 
 
 

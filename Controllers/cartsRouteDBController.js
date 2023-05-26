@@ -1,9 +1,9 @@
-import { Router } from "express";
+
 import DATA from "../DAO/factory.js";
 import productModel from "../DAO/models/productsModel.js";
 import cartModel from "../DAO/models/cartsModel.js";
 import userModel from "../DAO/models/userModel.js";
-import mongoose from "mongoose";
+
 
 const  {CartManager}  = DATA;
 const cartManager = new CartManager();

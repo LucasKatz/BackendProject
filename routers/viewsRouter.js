@@ -15,10 +15,6 @@ const readFile= async () => {
     
     };
 
-/*viewsRouter.get ("/", async (req, res) => { 
-    const products = await readFile(); 
-    res.render("home", {products} );
-});*/
 
 viewsRouter.get('/realtimeproducts', authMiddleware, realTimeProducts)
 
