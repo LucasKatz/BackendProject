@@ -9,7 +9,6 @@ import fs from "fs";
 import productsRouteDB from "./routers/productsRouteDB.js"
 import cartsRouteDB from "./routers/cartsRouteDB.js"
 import loginRouter from "./routers/loginRoute.js"
-import signupRouter from "./routers/signupRoute.js"
 import sessionsRouter from "./routers/sessionsRoute.js";
 import currentUser from "./routers/sessionsRoute.js"
 import mongoose from "mongoose";

@@ -3,10 +3,22 @@ import productModel from "../DAO/models/productsModel.js";
 import CustomMistake from "../mistakes/customMistake.js";
 import Errores from "../mistakes/kindOfError.js";
 import { ProductsMistakeInfo } from "../mistakes/mistakeMiddleware.js";
+import nodemailer from "nodemailer"
 
 const { ProductManager } = DATA;
 console.log(DATA);
 const productManager = new ProductManager();
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  port:587,
+  auth:{
+    user:"l.katz92@gmail.com",
+    pass:" wgtmyxoujarkujym"
+  }
+
+})
+
 
 export const paginatedProducts = async (req, res) => {
   const stock = req.query.stock;
@@ -67,6 +79,7 @@ export const paginatedProducts = async (req, res) => {
       },
     res.render("products", { products: response });
   } catch (err) {
+    req.logger.error(`${req.method} en ${req.url}- ${new  Date().toISOString()}`)
     res.send(err);
   }
 };
@@ -135,7 +148,7 @@ export const postProducts = async (req, res) => {
     res.status(200).send({ message: "Producto creado", response });
     console.log(response.owner)
   } catch (err) {
-    //req.logger.error(`${req.method} en ${req.url}- ${new  Date().toISOString()}`)
+    req.logger.error(`${req.method} en ${req.url}- ${new  Date().toISOString()}`)
     res.status(500).send(err.message);
   }
 };
@@ -153,16 +166,33 @@ export const deleteProduct = async (req, res) => {
   if (req.session.user.rol === "Admin" || (req.session.user.rol === "Premium" && found.owner === req.session.user.email)) {
     try {
       const response = await productModel.findByIdAndDelete(id);
+
+      // Envío de correo electrónico si el usuario es Premium
+      if (req.session.user.rol === "Premium") {
+        const userEmail = req.session.user.email;
+        const message = `Estimado/a usuario/a Premium, su producto ha sido eliminado. Le invitamos a revisar su cuenta.`;
+
+        // Configuración del mensaje de correo electrónico
+        const mailOptions = {
+          from: 'adminCoder@coder.com',
+          to: userEmail,
+          subject: 'Producto eliminado',
+          text: message
+        };
+
+        // Envío del correo electrónico
+        await transporter.sendMail(mailOptions);
+      }
+
       res.status(200).send({ message: "Producto eliminado", response });
     } catch (err) {
+      req.logger.error(`${req.method} en ${req.url}- ${new Date().toISOString()}`);
       res.status(500).send(err.message);
     }
   } else {
     res.status(401).send({ status: "error", message: "Usuario sin autorización" });
   }
 };
-
-
 
 export const showSpecificProduct = async (req, res) => {
   const  id  = req.params.pid;
@@ -173,6 +203,7 @@ export const showSpecificProduct = async (req, res) => {
     const response = await productModel.findById(id);
     res.status(200).send({ message: "Detalles de su Producto", response });
   } catch (err) {
+    req.logger.error(`${req.method} en ${req.url}- ${new  Date().toISOString()}`)
     res.status(500).send(err.message);
   }
 };
