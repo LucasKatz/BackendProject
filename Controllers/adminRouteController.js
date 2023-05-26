@@ -1,4 +1,5 @@
 import userModel from "../DAO/models/userModel.js";
+//import { sendEmail } from "../utils/email.js";
 
 export const paginatedUsers = async (req, res) => {
     const page = req.query.page;
@@ -54,7 +55,28 @@ export const paginatedUsers = async (req, res) => {
   };
   
 
-export const deleteUsers = {}
+//HAY QUE ADAPTAR ESTO PARA QUE FUNCIONE CON NODEMAILER
+
+  export const deleteUsers = async (req, res) => {
+    try {
+      // Calcular la fecha límite (hace 2 días)
+    const twoDaysAgo = new Date();
+    twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
+  
+    // Buscar y eliminar los usuarios inactivos
+    const deletedUsers = await userModel.deleteMany({ lastConnection: { $lt: twoDaysAgo } });
+  
+      // Enviar correo a los usuarios eliminados
+      deletedUsers.forEach(async (user) => {
+        await sendEmail(user.email, "Eliminación de cuenta por inactividad", "Tu cuenta ha sido eliminada por inactividad.");
+      });
+  
+      res.status(200).json({ status: "success", message: "Usuarios eliminados correctamente" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ status: "error", message: "Error interno del servidor" });
+    }
+  };
 
 
 
