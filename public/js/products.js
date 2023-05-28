@@ -64,3 +64,29 @@ document.addEventListener("click", function(event) {
         });
     }
 });
+
+// Agrego un evento click al botón "Vaciar Carrito" usando delegación de eventos
+document.addEventListener("click", function(event) {
+    if (event.target.classList.contains("vaciarCarrito")) {
+        // Obtengo el cartId desde el botón
+        const cartId = event.target.dataset.cartId;
+
+        // Realiza una solicitud DELETE al servidor para vaciar el carrito
+        fetch(`/api/carts/${cartId}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Realiza alguna acción después de vaciar el carrito
+            console.log(data);
+            console.log("Carrito vaciado con éxito");
+            location.reload(); // Recarga la página
+        })
+        .catch(error => {
+            console.error("Error al vaciar el carrito:", error);
+        });
+    }
+});
