@@ -1,4 +1,4 @@
-// Agrega un evento click al botón "Agregar al Carrito" usando delegación de eventos
+// Agrego un evento click al botón "Agregar al Carrito" usando delegación de eventos
 document.addEventListener("click", function(event) {
     if (event.target.classList.contains("addToCartButton")) {
         const productId = event.target.dataset.productId;
@@ -35,4 +35,32 @@ document.querySelectorAll('.showDetailsButton').forEach(button => {
         const container = button.parentNode.parentNode.querySelector('.detailsContainer');
         container.style.display = container.style.display === 'none' ? 'block' : 'none';
     });
+});
+
+
+// Agrego un evento click al botón "Eliminar" usando delegación de eventos
+document.addEventListener("click", function(event) {
+    if (event.target.classList.contains("deleteProductButton")) {
+        // Obtengo el cartId desde sessionStorage
+        const cartId = sessionStorage.getItem("cartId");
+        const productId = event.target.dataset.productId;
+
+        // Realiza una solicitud DELETE al servidor para eliminar el producto del carrito
+        fetch(`/api/carts/${cartId}/products/${productId}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Realiza alguna acción después de eliminar el producto del carrito
+            console.log(data);
+            console.log("Producto eliminado con éxito");
+            location.reload(); // Recarga la página
+        })
+        .catch(error => {
+            console.error("Error al eliminar el producto del carrito:", error);
+        });
+    }
 });

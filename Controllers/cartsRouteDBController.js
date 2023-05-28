@@ -23,6 +23,11 @@ export const readProductsInCart = async (req, res) => {
 
       if (cart) {
         if (cart.products.length > 0) {
+          // Calcular el valor total para cada producto en el carrito
+          cart.products.forEach(product => {
+            product.totalPrice =(product.quantity*product.product.price);
+          });
+
           res.render('cart', { cartId: cartId, cart: cart.products });
         } else {
           res.render('cart', { cartId: cartId, message: "No se encuentran productos agregados al carrito." });
@@ -37,6 +42,7 @@ export const readProductsInCart = async (req, res) => {
     res.status(500).send(err.message);
   }
 };
+
 
 
 
@@ -141,9 +147,7 @@ export const deleteSelectedProduct = async (req, res) => {
       { cartID: cartId },
       { $pull: { products: { product: productToDelete } } },
       { new: true }
-
     );
-
 
     if (response) {
       res.status(200).send({ message: "Producto Eliminado", response });
