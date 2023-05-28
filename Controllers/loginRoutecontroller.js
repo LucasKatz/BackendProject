@@ -23,7 +23,10 @@ export const postLogin = async (req, res) => {
         if (response) {
             if (isValidPassword(password, response.password)) {
                 req.session.user = response;
+
                 res.status(200).json({ message: "logged in", data: response });
+                console.log(response.cartID)
+
             } else {
                 res.status(401).json({
                 message: "error",

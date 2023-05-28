@@ -17,7 +17,10 @@ elementExists("send") &&
     })
     .then(response=> response.json())
     .then (data =>{
+        console.log(data)
+        sessionStorage.setItem("cartId", data.cartID);
         if (data.message === "logged in") {
+            
                 console.log('Intentando redireccionar...')
                 window.location.href = "/current"
             } else {

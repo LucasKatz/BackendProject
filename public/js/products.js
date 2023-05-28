@@ -1,44 +1,34 @@
-//const socket=io();
+// Agrega un evento click al botón "Agregar al Carrito" usando delegación de eventos
+document.addEventListener("click", function(event) {
+    if (event.target.classList.contains("addToCartButton")) {
+        const productId = event.target.dataset.productId;
+        const quantityInput = event.target.parentNode.querySelector(".productQuantity");
+        const quantity = parseInt(quantityInput.value);
 
-let buttonsQuantity = document.querySelectorAll(".productQuantityButton")
-let listProductsContainer = document.getElementById("productsConteiner")
-let messageDiv = document.getElementById("messageDiv")
+    // Obtengo el cartId desde sessionStorage
+    const cartId = sessionStorage.getItem("cartId");
 
-//Agregar el producto al carrito
-for(let btn of buttonsQuantity){
 
-    btn.addEventListener("click", addItem)
-
-    function addItem(Event){
-        let child = Event.target
-        let father = child.parentNode
-        let grand = father.parentNode
-        let selectedProductId = grand.childNodes[1].childNodes[1]
-
-        let item ={
-            id: selectedProductId    ,
-            quantity: father.querySelector("input").value,
-            father:father
-        }
-        socket.emit("sendItem", item)
-
-        }   
+      // Realiza una solicitud POST al servidor para agregar el producto al carrito
+    fetch(`/api/carts/${cartId}/products/${productId}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ quantity: quantity })
+    })
+        .then(response => response.json())
+        .then(data => {
+          // Realiza alguna acción después de agregar el producto al carrito
+            console.log(data);
+            console.log("Producto agregado con éxito");
+        })
+        .catch(error => {
+            console.error("Error al agregar el producto al carrito:", error);
+        });
     }
+});
 
-    socket.on("stockError",async(data)=>{
-        let errorP = document.createElement("p")
-        messageDiv.innerHTML = ""
-        errorP.innerText = "* No hay stock suficente para la cantidad solicitada"
-        messageDiv.append(errorP)
-})
-
-socket.on("addSuccess",async(data)=>{
-    console.log(data)
-    let successP = document.createElement("p")
-    messageDiv.innerHTML = ""
-    successP.innerText = "* Producto agregado exitósamente al carrito"
-    messageDiv.append(successP)
-})
 
 document.querySelectorAll('.showDetailsButton').forEach(button => {
     button.addEventListener('click', () => {

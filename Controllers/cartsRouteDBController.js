@@ -16,17 +16,17 @@ export const readProductsInCart = async (req, res) => {
 
     // Encuentra el cartID en userModel
     const user = await userModel.findOne({ cartID: cartId });
-    console.log(user)
 
     if (user) {
       // Obtiene los productos del carrito utilizando cartModel y el cartID del usuario
       const cart = await cartModel.findOne({ cartID: cartId }).lean().populate("products.product");
 
- 
-
       if (cart) {
-        res.status(200).send(cart);
-        return cart;
+        if (cart.products.length > 0) {
+          res.render('cart', { cartId: cartId, cart: cart.products });
+        } else {
+          res.render('cart', { cartId: cartId, message: "No se encuentran productos agregados al carrito." });
+        }
       } else {
         res.status(400).send("El Cart solicitado no contiene productos");
       }
@@ -39,6 +39,7 @@ export const readProductsInCart = async (req, res) => {
 };
 
 
+
 export const newCart = async (req, res) => {
   try {
     await cartManager.create();
@@ -48,7 +49,6 @@ export const newCart = async (req, res) => {
     res.status(500).send(err.message);
   }
 };
-
 
 export const addProductToCart = async (req, res) => {
   const cartId = req.params.cid;
@@ -93,7 +93,7 @@ export const addProductToCart = async (req, res) => {
     let productExistInCart = selectedCart.products?.find(
       (product) => product.product.toString() === productId
     );
-    console.log(productExist);
+    console.log(productExistInCart);
 
     if (productExistInCart == undefined) {
       if (!selectedCart.products) {
@@ -101,7 +101,7 @@ export const addProductToCart = async (req, res) => {
       }
       selectedCart.products.push({ product: productId, quantity: quantity });
     } else {
-      let newQuantity = productExistInCart.quantity + quantity;
+      let newQuantity = productExistInCart.quantity + parseInt(quantity);
       let productIndex = selectedCart.products.findIndex(
         (product) => product.product.toString() === productId
       );
@@ -110,11 +110,12 @@ export const addProductToCart = async (req, res) => {
 
     let result = await selectedCart.save();
 
-    res.status(200).send({ message: "Producto agregado al carrito", selectedCart, result });
+    res.status(200).send({ message: "Producto agregado al carrito", selectedCart, result, cartId, productId });
   } catch (err) {
     res.status(500).send(err.message);
   }
 };
+
 
 export const deleteCart = async (req, res) => {
   const cartId = req.params.cid;
