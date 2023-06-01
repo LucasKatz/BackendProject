@@ -156,6 +156,7 @@ const environment = async () => {
 
     );
     console.log("Conectado a la base de datos");
+    mongoose.set("strictQuery", false);
   } catch (error) {
     console.log(`Error al conectar a a la base de datos: ${error}`);
   }
