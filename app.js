@@ -149,6 +149,8 @@ socketChat.on("connection", (socket) => {
   });
 });
 
+mongoose.set("strictQuery", false);
+
 const environment = async () => {
   try {
     await mongoose.connect (
@@ -156,7 +158,7 @@ const environment = async () => {
 
     );
     console.log("Conectado a la base de datos");
-    mongoose.set("strictQuery", false);
+
   } catch (error) {
     console.log(`Error al conectar a a la base de datos: ${error}`);
   }
