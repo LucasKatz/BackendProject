@@ -80,7 +80,7 @@ export const paginatedProducts = async (req, res) => {
     res.render("products", { products: response });
   } catch (err) {
     req.logger.error(`${req.method} en ${req.url}- ${new  Date().toISOString()}`)
-    res.send(err);
+    res.send(err, "No se pueden cargar los productos");
   }
 };
 
