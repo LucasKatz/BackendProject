@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test":  "mocha Testing/usersTesting.js",
-    "start": "src/app.js MONGO",
+    "start": "src/app.js",
     "dev": "nodemon src/app.js MONGO"
   },
 
