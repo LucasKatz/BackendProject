@@ -149,7 +149,6 @@ socketChat.on("connection", (socket) => {
   });
 });
 
-mongoose.set("strictQuery", false);
 
 const environment = async () => {
   try {
