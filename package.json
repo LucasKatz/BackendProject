@@ -6,8 +6,10 @@
   "type": "module",
   "scripts": {
     "test":  "mocha Testing/usersTesting.js",
-    "start": "nodemon src/app.js MONGO"
+    "start": "nodemon src/app.js" 
   },
+
+  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/LucasKatz/BackendProject.git"
