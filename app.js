@@ -97,9 +97,13 @@ app.use((req, res, next)=>{
 
 
 
-const httpServer = app.listen(PORT, () => {
+const httpServer = app.listen(PORT,'0.0.0.0', async () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+/*const httpServer = app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});*/
 
 const socketServer = new Server(httpServer);
 
