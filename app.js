@@ -192,7 +192,9 @@ app.use (errorHandler)
 app.use("/loggerTest", loggerTestingRoute)
 app.use("/mockingProducts", Mockrouter)
 app.use("/", adminRouter)
-
+app.use('', (req, res) => {
+  res.redirect('/login');
+});
 
 
 
