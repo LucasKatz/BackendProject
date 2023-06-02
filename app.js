@@ -32,7 +32,7 @@ import adminRouter from "./routers/adminRoute.js";
 dotenv.config();
 
 const app = express();
-const PORT = 8080;
+const PORT = process.env.PORT || 8080 
 const swaggerOptions = {
   definition:{
     openapi:'3.0.1',
