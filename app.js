@@ -32,7 +32,13 @@ import adminRouter from "./routers/adminRoute.js";
 dotenv.config();
 
 const app = express();
-const PORT = 8080;
+
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+
+
+
 const swaggerOptions = {
   definition:{
     openapi:'3.0.1',
@@ -52,6 +58,9 @@ const messages = [];
 const USER_MONGO=process.env.USER_MONGO
 const PASS_MONGO=process.env.PASS_MONGO
 const DB_MONGO=process.env.DB_MONGO
+
+
+
 
 
 // Configuracion Express.
