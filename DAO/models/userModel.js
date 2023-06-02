@@ -27,7 +27,6 @@ const userSchema = new mongoose.Schema({
     documents: [documentSchema],
     last_connection: {
         type: Date,
-        default: null
     }
 });
 

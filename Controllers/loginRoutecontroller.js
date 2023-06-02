@@ -10,6 +10,7 @@ const  admin = {
 }
 
 export const renderLogin = async (req, res) => {
+    console.log ("renderizando login")
     res.render("login");
 }
 
