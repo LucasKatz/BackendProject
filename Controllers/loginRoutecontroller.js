@@ -15,36 +15,39 @@ export const renderLogin = async (req, res) => {
 }
 
 export const postLogin = async (req, res) => {
-  const {username, password}=req.body;
-
-  try{
-      const response = await userModel.findOne({
-          email: username,
-      });
+    const { username, password } = req.body;
+  
+    try {
+      const response = await userModel.findOne({ email: username });
+  
       if (response) {
-          if (isValidPassword(password, response.password)) {
-              req.session.user = response;
-
-              res.status(200).json({ message: "logged in", data: response });
-              console.log(response.cartID)
-
-          } else {
-              res.status(401).json({
-              message: "error",
-              data: "Error de credenciales.",
-              });
-          }
-          } else {
-          res.status(404).json({
-              message: "error",
-              data: "Algo ha pasado, consulta al administrador",
+        if (isValidPassword(password, response.password)) {
+          // Actualizar last_connection antes de asignar el usuario a la sesión
+          response.last_connection = new Date();
+          await response.save();
+  
+          req.session.user = response;
+  
+          res.status(200).json({ message: "logged in", data: response });
+          console.log(response.cartID + "cartID");
+          console.log(response.last_connection + "last_connection");
+        } else {
+          res.status(401).json({
+            message: "error",
+            data: "Error de credenciales.",
           });
-          }
-  }catch (error){
+        }
+      } else {
+        res.status(404).json({
+          message: "error",
+          data: "Algo ha pasado, consulta al administrador",
+        });
+      }
+    } catch (error) {
       //req.logger.error(`${req.method} en ${req.url}- ${new  Date().toISOString()}`)
-      res.status(500).json({error:error.message})
-  }
-}
+      res.status(500).json({ error: error.message });
+    }
+  };
   
 export default router;
 

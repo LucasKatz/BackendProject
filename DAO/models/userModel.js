@@ -6,7 +6,6 @@ const documentSchema = new mongoose.Schema({
     name: String,
     reference: String,
 });
-
 const userSchema = new mongoose.Schema({
     first_name: String,
     last_name: String,
@@ -27,8 +26,10 @@ const userSchema = new mongoose.Schema({
     documents: [documentSchema],
     last_connection: {
         type: Date,
+        default: Date.now // Establecer la fecha actual como valor predeterminado
     }
 });
+
 
 
 

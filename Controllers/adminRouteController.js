@@ -1,5 +1,30 @@
 import userModel from "../DAO/models/userModel.js";
-//import { sendEmail } from "../utils/email.js";
+import nodemailer from "nodemailer";
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user:"l.katz92@gmail.com",
+    pass:" wgtmyxoujarkujym"
+  },
+});
+
+// Función para enviar correo electrónico
+const sendEmail = async (email, subject, message) => {
+  try {
+    const mailOptions = {
+      from: "adminCoder@coder.com",
+      to: email,
+      subject: subject,
+      text: message,
+    };
+
+    await transporter.sendMail(mailOptions);
+    console.log(`Correo electrónico enviado a ${email}`);
+  } catch (error) {
+    console.error(`Error al enviar el correo electrónico a ${email}: ${error}`);
+  }
+};
 
 export const paginatedUsers = async (req, res) => {
     const page = req.query.page;
@@ -55,31 +80,42 @@ export const paginatedUsers = async (req, res) => {
   };
   
 
-//HAY QUE ADAPTAR ESTO PARA QUE FUNCIONE CON NODEMAILER
-
   export const deleteUsers = async (req, res) => {
     try {
-      // Calcular la fecha límite (hace 2 días)
-    const twoDaysAgo = new Date();
-    twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
-  
-    // Buscar y eliminar los usuarios inactivos
-    const deletedUsers = await userModel.deleteMany({ lastConnection: { $lt: twoDaysAgo } });
-  
-      // Enviar correo a los usuarios eliminados
-      deletedUsers.forEach(async (user) => {
-        await sendEmail(user.email, "Eliminación de cuenta por inactividad", "Tu cuenta ha sido eliminada por inactividad.");
+      // Calcular la fecha límite (hace 2 minutos)
+      const twoMonthsAgo = new Date();
+      twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
+      
+      // Buscar los usuarios inactivos
+      const inactiveUsers = await userModel.find({
+        email: { $exists: true, $ne: null },
+        last_connection: { $lt: twoMinutesAgo },
       });
   
-      res.status(200).json({ status: "success", message: "Usuarios eliminados correctamente" });
+      // Eliminar los usuarios inactivos
+      const deleteResult = await userModel.deleteMany({
+        email: { $exists: true, $ne: null },
+        last_connection: { $lt: twoMinutesAgo },
+      });
+  
+      // Enviar correo a los usuarios eliminados
+      const emails = inactiveUsers.map((user) => user.email);
+      const emailSubject = "Eliminación de cuenta por inactividad";
+      const emailMessage = "Tu cuenta ha sido eliminada por inactividad.";
+  
+      for (const email of emails) {
+        await sendEmail(email, emailSubject, emailMessage);
+      }
+  
+      res
+        .status(200)
+        .json({ status: "success", message: "Usuarios eliminados correctamente" });
+      console.log("Usuarios eliminados correctamente");
     } catch (error) {
       console.error(error);
       res.status(500).json({ status: "error", message: "Error interno del servidor" });
     }
   };
-
-
-
 
 export const adminChangesRol = async (req, res) => {
     try {
