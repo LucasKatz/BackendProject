@@ -4,7 +4,7 @@ import {failRegister, renderUser, githubLogin, githubCall, logout, userSignup, l
 import { authMiddleware } from "../auth.js";
 import { renderSignup } from "../Controllers/singupRouteController.js";
 import changeRol from "../Controllers/userRoleControllers.js";
-
+import passport from "passport";
 
 const sessionsRouter = Router();
 const user = new userDB();
@@ -28,7 +28,8 @@ sessionsRouter.get("/current", authMiddleware, renderUser) //muestra ruta curren
 sessionsRouter.get('/github', githubLogin)
 
 // Login  exitoso.
-sessionsRouter.get('/githubcallback', githubCall)
+sessionsRouter.get('/githubcallback', passport.authenticate('github', { failureRedirect: '/login' }), githubCall);
+
 
 sessionsRouter.get('/logout', logout)
 

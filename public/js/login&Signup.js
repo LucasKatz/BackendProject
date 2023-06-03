@@ -4,6 +4,7 @@ elementExists("send") &&
     document.getElementById("send").addEventListener("click", function () {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
+    console.log("Datos enviados:", { username, password });
 
     fetch("/login", {
         method: "POST",

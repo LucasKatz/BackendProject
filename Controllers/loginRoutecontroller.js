@@ -1,4 +1,5 @@
 import { Router } from "express";
+import "../config/passportConfig.js"
 import userModel from "../DAO/models/userModel.js";
 import { isValidPassword } from "../utils.js";
 
@@ -10,42 +11,40 @@ const  admin = {
 }
 
 export const renderLogin = async (req, res) => {
-    console.log ("renderizando login")
     res.render("login");
 }
 
 export const postLogin = async (req, res) => {
-    const {username, password}=req.body;
+  const {username, password}=req.body;
 
-    try{
-        const response = await userModel.findOne({
-            email: username,
-        });
-        if (response) {
-            if (isValidPassword(password, response.password)) {
-                req.session.user = response;
+  try{
+      const response = await userModel.findOne({
+          email: username,
+      });
+      if (response) {
+          if (isValidPassword(password, response.password)) {
+              req.session.user = response;
 
-                res.status(200).json({ message: "logged in", data: response });
-                console.log(response.cartID)
+              res.status(200).json({ message: "logged in", data: response });
+              console.log(response.cartID)
 
-            } else {
-                res.status(401).json({
-                message: "error",
-                data: "Error de credenciales.",
-                });
-            }
-            } else {
-            res.status(404).json({
-                message: "error",
-                data: "Algo ha pasado, consulta al administrador",
-            });
-            }
-    }catch (error){
-        //req.logger.error(`${req.method} en ${req.url}- ${new  Date().toISOString()}`)
-        res.status(500).json({error:error.message})
-    }
+          } else {
+              res.status(401).json({
+              message: "error",
+              data: "Error de credenciales.",
+              });
+          }
+          } else {
+          res.status(404).json({
+              message: "error",
+              data: "Algo ha pasado, consulta al administrador",
+          });
+          }
+  }catch (error){
+      //req.logger.error(`${req.method} en ${req.url}- ${new  Date().toISOString()}`)
+      res.status(500).json({error:error.message})
+  }
 }
-
-
+  
 export default router;
 

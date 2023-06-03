@@ -30,8 +30,8 @@ export const failRegister = async (req, res)=>{
     res.render ('failRegister')
 };
 
-export const loginUser = passport.authenticate('login', {failureRedirect: 'faillogin'}) 
- async (req, res)=>{ 
+export const loginUser = async (req, res)=>{ 
+  passport.authenticate('login', {failureRedirect: 'faillogin'}) 
 
 
     // Si no se encuentra al  usuario...
@@ -66,13 +66,19 @@ export const renderUser =  async (req,res)=>{
         
 };
 
-export const githubLogin = (passport.authenticate('github', {scope:['user:email']}), (req, res)=>{}) 
+export const githubLogin = (req, res)=>{} 
 
-export const githubCall = (passport.authenticate('github', {failureRedirect:'/login'}), (req, res)=>{
+export const githubCall = (req, res) => {
+  req.login(req.user, (err) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: 'Error al iniciar sesión con GitHub' });
+    }
     req.session.user = req.user;
-
     res.redirect('/products');
-});
+  });
+};
+
 
 export const logout = (req, res)=>{
     req.session.destroy(err=>{

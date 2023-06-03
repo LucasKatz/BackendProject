@@ -48,53 +48,64 @@ const initializePassport = () => {
       );
       
     //Login con Passport y Usuario + Password
-    passport.use('login', new localStrategy({usernameField:'email'}, async (username, password, done)=>{
-            try {
-                const user = await userModel.findOne(username);
-                if(!user){
-                    console.log("Usuario no encontrado.");
-                    return done(null, false);
-                }
-                if(!isValidPassword(user, password)) return done(null, false);
-
-                return done(null, user);
-            } catch (error) {
-                return done("Error en estrategia de login: "+error);
-            }
-        })
-    )
-
-
-
-    //Login con Github
-    passport.use('github', new GitHubStrategy( {
-        clientID: process.env.CLIENT_ID,
-        clientSecret:process.env.CLIENT_SECRET,
-        callbackURL:process.env.CALLBACK_URL
-    } ,async (accessToken, refreshToken,profile,done) => {
-        try {
-            console.log(profile)
-            let user = await userModel.findOne({email:profile._json.email})
-            if (!user){
-            let newUser = {
-                first_name:profile._json.name,
-                last_name:'',
-                email:profile._json.email,
-                password: '',
-                age:31,
-            }
-            let result = await userModel.create(newUser)
-            done(null,result)
-        }else {
-            done (null,user)
-        } 
-        }catch (error){
-            return done ("Error en estrategia de login: "+error)
+    passport.use('login', new localStrategy({ usernameField: 'email' }, async (email, password, done) => {
+      console.log(email + "passport");
+      try {
+        const user = await userModel.findOne({ email });
+        if (!user) {
+          console.log("Usuario no encontrado.");
+          return done(null, false);
         }
-    }
-    ))
-}
+        if (!isValidPassword(user, password)) return done(null, false);
+    
+        return done(null, user);
+      } catch (error) {
+        return done("Error en estrategia de login: " + error);
+      }
+    }));
+    
 
+
+
+    passport.use(
+      'github',
+      new GitHubStrategy(
+        {
+          clientID: process.env.CLIENT_ID,
+          clientSecret: process.env.CLIENT_SECRET,
+          callbackURL: process.env.CALLBACK_URL,
+        },
+        async (accessToken, refreshToken, profile, done) => {
+          try {
+            let email = profile._json.email;
+            let user = await userModel.findOne({ email: email });
+            console.log(user);
+            if (!user) {
+              let newCart = await cartModel.create({ products: [] }); // Crear el carrito
+              let newUser = {
+                first_name: profile._json.name,
+                last_name: '',
+                email: profile._json.email,
+                password: '',
+                age: 31,
+                rol: 'usuario', // Asignar rol de usuario
+                cartID: newCart._id, // Asignar el ID del carrito al campo cartID del usuario
+              };
+              let result = await userModel.create(newUser);
+              console.log(newUser);
+              done(null, result);
+            } else {
+              done(null, user);
+              console.log(user);
+            }
+          } catch (error) {
+            return done('Error en estrategia de login: ' + error);
+          }
+        }
+      )
+    );
+      }    
+      
 passport.serializeUser((user, done)=>{
     done(null, user._id);
 })
