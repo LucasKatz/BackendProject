@@ -5,7 +5,7 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "test": "mocha Testing/productsTesting.js",
+    "test": "mocha Testing/cartsTesting.js",
     "start": "node app.js MONGO ",
     "dev": "nodemon app.js"
   },
@@ -49,7 +49,6 @@
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
     "socket.io": "^4.5.4",
-    "supertest": "^6.3.3",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^4.6.3",
     "twilio": "^4.9.0",
@@ -59,6 +58,7 @@
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
     "chai": "^4.3.7",
-    "mocha": "^10.2.0"
+    "mocha": "^10.2.0",
+    "supertest": "^6.3.3"
   }
 }

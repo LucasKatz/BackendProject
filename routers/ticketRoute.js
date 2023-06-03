@@ -1,17 +1,17 @@
 import { Router } from "express";
-import authMiddleware from "../auth.js";
+import {authMiddleware} from "../auth.js"
 import { getTicketModel, getSpecificTicket, createTicket, updateTicket, deleteTicket } from "../Controllers/ticketRouteController.js";
 
-const router = Router();
+const ticketRouter = Router();
 
-router.get("/", authMiddleware,getTicketModel);
+ticketRouter.get("/", authMiddleware,getTicketModel);
 
-router.get("/:id", authMiddleware, getSpecificTicket);
+ticketRouter.get("/:id", authMiddleware, getSpecificTicket);
 
-router.post("/:cid/purchase", authMiddleware, createTicket);
+ticketRouter.post("/:cid/purchase", authMiddleware, createTicket);
 
-router.put("/",authMiddleware,updateTicket);
+ticketRouter.put("/",authMiddleware,updateTicket);
 
-router.delete("/:id", authMiddleware, deleteTicket);
+ticketRouter.delete("/:id", authMiddleware, deleteTicket);
 
-export default router;
+export default ticketRouter;

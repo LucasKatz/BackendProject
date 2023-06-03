@@ -27,6 +27,7 @@ import _dirname from "./utils.js";
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUiExpress  from "swagger-ui-express";
 import adminRouter from "./routers/adminRoute.js";
+import ticketRouter from "./routers/ticketRoute.js";
 
 
 dotenv.config();
@@ -195,6 +196,8 @@ app.use (errorHandler)
 app.use("/loggerTest", loggerTestingRoute)
 app.use("/mockingProducts", Mockrouter)
 app.use("/", adminRouter)
+app.use("/ticket", ticketRouter)
+
 app.use('', (req, res) => {
   res.redirect('/login');
 });
