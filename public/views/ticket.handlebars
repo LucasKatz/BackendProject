@@ -66,13 +66,17 @@
         </thead>
         <tbody>
           {{#each ticket.products}}
-  <tr>
-    <td>{{this.name}}</td>
-    <td>{{this.price}}</td>
-    <td>{{this.quantity}}</td>
-    <td>{{this.totalPrice}}</td>
-  </tr>
-{{/each}}
+            <tr>
+              <td>{{this.name}}</td>
+              <td>{{this.price}}</td>
+              <td>{{this.quantity}}</td>
+              <td>{{this.totalPrice}}</td>
+            </tr>
+          {{/each}}
+          <tr>
+            <td colspan="3" style="text-align: right;"><strong>Total a Pagar:</strong></td>
+            <td>{{ticket.totalAPagar}}</td>
+          </tr>
         </tbody>
       </table>
       <button class="button">Submit</button>

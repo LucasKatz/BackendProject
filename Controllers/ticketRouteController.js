@@ -65,11 +65,17 @@ export const createTicket = async (req, res) => {
 
           const total = subtotal; // Puedes aplicar aquí cualquier descuento o impuesto adicional
 
+          // Calcular el valor total de todos los productos
+          const totalAPagar = ticketProducts.reduce((total, product) => total + product.totalPrice, 0);
+
+          console.log("totalAPagar:", totalAPagar);
+
           // Crear el ticket en la base de datos utilizando ticketModel
           const ticket = await ticketModel.create({
             products: ticketProducts,
             subtotal: subtotal,
             total: total,
+            totalAPagar: totalAPagar, // Agregar la propiedad totalAPagar
             purchaser: user.name
           });
 
@@ -90,6 +96,7 @@ export const createTicket = async (req, res) => {
     res.status(500).send(err.message);
   }
 };
+
 
 
 

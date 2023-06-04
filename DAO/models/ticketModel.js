@@ -20,7 +20,8 @@ const ticketSchema = new mongoose.Schema({
       quantity: Number,
       totalPrice: Number,
     }
-  ]
+  ],
+  totalAPagar: Number,
 });
 
 ticketSchema.plugin(mongoosePaginate);
