@@ -54,26 +54,25 @@
 <body>
   <div class="content-container">
     <div class="content">
-      <h1>Ticket Details</h1>
+      <h1>Ticket De Compra</h1>
       <table>
         <thead>
           <tr>
             <th>Producto</th>
+            <th>Precio</th>
             <th>Cantidad</th>
-            <th>Cliente</th>
-            <th>Fecha de Compra</th>
-            <th>Total a Pagar</th>
+            <th>Total</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>{{ticket.producto}}</td>
-            <td>{{ticket.purchase_datetime}}</td>
-            <td>{{ticket.amount}}</td>
-            <td>{{ticket.purchaser}}</td>
-            <td>{{ticket.created_at}}</td>
-            <td>{{ticket.updated_at}}</td>
-          </tr>
+          {{#each ticket.products}}
+  <tr>
+    <td>{{this.name}}</td>
+    <td>{{this.price}}</td>
+    <td>{{this.quantity}}</td>
+    <td>{{this.totalPrice}}</td>
+  </tr>
+{{/each}}
         </tbody>
       </table>
       <button class="button">Submit</button>
@@ -83,4 +82,6 @@
 </html>
 
 
-<script src="ticket.js" type="application/javascript"></script>
+
+
+

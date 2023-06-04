@@ -18,8 +18,8 @@ export const getTicketModel = async (req, res) => {
 
 export const getSpecificTicket = async (req, res) => {
   try {
-    const ticket = await ticketModel.findById(req.params.id);
-    res.render('ticket', { ticket });
+    const ticket = await ticketModel.findById(req.params.id).lean(true);;
+    res.render('ticket', { ticket: ticket });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -75,7 +75,7 @@ export const createTicket = async (req, res) => {
 
           console.log("ticket:", ticket);
 
-          res.redirect(`/ticket/${ticket._id}`);
+          res.status(200).json({ _id: ticket._id });
         } else {
           res.status(400).send("No se encuentran productos agregados al carrito.");
         }

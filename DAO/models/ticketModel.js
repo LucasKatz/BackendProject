@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import mongoosePaginate from "mongoose-paginate-v2";
 
 const ticketCollection = "tickets";
 
@@ -12,7 +13,17 @@ const ticketSchema = new mongoose.Schema({
   purchaser: String,
   created_at: Date,
   updated_at: Date,
+  products: [
+    {
+      name: String,
+      price: Number,
+      quantity: Number,
+      totalPrice: Number,
+    }
+  ]
 });
+
+ticketSchema.plugin(mongoosePaginate);
 
 const ticketModel = mongoose.model(ticketCollection, ticketSchema);
 
