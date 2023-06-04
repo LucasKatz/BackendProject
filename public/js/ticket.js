@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
           setTimeout(() => {
             window.location.href = "/thankyou";
-          }, 5000);
+          }, 2000);
         } else {
           console.error("Error al enviar el correo electrónico");
         }
