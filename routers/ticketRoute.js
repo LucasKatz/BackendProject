@@ -8,9 +8,9 @@ ticketRouter.get("/", authMiddleware,getTicketModel);
 
 ticketRouter.get("/:id", authMiddleware, getSpecificTicket);
 
-ticketRouter.post("/:cid/purchase", authMiddleware, createTicket);
+ticketRouter.post("/:cid/purchase",  createTicket);
 
-ticketRouter.put("/",authMiddleware,updateTicket);
+ticketRouter.put("/update",authMiddleware,updateTicket);
 
 ticketRouter.delete("/:id", authMiddleware, deleteTicket);
 
