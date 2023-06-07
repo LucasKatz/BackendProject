@@ -3,8 +3,8 @@ import Crypto from "crypto";
 import ticketModel from "../DAO/models/ticketModel.js";
 import userModel from "../DAO/models/userModel.js";
 import cartModel from "../DAO/models/cartsModel.js";
-import { v4 as uuidv4 } from "uuid";
-
+import { v4 as uuidv4 } from 'uuid';
+import { noStockProducts } from "./cartsRouteDBController.js";
 
 const router = Router();
 
@@ -25,7 +25,6 @@ export const getSpecificTicket = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
 
 export const createTicket = async (req, res) => {
   try {
@@ -72,20 +71,20 @@ export const createTicket = async (req, res) => {
 
           console.log("totalAPagar:", totalAPagar);
 
-          // Obtener el nombre del comprador y la fecha de compra
-          const purchaser = user.email;
-          const purchase_datetime = new Date();
+           // Obtener el nombre del comprador y la fecha de compra
+           const purchaser = user.email;
+           const purchase_datetime = new Date();
 
-          // Generar un ID único para el ticket
-          const ticketId = uuidv4();
+          const ticketID = uuidv4();
+
 
           // Crear el ticket en la base de datos utilizando ticketModel
           const ticket = await ticketModel.create({
-            id: ticketId, // Agregar el ID único al ticket
+            _id:ticketID,
             products: ticketProducts,
             subtotal: subtotal,
             total: total,
-            totalAPagar: totalAPagar,
+            totalAPagar: totalAPagar, // Agregar la propiedad totalAPagar
             purchaser: purchaser,
             purchase_datetime: purchase_datetime
           });
@@ -93,6 +92,7 @@ export const createTicket = async (req, res) => {
           console.log("ticket:", ticket);
 
           res.status(200).json({ _id: ticket._id });
+
         } else {
           res.status(400).send("No se encuentran productos agregados al carrito.");
         }
@@ -127,7 +127,6 @@ export const updateTicket =async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
 
 
 
