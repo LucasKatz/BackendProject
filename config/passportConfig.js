@@ -74,6 +74,7 @@ const initializePassport = () => {
           clientID: process.env.CLIENT_ID,
           clientSecret: process.env.CLIENT_SECRET,
           callbackURL: process.env.CALLBACK_URL,
+          
         },
         async (accessToken, refreshToken, profile, done) => {
           try {
@@ -88,8 +89,8 @@ const initializePassport = () => {
                 email: profile._json.email,
                 password: '',
                 age: 31,
-                rol: 'usuario', // Asignar rol de usuario
-                cartID: newCart._id, // Asignar el ID del carrito al campo cartID del usuario
+                rol: 'usuario', 
+                cartID: newCart._id, 
               };
               let result = await userModel.create(newUser);
               console.log(newUser);

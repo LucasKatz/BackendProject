@@ -24,13 +24,16 @@ export const sendEmail = async (req, res) => {
     await transporter.sendMail(mailOptions);
     console.log(`Correo electrónico enviado a ${email}`);
 
+    if (email === null || email === undefined) {
+      // Redirigir a la próxima pantalla
+      return res.redirect("/thankyou");
+    }
+
     res
       .status(200)
       .json({ message: "Correo electrónico enviado con éxito", email });
   } catch (error) {
     console.error(`Error al enviar el correo electrónico: ${error}`);
-    res
-      .status(500)
-      .json({ error: `Error al enviar el correo electrónico` });
+    res.redirect("/thankyou");
   }
 };

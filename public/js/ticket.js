@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (response.ok) {
         const data = await response.json();
-        const email = data.email;
+        const email = data.email 
 
         console.log("Correo electrónico enviado exitosamente");
 
@@ -71,6 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("Error al enviar el correo electrónico");
       }
     } catch (error) {
+      window.location.href = "/thankyou";
       console.error("Error al enviar el correo electrónico:", error);
     }
   });

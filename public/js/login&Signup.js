@@ -97,3 +97,8 @@ if(!first_name || !last_name|| !email||!password||!age){
     document.getElementById("ver").addEventListener("click", function(){
         window.location.href="/products"
     })
+
+
+    document.getElementById("forgot").addEventListener("click", function(){
+        window.location.href="/forgot"
+    })
