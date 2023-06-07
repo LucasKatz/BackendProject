@@ -3,7 +3,8 @@ import Crypto from "crypto";
 import ticketModel from "../DAO/models/ticketModel.js";
 import userModel from "../DAO/models/userModel.js";
 import cartModel from "../DAO/models/cartsModel.js";
-import { noStockProducts } from "./cartsRouteDBController.js";
+import { v4 as uuidv4 } from "uuid";
+
 
 const router = Router();
 
@@ -24,6 +25,7 @@ export const getSpecificTicket = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 
 export const createTicket = async (req, res) => {
   try {
@@ -70,13 +72,22 @@ export const createTicket = async (req, res) => {
 
           console.log("totalAPagar:", totalAPagar);
 
+          // Obtener el nombre del comprador y la fecha de compra
+          const purchaser = user.email;
+          const purchase_datetime = new Date();
+
+          // Generar un ID único para el ticket
+          const ticketId = uuidv4();
+
           // Crear el ticket en la base de datos utilizando ticketModel
           const ticket = await ticketModel.create({
+            id: ticketId, // Agregar el ID único al ticket
             products: ticketProducts,
             subtotal: subtotal,
             total: total,
-            totalAPagar: totalAPagar, // Agregar la propiedad totalAPagar
-            purchaser: user.name
+            totalAPagar: totalAPagar,
+            purchaser: purchaser,
+            purchase_datetime: purchase_datetime
           });
 
           console.log("ticket:", ticket);
@@ -117,13 +128,7 @@ export const updateTicket =async (req, res) => {
   }
 };
 
-/*export const deleteTicket = async (req, res) => {
-  try {
-    const ticket = await ticketModel.findByIdAndDelete(req.params.id);
-    res.status(200).json(ticket);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }};*/
+
 
 
   //Este metodo de delete ticket deja SOLO el array de productos que no se pudieron comprar

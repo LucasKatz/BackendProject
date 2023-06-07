@@ -47,8 +47,23 @@ document.addEventListener("DOMContentLoaded", () => {
         if (response.ok) {
           const data = await response.json();
           const email = data.email;
+
+
+          const cartId = data.cartId;
   
           console.log("Correo electrónico enviado exitosamente");
+
+          
+          const deleteCartResponse = await fetch(`/api/carts/${cartId}`, {
+          method: "DELETE",
+      });
+
+      if (deleteCartResponse.ok) {
+        console.log("Carrito vaciado exitosamente");
+      } else {
+        console.error("Error al vaciar el carrito");
+      }
+
   
           setTimeout(() => {
             window.location.href = "/thankyou";
