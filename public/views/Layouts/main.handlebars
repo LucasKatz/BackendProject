@@ -3,7 +3,7 @@
     <nav style="display: flex; justify-content: center; width: 100%; align-items: center; background-color: #c63c3c; color: #fff; padding: 10px;">
       <ul style="display: flex; list-style: none; margin: 0; padding: 0;">
         {{#if session.user}}
-          <li style="margin: 0 10px;"><a href="/signup" style="color: #fff; text-decoration: none;">{{session.user.first_name}}</a></li>
+          <li style="margin: 0 10px;"><a href="/current" style="color: #fff; text-decoration: none;">{{session.user.first_name}}</a></li>
           <li style="margin: 0 10px;"><a href="/api/carts/{{session.user.cartID}}" style="color: #fff; text-decoration: none;">Cart</a></li>
           <li style="margin: 0 10px;"><a href="/logout/logout" style="color: #fff; text-decoration: none;">Logout</a></li>
         {{else}}
