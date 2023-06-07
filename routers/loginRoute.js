@@ -7,6 +7,8 @@ const router = Router();
 
 router.get("/", renderLogin);
 
+router.get(" ", renderLogin)
+
 router.post("/",postLogin);
 
 export default router;

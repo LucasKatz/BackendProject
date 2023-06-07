@@ -201,9 +201,7 @@ app.use("/ticket", ticketRouter)
 app.use("/thankyou", Thnxrouter)
 app.use("/", ticketRouter);
 
-app.use('', (req, res) => {
-  res.redirect('/login');
-});
+app.use('', loginRouter)
 
 
 

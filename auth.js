@@ -26,14 +26,13 @@ export const checkUserPremium = async (req, res, next) => {
     }
     return res
     .status(401)
-    //trabajar en otra vista para rechazar usuarios que no sean premium
     .redirect("/products");
 };
 
 //Middleware de Administrador
 
 export const authAdminMiddleware = async (req, res, next) => {
-    if (req.session?.user?.role === "Admin") {
+    if (req.session?.user?.rol === 'Admin') {
         return next();
     }
     return res.status(401).redirect("/login?message=Debe ser administrador para acceder a esta sección");
