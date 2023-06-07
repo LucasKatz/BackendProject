@@ -204,7 +204,6 @@ app.use("/", ticketRouter);
 app.use('', loginRouter)
 
 
-
 //inicializar el envio de mail
 
 const transporter = nodemailer.createTransport({

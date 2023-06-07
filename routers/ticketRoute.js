@@ -5,7 +5,7 @@ import { sendEmail } from "../Controllers/submitController.js";
 
 const ticketRouter = Router();
 
-ticketRouter.get("/", authMiddleware,getTicketModel);
+ticketRouter.get("/ticketModel", authMiddleware,getTicketModel);
 
 ticketRouter.get("/:id", authMiddleware, getSpecificTicket);
 

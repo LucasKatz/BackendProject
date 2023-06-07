@@ -18,7 +18,7 @@ const readFile= async () => {
 
 viewsRouter.get('/realtimeproducts', authMiddleware, realTimeProducts)
 
-viewsRouter.get('/', authMiddleware, getProducts)
+//viewsRouter.get('/', authMiddleware, getProducts)
 
 viewsRouter.get('/failregister', failRegister)
 
