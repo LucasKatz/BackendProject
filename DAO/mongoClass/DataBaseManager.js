@@ -67,7 +67,7 @@ class CartManager {
     }
   }
 
-  //Elimina un solo elemento dentro de un carrito especifico
+ 
   async deleteOne(cartId, product) {
     const myProductToDelete = {
       _id: product._id,

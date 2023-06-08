@@ -27,16 +27,16 @@ export const postForgot = async (req, res) => {
         return res.status(404).json({ error: "El usuario no existe" });
     }
 
-    // generate token
+    // Genera un token
     const token = crypto.randomBytes(15).toString("hex");
 
-    // save token to database
+    // Guarda el token en la base de datos
     await PasswordResetToken.create({
         userId: user._id,
         token,
     });
 
-    // send email with reset link
+    // Envia mail con el link para reestablecer contraseña
     const transporter = nodemailer.createTransport({
     service: "gmail",
     port: 8080,
@@ -87,7 +87,7 @@ export const resetPassword = async (req, res) => {
         }
         console.log("de momento todo bien");
 
-        const user = await userModel.findOne({ email }); // Buscar al usuario por su correo electrónico
+        const user = await userModel.findOne({ email }); 
         console.log(user);
 
         if (!user) {

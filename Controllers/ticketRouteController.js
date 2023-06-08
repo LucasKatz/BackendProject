@@ -4,7 +4,7 @@ import ticketModel from "../DAO/models/ticketModel.js";
 import userModel from "../DAO/models/userModel.js";
 import cartModel from "../DAO/models/cartsModel.js";
 import { v4 as uuidv4 } from 'uuid';
-import { noStockProducts } from "./cartsRouteDBController.js";
+
 
 const router = Router();
 
@@ -48,7 +48,7 @@ export const createTicket = async (req, res) => {
           const ticketProducts = [];
           let subtotal = 0;
 
-          // Calcular el subtotal y construir la lista de productos del ticket
+          // Calcula el subtotal y arma la lista de productos del ticket
           cart.products.forEach(product => {
             const productData = {
               name: product.product.title,
@@ -64,27 +64,27 @@ export const createTicket = async (req, res) => {
           console.log("ticketProducts:", ticketProducts);
           console.log("subtotal:", subtotal);
 
-          const total = subtotal; // Puedes aplicar aquí cualquier descuento o impuesto adicional
+          const total = subtotal; 
 
-          // Calcular el valor total de todos los productos
+          // Calcula el valor total de todos los productos
           const totalAPagar = ticketProducts.reduce((total, product) => total + product.totalPrice, 0);
 
           console.log("totalAPagar:", totalAPagar);
 
-           // Obtener el nombre del comprador y la fecha de compra
-           const purchaser = user.email;
-           const purchase_datetime = new Date();
+           // Obtiene el nombre del comprador y la fecha de compra
+            const purchaser = user.email;
+            const purchase_datetime = new Date();
 
           const ticketID = uuidv4();
 
 
-          // Crear el ticket en la base de datos utilizando ticketModel
+          // Crea el ticket en la base de datos utilizando ticketModel
           const ticket = await ticketModel.create({
             _id:ticketID,
             products: ticketProducts,
             subtotal: subtotal,
             total: total,
-            totalAPagar: totalAPagar, // Agregar la propiedad totalAPagar
+            totalAPagar: totalAPagar, 
             purchaser: purchaser,
             purchase_datetime: purchase_datetime
           });

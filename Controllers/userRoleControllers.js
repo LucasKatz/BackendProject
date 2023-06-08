@@ -19,12 +19,12 @@ export const changeRol = async (req, res) => {
             return;
         }
 
-        // Verificar si el usuario ya tiene cargada la documentación requerida
+        // Verifica si el usuario ya tiene cargada la documentación requerida
         const identificationDoc = response.documents.some((file) => file.name === "identification");
         const accountDoc = response.documents.some((file) => file.name === "account");
         const residenceDoc = response.documents.some((file) => file.name === "residence");
 
-        // Validar la existencia de la documentación requerida
+        // Valida la existencia de la documentación requerida
         if (identificationDoc && accountDoc && residenceDoc) {
             // Acciones para realizar el cambio de rol del usuario
             if (response.rol === "Premium") {
@@ -39,7 +39,7 @@ export const changeRol = async (req, res) => {
                 res.status(200).json({ status: "success", payload: result });
             }
         } else {
-            // Enviar un mensaje indicando que falta cargar documentación
+            // Envia un mensaje indicando que falta cargar documentación
             res.status(400).json({ status: "error", message: "Falta cargar documentación" });
         }
     } catch (error) {
@@ -49,7 +49,7 @@ export const changeRol = async (req, res) => {
 };
 
 
-// uploadDocuments permite subir uno o varios documentos
+
 export const uploadDocuments = async (req,res)=>{
     const userId = req.session.user
     const profiles = req.files?.profiles? req.files.profiles:[]
@@ -60,7 +60,7 @@ export const uploadDocuments = async (req,res)=>{
     const residence = req.files?.residence? req.files?.residence:[]
 
     let filesArray = [...profiles,...products,...documents,...identification,...account,...residence]
-    //let user = await userRepository.getIdUsers(uid)
+
     let user = await userModel.findById(userId);
 
 if(filesArray.length>0){
@@ -80,6 +80,6 @@ else{
 }
 }
 
-//EL PROBLEMA ACA ES EL EXPORT DEFAULT, NECESITO QUE SEA UN EXPORT COMUN
+
 
 export default uploadDocuments

@@ -82,23 +82,23 @@ export const paginatedUsers = async (req, res) => {
 
   export const deleteUsers = async (req, res) => {
     try {
-      // Calcular la fecha límite (hace 2 minutos)
+      // Calcula la fecha limite 2 meses atras
       const twoMonthsAgo = new Date();
       twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
       
-      // Buscar los usuarios inactivos
+      // Busca los usuarios inactivos
       const inactiveUsers = await userModel.find({
         email: { $exists: true, $ne: null },
         last_connection: { $lt: twoMinutesAgo },
       });
   
-      // Eliminar los usuarios inactivos
+      // Elimina los usuarios inactivos
       const deleteResult = await userModel.deleteMany({
         email: { $exists: true, $ne: null },
         last_connection: { $lt: twoMinutesAgo },
       });
   
-      // Enviar correo a los usuarios eliminados
+      // Envia correo a los usuarios eliminados notificando la eliminacion de la cuenta
       const emails = inactiveUsers.map((user) => user.email);
       const emailSubject = "Eliminación de cuenta por inactividad";
       const emailMessage = "Tu cuenta ha sido eliminada por inactividad.";
@@ -119,7 +119,7 @@ export const paginatedUsers = async (req, res) => {
 
 export const adminChangesRol = async (req, res) => {
     try {
-      const userId = req.body.userId || req.params.userId; // Obtener el ID del usuario de req.body o req.params según corresponda
+      const userId = req.body.userId || req.params.userId; 
   
       // Comprobación de la existencia del usuario
       const response = await userModel.findById(userId);
@@ -136,7 +136,7 @@ export const adminChangesRol = async (req, res) => {
         });
       }
   
-      // Acciones para realizar el cambio de rol del usuario
+      // Realiza el cambio de rol del usuario
       let result;
       if (response.rol === "Premium") {
         await userModel.findByIdAndUpdate(userId, { rol: "Usuario" });

@@ -1,7 +1,7 @@
 import express from 'express';
 const viewsRouter = express.Router();
 import fs from 'fs';
-import { getProducts, realTimeProducts } from '../Controllers/viewsRouterController.js';
+import { realTimeProducts } from '../Controllers/viewsRouterController.js';
 import { failRegister } from '../Controllers/sessionsRouteController.js';
 import authMiddleware from '../auth.js';
 

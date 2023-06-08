@@ -1,7 +1,6 @@
 import userModel from "../DAO/models/userModel.js"
 import { uploader } from "../Middlewares/uploadFiles.js"
 
-// uploadDocuments permite subir uno o varios documentos
 export const uploadDocuments = async (req,res)=>{
     const userId = req.session.user
     const profiles = req.files?.profiles? req.files.profiles:[]

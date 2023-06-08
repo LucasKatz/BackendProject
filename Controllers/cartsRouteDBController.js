@@ -23,7 +23,7 @@ export const readProductsInCart = async (req, res) => {
 
       if (cart) {
         if (cart.products.length > 0) {
-          // Calcular el valor total para cada producto en el carrito
+          // Calcula el valor total para cada producto en el carrito
           cart.products.forEach(product => {
             product.totalPrice =(product.quantity*product.product.price);
           });
@@ -75,13 +75,13 @@ export const addProductToCart = async (req, res) => {
     return;
   }
 
-  // Comprobar quién es el creador del producto
+  // Comprobacion de  quién es el creador del producto
   if (req.session.user.rol == "Premium" && req.session.user.email == productExist.owner) {
     res.status(400).send({ status: "error", message: "El usuario no está autorizado" });
     return;
   }
 
-  // Obtén el carrito asociado al usuario
+  // Obtiene el carrito asociado al usuario
   if (!cartExist) {
     res.status(404).send({ error: "No existe un carrito asociado al usuario" });
     return;

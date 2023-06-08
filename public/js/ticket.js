@@ -18,12 +18,12 @@ document.addEventListener("DOMContentLoaded", () => {
               window.location.href = `/ticket/${data._id}`;
           } else {
               console.error(data.error);
-            // Manejar el error en caso de que ocurra
+        
           }
       })
           .catch((error) => {
           console.error(error);
-          // Manejar el error en caso de que ocurra
+    
       });
   });
   }

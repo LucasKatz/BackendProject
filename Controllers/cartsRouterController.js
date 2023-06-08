@@ -3,8 +3,7 @@ import fs from 'fs';
 const cartDB = JSON.parse(fs.readFileSync('./database/cart.JSON', 'utf-8'))
 
 export const cartLogic = (req, res) => {
-    /* Se debe crear solo la logica y estructura del carrito (id y products con array vacio), luego la logica de pushear y escribir el cart.json con fs. El envio del producto se hace en el otro endpoint de post.
-    */
+ 
       let cart = {
         id: cartDB.length == 0 ? 1 : cartDB.length + 1,
         product: []

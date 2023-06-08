@@ -22,13 +22,13 @@ router.get("/:cid", authMiddleware, readProductsInCart);
 router.post("/", authMiddleware, newCart);
 
 // La ruta api/carts/:cid/products/:pid (método post) agrega un producto a un carrito
-router.post("/:cid/products/:pid",  addProductToCart); 
+router.post("/:cid/products/:pid", authMiddleware,  addProductToCart); 
 
 //ruta que borra el carrito completo
 router.delete("/:cid", authMiddleware, deleteCart);
 
 //ruta que borra el producto seleccionado del carrito
-router.delete("/:cid/products/:pid",  deleteSelectedProduct);
+router.delete("/:cid/products/:pid", authMiddleware,  deleteSelectedProduct);
 
 //Actualiza productos dentro de un carrito
 router.put("/:cid", authMiddleware, updateProducts);

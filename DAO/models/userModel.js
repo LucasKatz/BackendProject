@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema({
     documents: [documentSchema],
     last_connection: {
         type: Date,
-        default: Date.now // Establecer la fecha actual como valor predeterminado
+        default: Date.now // Establece la fecha actual como valor predeterminado
     }
 });
 

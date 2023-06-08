@@ -9,7 +9,7 @@ const requester = supertest('http://localhost:8080');
 
 describe("GET /api/carts/:cid", () => {
     it("debería devolver los productos del carrito si existe", (done) => {
-    const cartId = "cartId"; // Reemplaza con un cartId válido existente
+    const cartId = "6480b0d89797ce7c57c3493a"
 
     requester
         .get(`/api/carts/${cartId}`)
@@ -17,7 +17,7 @@ describe("GET /api/carts/:cid", () => {
         .end((err, res) => {
         if (err) return done(err);
 
-        // Verifica la estructura de la respuesta
+     
         expect(res.body).to.have.property("products");
         expect(res.body.products).to.be.an("array");
 
@@ -26,7 +26,7 @@ describe("GET /api/carts/:cid", () => {
     });
 
     it("debería devolver un error si el carrito no existe", (done) => {
-    const cartId = "cartIdNoExistente"; // Reemplaza con un cartId que no exista
+    const cartId = "cartIdNoExistente"; 
 
     requester
         .get(`/api/carts/${cartId}`)
@@ -34,7 +34,7 @@ describe("GET /api/carts/:cid", () => {
         .end((err, res) => {
         if (err) return done(err);
 
-        // Verifica el mensaje de error en la respuesta
+
         expect(res.body).to.have.property("error");
         expect(res.body.error).to.equal("El cartID no está asociado a ningún usuario");
 
@@ -46,10 +46,10 @@ describe("GET /api/carts/:cid", () => {
 
 describe("POST /api/carts/:cid/products/:pid", () => {
     it("debería agregar un producto al carrito si el carrito y el producto existen", (done) => {
-      const cartId = "cartId"; // Reemplaza con un cartId válido existente
-      const productId = "productId"; // Reemplaza con un productId válido existente
+        const cartId = "cartId";
+        const productId = "productId"; 
 
-      const quantity = 1; // Reemplaza con la cantidad deseada
+        const quantity = 1; 
 
     requester
         .post(`/api/carts/${cartId}/products/${productId}`)
@@ -69,10 +69,10 @@ describe("POST /api/carts/:cid/products/:pid", () => {
     });
 
     it("debería devolver un error si el producto no existe", (done) => {
-        const cartId = "cartId"; // Reemplaza con un cartId válido existente
-        const productId = "productoNoExistente"; // Reemplaza con un productId que no exista
+        const cartId = "6480b0d89797ce7c57c3493a"; 
+        const productId = "productoNoExistente"; 
     
-        const quantity = 1; // Reemplaza con la cantidad deseada
+        const quantity = 1; 
     
         requester
             .post(`/api/carts/${cartId}/products/${productId}`)
@@ -81,7 +81,7 @@ describe("POST /api/carts/:cid/products/:pid", () => {
             .end((err, res) => {
             if (err) return done(err);
     
-            // Verifica la respuesta
+            
             expect(res.body).to.have.property("error");
             expect(res.body.error).to.equal("El producto no existe");
     

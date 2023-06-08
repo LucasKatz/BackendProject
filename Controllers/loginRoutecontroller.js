@@ -22,7 +22,7 @@ export const postLogin = async (req, res) => {
   
       if (response) {
         if (isValidPassword(password, response.password)) {
-          // Actualizar last_connection antes de asignar el usuario a la sesión
+          // Actualiza la propiedad last_connection antes de asignar el usuario a la sesión
           response.last_connection = new Date();
           await response.save();
   

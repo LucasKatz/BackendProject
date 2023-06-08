@@ -1,9 +1,9 @@
-// Obtener los botones
+
 const userButton = document.getElementById('premiumButton');
 const adminRolButton = document.getElementById('rolButton')
 const adminDeleteButton = document.getElementById('deleteButton')
 
-// Boton que cambia el rol del usuario
+
 userButton.addEventListener('click', async () => {
   try {
 

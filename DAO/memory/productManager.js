@@ -87,14 +87,14 @@ const prod1 = new ProductManager("Lámpara Tokio", "Lámpara escritorio aluminio
 
 const prod2 = new ProductManager("Lampara Double Sh", "Embutido retraible doble cabezal móvil aluminio blanco led", 3000,"ruta de imagen", 102, 2)
 
-//const prod3 = new ProductManager("", 3)
+
 
 
 prod1.addProducts()
 
 prod2.addProducts()
 
-//prod3.addProducts()
+
 
 getProducts()
 
