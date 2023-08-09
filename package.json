@@ -5,7 +5,7 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "test": "mocha Testing/usersTesting.js",
+    "test": "mocha Testing/productsTesting.js",
     "start": "node app.js MONGO ",
     "dev": "nodemon app.js"
   },
@@ -49,6 +49,7 @@
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
     "socket.io": "^4.5.4",
+    "supertest-session": "^5.0.1",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^4.6.3",
     "twilio": "^4.9.0",
