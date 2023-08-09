@@ -262,3 +262,5 @@ res.send ("SMS Enviado")
 
 console.log("isValidStartDB", isValidStartDB());
 isValidStartDB() && environment();
+
+export default app

@@ -1,62 +1,75 @@
 import supertest from "supertest";
+import app from"../app.js";
 import { expect } from "chai";
+import  request  from "supertest";
 
-const requester = supertest('http://localhost:8080');
+const requester = supertest('http://localhost:808');
 
-describe('Sessions Routes', () => {
-  // Test para el registro de un nuevo usuario
-  describe('POST /signup', () => {
-    it('Debería registrar un nuevo usuario exitosamente', (done) => {
-      requester
-        .post('/signup')
-        .send({
-          first_name: 'Michael',
-          last_name: 'Jackson',
-          email: 'jackson5@gmail.com',
-          password: 'thriller',
-        })
-        .expect(201)
-        .end((err, res) => {
-          if (err) return done(err);
-          expect(res.body).to.have.property('message', 'Usuario Creado');
-          expect(res.body.data).to.have.property('email', 'jackson5@gmail.com');
-          done();
-        });
-    });
 
-    it('Debería retornar un error al intentar registrar un usuario existente', (done) => {
-      requester
-        .post('/signup')
-        .send({
-          first_name: 'Michael',
-          last_name: 'Jackson',
-          email: 'jackson5@gmail.com',
-          password: 'thriller',
-        })
-        .expect(400)
-        .end((err, res) => {
-          if (err) return done(err);
-          expect(res.body).to.have.property('message', 'Failed to create user');
-          done();
-        });
-    });
+describe('Login Endpoint', () => {
+  it('should log in a user and return 200 status', async () => {
+    const res = await request(app)
+      .post('/login')
+      .send({ username: 'l.katz92@gmail.com', password: '12345' }); // Ajusta los datos de prueba
+
+    expect(res.statusCode).to.equal(200);
+    expect(res.body.message).to.equal('logged in');
   });
 
-  // Test para iniciar sesión
-  describe('POST /login', () => {
-    it('Debería iniciar sesión exitosamente con credenciales válidas', (done) => {
-      requester
-        .post('/login')
-        .send({
-          email: 'jackson5@gmail.com',
-          password: 'thriller',
-        })
-        .expect(302)
-        .end((err, res) => {
-          if (err) return done(err);
-          expect(res.headers.location).to.equal('/current');
-          done();
-        });
-    });
+  it('should return 400 status for incorrect credentials', async () => {
+    const res = await request(app)
+      .post('/login')
+      .send({ username: 'wronguser', password: 'wrongpassword' });
+
+    expect(res.statusCode).to.equal(400);
+    expect(res.body.message).to.equal('Incorrect credentials');
+  });
+});
+
+
+describe('Signup Endpoint', () => {
+  it('should create a new user and return 201 status', async () => {
+    const res = await request(app)
+      .post('/signup')
+      .send({
+        first_name: 'Test',
+        last_name: 'User',
+        email: 'test@example.com',
+        password: 'testpassword',
+        age: 25,
+      });
+
+    expect(res.statusCode).to.equal(201);
+    expect(res.body.message).to.equal('Usuario Creado');
+  });
+
+  it('should return 400 status for incomplete user data', async () => {
+    const res = await request(app)
+      .post('/signup')
+      .send({ first_name: 'Test', last_name: 'User' }); // Incomplete data
+
+    expect(res.statusCode).to.equal(400);
+    expect(res.body.message).to.equal('Failed to create user');
+  });
+});
+
+
+describe('Authenticated Routes', () => {
+  it('should access authenticated route with valid session', async () => {
+    const agent = request.agent(app); // Create an agent to maintain session
+
+    // Simulate a successful login first
+    await agent.post('/login').send({ username: 'testuser', password: 'testpassword' });
+
+    const res = await agent.get('/current');
+
+    expect(res.statusCode).to.equal(200);
+    expect(res.text).to.include('Welcome,'); // Adjust based on your rendered content
+  });
+
+  it('should return 401 for accessing authenticated route without session', async () => {
+    const res = await request(app).get('/current');
+
+    expect(res.statusCode).to.equal(401);
   });
 });
