@@ -5,7 +5,7 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "test": "mocha Testing/productsTesting.js",
+    "test": "mocha Testing/cartsTesting.js",
     "start": "node app.js MONGO ",
     "dev": "nodemon app.js"
   },

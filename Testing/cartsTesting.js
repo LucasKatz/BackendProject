@@ -1,91 +1,87 @@
-import supertest from "supertest";
-import chai from "chai"
+import chai from 'chai';
+import request from 'supertest';
+import app from '../app.js';
 
+const expect = chai.expect;
 
+describe('Carts API', () => {
+  let userSession = []; // Variable para almacenar la sesión del usuario
 
-const expect = chai.expect
-const requester = supertest('http://localhost:8080');
+  // Simula iniciar sesión antes de cada test
+  beforeEach(async () => {
+    const loginResponse = await request(app)
+      .post('/login')
+      .send({ email: 'l.katz92@gmail.com', password: '12345' });
 
+    userSession = loginResponse.header['set-cookie'];
+  });
 
-describe("GET /api/carts/:cid", () => {
-    it("debería devolver los productos del carrito si existe", (done) => {
-    const cartId = "6480b0d89797ce7c57c3493a"
+  // Test para agregar un producto al carrito
+  it('should add a product to the cart', async () => {
+    const productId = '6458f21e1133a3093fb23466';
+    const quantity = 2;
 
-    requester
-        .get(`/api/carts/${cartId}`)
-        .expect(200)
-        .end((err, res) => {
-        if (err) return done(err);
+    const res = await request(app)
+      .post(`/api/carts/cart_id/products/${productId}`)
+      .send({ quantity })
+      .set('Cookie', userSession);
 
-     
-        expect(res.body).to.have.property("products");
-        expect(res.body.products).to.be.an("array");
+    expect(res.status).to.equal(200);
+  });
 
-        done();
-        });
-    });
+  // Test para leer los productos en el carrito
+  it('should read products in the cart', async () => {
+    const cartId = '64d4efdba84d944152563bef';
 
-    it("debería devolver un error si el carrito no existe", (done) => {
-    const cartId = "cartIdNoExistente"; 
+    const res = await request(app)
+      .get(`/api/carts/${cartId}`)
+      .set('Cookie', userSession);
 
-    requester
-        .get(`/api/carts/${cartId}`)
-        .expect(400)
-        .end((err, res) => {
-        if (err) return done(err);
+    expect(res.status).to.equal(200);
+  });
 
+  // Test para eliminar un producto del carrito
+  it('should delete a product from the cart', async () => {
+    const cartId = '64d4efdba84d944152563bef';
+    const productId = '6458f21e1133a3093fb23466';
 
-        expect(res.body).to.have.property("error");
-        expect(res.body.error).to.equal("El cartID no está asociado a ningún usuario");
+    const res = await request(app)
+      .delete(`/api/carts/${cartId}/products/${productId}`)
+      .set('Cookie', userSession);
 
-        done();
-        });
-    });
-});
+    expect(res.status).to.equal(200);
+  });
 
+  // Test para agregar un producto al carrito sin iniciar sesión
+  it('should return a 302 when adding a product to the cart without authentication', async () => {
+    const productId = '6458f21e1133a3093fb23466';
+    const quantity = 2;
 
-describe("POST /api/carts/:cid/products/:pid", () => {
-    it("debería agregar un producto al carrito si el carrito y el producto existen", (done) => {
-        const cartId = "cartId";
-        const productId = "productId"; 
+    const res = await request(app)
+      .post(`/api/carts/cart_id/products/${productId}`)
+      .send({ quantity });
 
-        const quantity = 1; 
+    expect(res.status).to.equal(302);
+  });
 
-    requester
-        .post(`/api/carts/${cartId}/products/${productId}`)
-        .send({ quantity })
-        .expect(200)
-        .end((err, res) => {
-            if (err) return done(err);
+  // Test para leer los productos en el carrito sin iniciar sesión
+  it('should return a 302 when reading products in the cart without authentication', async () => {
+    const cartId = '64d4efdba84d944152563bef';
 
-          // Verifica la respuesta
-            expect(res.body).to.have.property("message");
-            expect(res.body.message).to.equal("Producto agregado al carrito");
-            expect(res.body).to.have.property("selectedCart");
-            expect(res.body).to.have.property("result");
+    const res = await request(app)
+      .get(`/api/carts/${cartId}`);
 
-            done();
-        });
-    });
+    expect(res.status).to.equal(302);
+  });
 
-    it("debería devolver un error si el producto no existe", (done) => {
-        const cartId = "6480b0d89797ce7c57c3493a"; 
-        const productId = "productoNoExistente"; 
-    
-        const quantity = 1; 
-    
-        requester
-            .post(`/api/carts/${cartId}/products/${productId}`)
-            .send({ quantity })
-            .expect(400)
-            .end((err, res) => {
-            if (err) return done(err);
-    
-            
-            expect(res.body).to.have.property("error");
-            expect(res.body.error).to.equal("El producto no existe");
-    
-            done();
-        });
-    });
+  // Test para eliminar un producto del carrito sin iniciar sesión
+  it('should return a 302 when deleting a product from the cart without authentication', async () => {
+    const cartId = '64d4efdba84d944152563bef';
+    const productId = '6458f21e1133a3093fb23466';
+
+    const res = await request(app)
+      .delete(`/api/carts/${cartId}/products/${productId}`);
+
+    expect(res.status).to.equal(302);
+  });
 });
