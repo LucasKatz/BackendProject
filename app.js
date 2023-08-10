@@ -29,6 +29,7 @@ import swaggerUiExpress  from "swagger-ui-express";
 import adminRouter from "./routers/adminRoute.js";
 import ticketRouter from "./routers/ticketRoute.js";
 import Thnxrouter from "./routers/thankyouRoute.js";
+import googleAuthRoute from "./routers/sessionsRoute.js";
 
 
 dotenv.config();
@@ -200,6 +201,7 @@ app.use("/", adminRouter)
 app.use("/ticket", ticketRouter)
 app.use("/thankyou", Thnxrouter)
 app.use("/", ticketRouter);
+app.use("/google", googleAuthRoute);
 
 app.use('', loginRouter)
 

@@ -4,6 +4,7 @@ import {failRegister, renderUser, githubLogin, githubCall, logout, userSignup, l
 import { authMiddleware } from "../auth.js";
 import { renderSignup } from "../Controllers/singupRouteController.js";
 import changeRol from "../Controllers/userRoleControllers.js";
+import { authenticateGoogle, googleCallback } from "../Controllers/googleAuthController.js";
 import passport from "passport";
 
 const sessionsRouter = Router();
@@ -38,4 +39,18 @@ sessionsRouter.get('/logout', logout)
 
 sessionsRouter.put('/premium/:id', changeRol);
 
+// Ruta para iniciar sesión con Google
+sessionsRouter.get(
+    "/auth/google",
+    passport.authenticate("google", { scope: ["profile", "email"] })
+  );
+  
+  // Callback de Google para redireccionar después de la autenticación
+  sessionsRouter.get(
+    "/auth/google/callback",
+    passport.authenticate("google", { failureRedirect: "/login" }),
+    (req, res) => {
+      res.redirect("/current"); // Cambia la URL de redirección según tus necesidades
+    }
+  );
 export default sessionsRouter;
