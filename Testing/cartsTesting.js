@@ -1,6 +1,9 @@
 import chai from 'chai';
 import request from 'supertest';
 import app from '../app.js';
+import * as dotenv from "dotenv";
+
+dotenv.config();
 
 const expect = chai.expect;
 
@@ -11,7 +14,7 @@ describe('Carts API', () => {
   beforeEach(async () => {
     const loginResponse = await request(app)
       .post('/login')
-      .send({ email: 'l.katz92@gmail.com', password: '12345' });
+      .send({ email: 'l.katz92@gmail.com', password: process.env.PASSWORD });
 
     userSession = loginResponse.header['set-cookie'];
   });
