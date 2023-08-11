@@ -109,7 +109,7 @@ const initializePassport = () => {
     );
       }    
       
-      passport.use(
+      /*passport.use(
         "google",
         new googleStrategy(
           {
@@ -139,12 +139,13 @@ const initializePassport = () => {
       
               return done(null, user);
             } catch (error) {
+              console.error("Google Authentication Error:", error);
               return done("Error en estrategia de login con Google: " + error);
             }
           }
         )
       );
-      
+      */
 
 
 

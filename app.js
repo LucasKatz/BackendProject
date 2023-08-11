@@ -202,7 +202,6 @@ app.use("/ticket", ticketRouter)
 app.use("/thankyou", Thnxrouter)
 app.use("/", ticketRouter);
 app.use("/login", googleAuthRoute);
-
 app.use('', loginRouter)
 
 
