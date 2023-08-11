@@ -52,7 +52,18 @@ export const googleCallback = async (req, res) => {
       user = await userModel.create(newUser);
     }
 
-    // Aquí puedes generar un JWT si lo necesitas para la autenticación
+ // Guarda los datos del usuario en la sesión
+  req.session.user = {
+  _id: user._id,
+  first_name: user.first_name,
+  last_name: user.last_name,
+  email: user.email,
+  rol: user.rol,
+  cartID: user.cartID,
+  // ... otros datos que quieras guardar en la sesión
+};
+
+console.log("los datos se la sesion son" + req.session.user)
 
     // Redirige al usuario a la página deseada (por ejemplo, a /products)
     const redirectUrl = req.query.redirect || '/products';
