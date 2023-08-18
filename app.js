@@ -30,6 +30,7 @@ import adminRouter from "./routers/adminRoute.js";
 import ticketRouter from "./routers/ticketRoute.js";
 import Thnxrouter from "./routers/thankyouRoute.js";
 import googleAuthRoute from "./routers/sessionsRoute.js";
+import path from "path";
 
 
 dotenv.config();
@@ -56,14 +57,9 @@ const USER_MONGO=process.env.USER_MONGO
 const PASS_MONGO=process.env.PASS_MONGO
 const DB_MONGO=process.env.DB_MONGO
 
-
-
-
-
 // Configuracion Express.
 app.engine("handlebars", handlebars.engine());
-app.set("views", __dirname + "/public/views/");
-//app.set("/public/views");
+app.set('views', path.resolve(__dirname, './views'));
 app.set("view engine", "handlebars");
 app.use(express.static(__dirname + "/public"));
 app.use(express.json());
