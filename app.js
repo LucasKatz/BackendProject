@@ -58,9 +58,9 @@ const DB_MONGO=process.env.DB_MONGO
 
 // Configuracion Express.
 app.engine("handlebars", handlebars.engine());
-app.set("views", __dirname + "/public/views/");
-app.set("view engine", "handlebars");
-app.use(express.static(__dirname + "/public"));
+app.set('view engine', 'hbs');
+app.use(express.static('./public'));
+app.set('views', path.resolve(__dirname, './views'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/apidocs', swaggerUiExpress.serve,swaggerUiExpress.setup(specs) )
