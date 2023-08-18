@@ -30,6 +30,7 @@ import adminRouter from "./routers/adminRoute.js";
 import ticketRouter from "./routers/ticketRoute.js";
 import Thnxrouter from "./routers/thankyouRoute.js";
 import googleAuthRoute from "./routers/sessionsRoute.js";
+import path from "path";
 
 
 dotenv.config();
