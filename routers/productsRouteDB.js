@@ -8,6 +8,8 @@ const router = Router();
 
 router.get("/", paginatedProducts);
 
+router.get("/data", paginatedProducts);
+
 router.post("/",authMiddleware, postProducts);
 
 router.delete("/:id", authMiddleware, deleteProduct);
