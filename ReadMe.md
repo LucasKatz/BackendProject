@@ -17,7 +17,8 @@ Install the dependencies and devDependencies and start the server.
 5.- Ready to edit!
 
 ## Deployment Link
-Deployment configuration still pending
+
+https://backendproject-production-c244.up.railway.app/
 
 This proyect is still in progress, this is not the final version of it 
  
