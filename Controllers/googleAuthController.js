@@ -1,3 +1,6 @@
+import fetch from 'node-fetch';
+
+
 // Importa los módulos necesarios
 import userModel from "../DAO/models/userModel.js"; // Cambia esto según tu modelo de usuario
 
@@ -60,18 +63,16 @@ export const googleCallback = async (req, res) => {
   email: user.email,
   rol: user.rol,
   cartID: user.cartID,
-  // ... otros datos que quieras guardar en la sesión
+
 };
 
 console.log("los datos se la sesion son" + req.session.user)
 
-    // Redirige al usuario a la página deseada (por ejemplo, a /products)
+    // Redirige al usuario a la página deseada 
     const redirectUrl = req.query.redirect || '/products';
     res.redirect(redirectUrl);
   } catch (error) {
     console.error("Google Authentication Error:", error);
-    // Maneja el error de autenticación de Google aquí
-    // Redirige a una página de error o realiza alguna otra acción
     res.redirect("/login");
   }
 };

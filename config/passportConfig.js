@@ -109,44 +109,6 @@ const initializePassport = () => {
     );
       }    
       
-      /*passport.use(
-        "google",
-        new googleStrategy(
-          {
-            clientID: process.env.GOOGLE_CLIENT_ID,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            callbackURL: process.env.GOOGLE_CALLBACK_URL,
-          },
-          async (accessToken, refreshToken, profile, done) => {
-            try {
-              let email = profile.emails[0].value;
-              let user = await userModel.findOne({ email: email });
-      
-              if (!user) {
-                // Crea un nuevo usuario si no existe
-                let newUser = {
-                  first_name: profile.displayName,
-                  last_name: "",
-                  email: email,
-                  password: "", // No es necesario ya que usamos Google para autenticación
-                  age: 0,
-                  rol: "user",
-                  cartID: "", // Asigna el ID del carrito si es necesario
-                };
-      
-                user = await userModel.create(newUser);
-              }
-      
-              return done(null, user);
-            } catch (error) {
-              console.error("Google Authentication Error:", error);
-              return done("Error en estrategia de login con Google: " + error);
-            }
-          }
-        )
-      );
-      */
-
 
 
 passport.serializeUser((user, done)=>{
