@@ -26,7 +26,7 @@ export const getSpecificTicket = async (req, res) => {
   }
 };
 
-/*export const createTicket = async (req, res) => {
+export const createTicket = async (req, res) => {
   try {
     const cartId = req.params.cid;
 
@@ -106,9 +106,9 @@ export const getSpecificTicket = async (req, res) => {
     console.error("Error en createTicket:", err);
     res.status(500).send(err.message);
   }
-};*/
+};
 
-export const createTicketAndRedirectToPayment = async (req, res) => {
+/*export const createTicketAndRedirectToPayment = async (req, res) => {
   try {
     const cartId = req.params.cid;
 
@@ -194,7 +194,7 @@ export const createTicketAndRedirectToPayment = async (req, res) => {
     console.error("Error en createTicketAndRedirectToPayment:", err);
     res.status(500).send(err.message);
   }
-};
+};*/
 
 // ... (otros controladores como getTicketModel, getSpecificTicket, etc.)
 
