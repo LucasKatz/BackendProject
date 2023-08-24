@@ -26,7 +26,7 @@ export const getSpecificTicket = async (req, res) => {
   }
 };
 
-export const createTicket = async (req, res) => {
+/*export const createTicket = async (req, res) => {
   try {
     const cartId = req.params.cid;
 
@@ -106,7 +106,101 @@ export const createTicket = async (req, res) => {
     console.error("Error en createTicket:", err);
     res.status(500).send(err.message);
   }
+};*/
+
+export const createTicketAndRedirectToPayment = async (req, res) => {
+  try {
+    const cartId = req.params.cid;
+
+    // Encuentra el cartID en userModel
+    const user = await userModel.findOne({ cartID: cartId });
+
+    if (user) {
+      // Obtiene los productos del carrito utilizando cartModel y el cartID del usuario
+      const cart = await cartModel.findOne({ cartID: cartId }).lean().populate("products.product");
+
+      if (cart) {
+        if (cart.products.length > 0) {
+          const ticketProducts = [];
+          let subtotal = 0;
+
+          // Calcula el subtotal y arma la lista de productos del ticket
+          cart.products.forEach(product => {
+            const productData = {
+              name: product.product.title,
+              price: product.product.price,
+              quantity: product.quantity,
+              totalPrice: product.quantity * product.product.price
+            };
+
+            ticketProducts.push(productData);
+            subtotal += productData.totalPrice;
+          });
+
+          const total = subtotal; 
+
+          // Calcula el valor total de todos los productos
+          const totalAPagar = ticketProducts.reduce((total, product) => total + product.totalPrice, 0);
+
+          // Obtiene el nombre del comprador y la fecha de compra
+          const purchaser = user.email;
+          const purchase_datetime = new Date();
+
+          const ticketID = uuidv4();
+
+          // Crea el ticket en la base de datos utilizando ticketModel
+          const ticket = await ticketModel.create({
+            _id: ticketID,
+            products: ticketProducts,
+            subtotal: subtotal,
+            total: total,
+            totalAPagar: totalAPagar, 
+            purchaser: purchaser,
+            purchase_datetime: purchase_datetime
+          });
+
+          // Crear preferencia de pago en MercadoPago
+          const mercadoPagoItems = cart.products.map(product => ({
+            title: product.product.title,
+            unit_price: product.product.price,
+            currency_id: "PEN", // Cambiar a la moneda adecuada
+            quantity: product.quantity,
+          }));
+
+          const preference = await mercadopage.preferences.create({
+            items: mercadoPagoItems,
+            notification_url: "https://tu-domino.com/webhook",
+            back_urls: {
+              success: "https://tu-domino.com/success",
+              pending: "https://e720-190-237-16-208.sa.ngrok.io/pending",
+            failure: "https://e720-190-237-16-208.sa.ngrok.io/failure",
+            },
+          });
+
+          // Redirigir al usuario a la página de pago de MercadoPago
+          res.redirect(preference.body.init_point);
+
+        } else {
+          res.status(400).send("No se encuentran productos agregados al carrito.");
+        }
+      } else {
+        res.status(400).send("El Carrito solicitado no contiene productos.");
+      }
+    } else {
+      res.status(400).send("El cartID no está asociado a ningún usuario.");
+    }
+
+  } catch (err) {
+    console.error("Error en createTicketAndRedirectToPayment:", err);
+    res.status(500).send(err.message);
+  }
 };
+
+// ... (otros controladores como getTicketModel, getSpecificTicket, etc.)
+
+// Agrega tus rutas aquí, por ejemplo:
+// router.get('/tickets/:cid', createTicketAndRedirectToPayment);
+
 
 
 
