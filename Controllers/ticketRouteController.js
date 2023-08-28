@@ -4,6 +4,15 @@ import ticketModel from "../DAO/models/ticketModel.js";
 import userModel from "../DAO/models/userModel.js";
 import cartModel from "../DAO/models/cartsModel.js";
 import { v4 as uuidv4 } from 'uuid';
+import mercadopago from "mercadopago";
+import  MERCADOPAGO_API_KEY  from "../config/config.js";
+
+
+
+
+mercadopago.configure({
+  access_token: "TEST-1791640152109409-082611-ae44ea4306b051e080e6ac7f0acb2c1c-1460943817",
+});
 
 
 const router = Router();
@@ -26,7 +35,7 @@ export const getSpecificTicket = async (req, res) => {
   }
 };
 
-export const createTicket = async (req, res) => {
+/*export const createTicket = async (req, res) => {
   try {
     const cartId = req.params.cid;
 
@@ -106,9 +115,9 @@ export const createTicket = async (req, res) => {
     console.error("Error en createTicket:", err);
     res.status(500).send(err.message);
   }
-};
+};*/
 
-/*export const createTicketAndRedirectToPayment = async (req, res) => {
+export const createTicket = async (req, res) => {
   try {
     const cartId = req.params.cid;
 
@@ -163,15 +172,15 @@ export const createTicket = async (req, res) => {
           const mercadoPagoItems = cart.products.map(product => ({
             title: product.product.title,
             unit_price: product.product.price,
-            currency_id: "PEN", // Cambiar a la moneda adecuada
+            currency_id: "ARS", 
             quantity: product.quantity,
           }));
 
-          const preference = await mercadopage.preferences.create({
+          const preference = await mercadopago.preferences.create({
             items: mercadoPagoItems,
             notification_url: "https://tu-domino.com/webhook",
             back_urls: {
-              success: "https://tu-domino.com/success",
+              success: "http://localhost:8080/thankyou",
               pending: "https://e720-190-237-16-208.sa.ngrok.io/pending",
             failure: "https://e720-190-237-16-208.sa.ngrok.io/failure",
             },
@@ -194,12 +203,9 @@ export const createTicket = async (req, res) => {
     console.error("Error en createTicketAndRedirectToPayment:", err);
     res.status(500).send(err.message);
   }
-};*/
+};
 
-// ... (otros controladores como getTicketModel, getSpecificTicket, etc.)
 
-// Agrega tus rutas aquí, por ejemplo:
-// router.get('/tickets/:cid', createTicketAndRedirectToPayment);
 
 
 
