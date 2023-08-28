@@ -30,7 +30,9 @@ import adminRouter from "./routers/adminRoute.js";
 import ticketRouter from "./routers/ticketRoute.js";
 import Thnxrouter from "./routers/thankyouRoute.js";
 import googleAuthRoute from "./routers/sessionsRoute.js";
-import path from "path";
+import cors from 'cors';
+
+
 
 
 dotenv.config();
@@ -91,6 +93,14 @@ initializePassport();
 app.use(passport.initialize());
 app.use(passport.session());
 
+
+//config de CORS
+
+app.use(cors({
+  origin: 'http://localhost:8080', 
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true
+}));
 
 // Middleware para los datos de sesión.
 app.use((req, res, next)=>{     
