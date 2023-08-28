@@ -97,7 +97,7 @@ app.use(passport.session());
 //config de CORS
 
 app.use(cors({
-  origin: 'http://localhost:8080', 
+  origin: "https://backendproject-production-c244.up.railway.app" ,
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true
 }));
