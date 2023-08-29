@@ -180,7 +180,7 @@ export const createTicket = async (req, res) => {
             items: mercadoPagoItems,
             notification_url: "https://tu-domino.com/webhook",
             back_urls: {
-              success: "https://backendproject-production-c244.up.railway.app//thankyou",
+              success: "https://backendproject-production-c244.up.railway.app/thankyou",
               pending: "https://e720-190-237-16-208.sa.ngrok.io/pending",
             failure: "https://e720-190-237-16-208.sa.ngrok.io/failure",
             },
