@@ -54,6 +54,15 @@ const specs = swaggerJSDoc(swaggerOptions)
 const messages = [];
 
 
+//config de CORS
+
+app.use(cors({
+  origin: "https://backendproject-production-c244.up.railway.app" ,
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true
+}));
+
+
 //Consts Mongo
 const USER_MONGO=process.env.USER_MONGO
 const PASS_MONGO=process.env.PASS_MONGO
@@ -94,13 +103,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-//config de CORS
 
-app.use(cors({
-  origin: "https://backendproject-production-c244.up.railway.app" ,
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true
-}));
 
 // Middleware para los datos de sesión.
 app.use((req, res, next)=>{     
