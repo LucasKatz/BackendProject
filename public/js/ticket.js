@@ -1,33 +1,32 @@
 document.addEventListener("DOMContentLoaded", () => {
   const finalizarCompraButton = document.getElementById("finalCompra");
   if (finalizarCompraButton) {
-  finalizarCompraButton.addEventListener("click", () => {
+    finalizarCompraButton.addEventListener("click", () => {
       console.log("Finalizando compra");
       const cartId = finalizarCompraButton.getAttribute("data-cart-id");
-      console.log("invoco al endpoint una vez");
-  fetch(`/ticket/${cartId}/purchase`, {
-      method: "POST",
-      headers: {
+      
+      fetch(`/ticket/${cartId}/purchase`, {
+        method: "POST",
+        headers: {
           "Content-Type": "application/json",
-      },
+        },
       })
-          .then((response) => response.json())
-          .then((data) => {
-          if (data._id) {
-              console.log("Ticket creado con exito")
-              window.location.href = `/ticket/${data._id}`;
-          } else {
-              console.error(data.error);
-        
-          }
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.paymentUrl) {
+          // Abre una nueva ventana o pestaña para el pago
+          window.open(data.paymentUrl, "_blank");
+        } else {
+          console.error(data.error);
+        }
       })
-          .catch((error) => {
-          console.error(error);
-    
+      .catch((error) => {
+        console.error(error);
       });
-  });
+    });
   }
 });
+
 
 
 document.addEventListener("DOMContentLoaded", () => {

@@ -180,9 +180,9 @@ export const createTicket = async (req, res) => {
             items: mercadoPagoItems,
             notification_url: "https://tu-domino.com/webhook",
             back_urls: {
-              success: "http://localhost:8080/thankyou",
+              success: "https://backendproject-production-c244.up.railway.app/thankyou",
               pending: "https://e720-190-237-16-208.sa.ngrok.io/pending",
-            failure: "https://e720-190-237-16-208.sa.ngrok.io/failure",
+              failure: "https://e720-190-237-16-208.sa.ngrok.io/failure",
             },
           });
 
@@ -200,10 +200,11 @@ export const createTicket = async (req, res) => {
     }
 
   } catch (err) {
-    console.error("Error en createTicketAndRedirectToPayment:", err);
+    console.error("Error en createTicket:", err);
     res.status(500).send(err.message);
   }
 };
+
 
 
 
