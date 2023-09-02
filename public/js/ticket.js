@@ -36,12 +36,14 @@ document.addEventListener("DOMContentLoaded", () => {
           const cartId = pagoMercadoPagoButton.getAttribute("data-cart-id");
 
           try {
-              const response = await fetch(`/ticket/${cartId}/purchase-redirect`, {
+            console.log("hasta aca todo bien")
+              const response = await fetch(`/ticket/${cartId}/purchase`, {
                   method: "POST",
                   headers: {
                       "Content-Type": "application/json",
                   },
-              });
+                });
+                console.log("a ver si esto llega")
 
               if (response.ok) {
                   // La redirección se completó correctamente.
