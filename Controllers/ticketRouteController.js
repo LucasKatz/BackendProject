@@ -35,7 +35,7 @@ export const getSpecificTicket = async (req, res) => {
   }
 };
 
-/*export const createTicket = async (req, res) => {
+export const createTicket = async (req, res) => {
   try {
     const cartId = req.params.cid;
 
@@ -115,9 +115,9 @@ export const getSpecificTicket = async (req, res) => {
     console.error("Error en createTicket:", err);
     res.status(500).send(err.message);
   }
-};*/
+};
 
-export const createTicket = async (req, res) => {
+export const createTicketAndRedirect = async (req, res) => {
   try {
     const cartId = req.params.cid;
 

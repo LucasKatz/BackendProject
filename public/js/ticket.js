@@ -1,34 +1,64 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const finalizarCompraButton = document.getElementById("finalCompra");
-  if (finalizarCompraButton) {
-    finalizarCompraButton.addEventListener("click", () => {
-    console.log("Finalizando compra");
-    const cartId = finalizarCompraButton.getAttribute("data-cart-id");
+  // Agrega un evento de clic al botón "Pagar en Efectivo"
+  const pagoEfectivoButton = document.querySelector(".pagoEfectivoButton");
+  if (pagoEfectivoButton) {
+      pagoEfectivoButton.addEventListener("click", async () => {
+          const cartId = pagoEfectivoButton.getAttribute("data-cart-id");
 
-    fetch(`/ticket/${cartId}/purchase-redirect`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-    .then(response => {
-      if (response.ok) {
-        // La redirección se completó correctamente.
-        // Puedes realizar alguna acción adicional aquí si es necesario.
-        response.json().then(data => {
-          window.location.href = data.redirectUrl; 
-        });
-      } else {
-        // Manejo de error si la redirección no se completó correctamente.
-        console.error("La redirección a MercadoPago no se completó correctamente.");
-      }
-    })
-    .catch(error => {
-      console.error(error);
-    });
-  });
-}
+          try {
+              const response = await fetch(`/ticket/${cartId}/purchase`, {
+                  method: "POST",
+                  headers: {
+                      "Content-Type": "application/json",
+                  },
+              });
+
+              if (response.ok) {
+                  // La solicitud para pagar en efectivo se completó correctamente.
+                  // Realiza alguna acción adicional si es necesario.
+                  // Por ejemplo, puedes mostrar un mensaje de éxito.
+                  console.log("Pago en efectivo completado correctamente.");
+              } else {
+                  // Manejo de errores si la solicitud no se completó correctamente.
+                  console.error("Error al realizar el pago en efectivo.");
+              }
+          } catch (error) {
+              console.error(error);
+          }
+      });
+  }
+
+  // Agrega un evento de clic al botón "Pagar con MercadoPago"
+  const pagoMercadoPagoButton = document.querySelector(".pagoMercadoPagoButton");
+  if (pagoMercadoPagoButton) {
+      pagoMercadoPagoButton.addEventListener("click", async () => {
+          const cartId = pagoMercadoPagoButton.getAttribute("data-cart-id");
+
+          try {
+              const response = await fetch(`/ticket/${cartId}/purchase-redirect`, {
+                  method: "POST",
+                  headers: {
+                      "Content-Type": "application/json",
+                  },
+              });
+
+              if (response.ok) {
+                  // La redirección se completó correctamente.
+                  // Puedes realizar alguna acción adicional aquí si es necesario.
+                  response.json().then(data => {
+                      window.location.href = data.redirectUrl;
+                  });
+              } else {
+                  // Manejo de errores si la redirección no se completó correctamente.
+                  console.error("La redirección a MercadoPago no se completó correctamente.");
+              }
+          } catch (error) {
+              console.error(error);
+          }
+      });
+  }
 });
+
 
 
 
