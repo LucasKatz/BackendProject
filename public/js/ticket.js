@@ -1,32 +1,33 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Agrega un evento de clic al botón "Pagar en Efectivo"
-  const pagoEfectivoButton = document.querySelector(".pagoEfectivoButton");
-  if (pagoEfectivoButton) {
-      pagoEfectivoButton.addEventListener("click", async () => {
-          const cartId = pagoEfectivoButton.getAttribute("data-cart-id");
-
-          try {
-              const response = await fetch(`/ticket/${cartId}/purchase`, {
-                  method: "POST",
-                  headers: {
-                      "Content-Type": "application/json",
-                  },
-              });
-
-              if (response.ok) {
-                  // La solicitud para pagar en efectivo se completó correctamente.
-                  // Realiza alguna acción adicional si es necesario.
-                  // Por ejemplo, puedes mostrar un mensaje de éxito.
-                  console.log("Pago en efectivo completado correctamente.");
-              } else {
-                  // Manejo de errores si la solicitud no se completó correctamente.
-                  console.error("Error al realizar el pago en efectivo.");
-              }
-          } catch (error) {
-              console.error(error);
+  const finalizarCompraButton = document.getElementById("finalCompra");
+  if (finalizarCompraButton) {
+  finalizarCompraButton.addEventListener("click", () => {
+      console.log("Finalizando compra");
+      const cartId = finalizarCompraButton.getAttribute("data-cart-id");
+      console.log("invoco al endpoint una vez");
+  fetch(`/ticket/${cartId}/purchase`, {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json",
+      },
+      })
+          .then((response) => response.json())
+          .then((data) => {
+          if (data._id) {
+              console.log("Ticket creado con exito")
+              window.location.href = `/ticket/${data._id}`;
+          } else {
+              console.error(data.error);
+        
           }
+      })
+          .catch((error) => {
+          console.error(error);
+    
       });
+  });
   }
+});
 
   // Agrega un evento de clic al botón "Pagar con MercadoPago"
   const pagoMercadoPagoButton = document.querySelector(".pagoMercadoPagoButton");
@@ -57,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
           }
       });
   }
-});
+;
 
 
 
