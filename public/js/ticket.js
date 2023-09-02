@@ -2,30 +2,35 @@ document.addEventListener("DOMContentLoaded", () => {
   const finalizarCompraButton = document.getElementById("finalCompra");
   if (finalizarCompraButton) {
     finalizarCompraButton.addEventListener("click", () => {
-      console.log("Finalizando compra");
-      const cartId = finalizarCompraButton.getAttribute("data-cart-id");
-      
-      fetch(`/ticket/${cartId}/purchase`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.paymentUrl) {
-          // Abre una nueva ventana o pestaña para el pago
-          window.open(data.paymentUrl, "_blank");
-        } else {
-          console.error(data.error);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    console.log("Finalizando compra");
+    const cartId = finalizarCompraButton.getAttribute("data-cart-id");
+
+    fetch(`/ticket/${cartId}/purchase-redirect`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .then(response => {
+      if (response.ok) {
+        // La redirección se completó correctamente.
+        // Puedes realizar alguna acción adicional aquí si es necesario.
+        response.json().then(data => {
+          window.location.href = data.redirectUrl; 
+        });
+      } else {
+        // Manejo de error si la redirección no se completó correctamente.
+        console.error("La redirección a MercadoPago no se completó correctamente.");
+      }
+    })
+    .catch(error => {
+      console.error(error);
     });
-  }
+  });
+}
 });
+
+
 
 
 

@@ -53,14 +53,13 @@ const specs = swaggerJSDoc(swaggerOptions)
 
 const messages = [];
 
-
-//config de CORS
-
+// Configuración de CORS
 app.use(cors({
-  origin: "https://backendproject-production-c244.up.railway.app" ,
+  origin: "*", // Acepta solicitudes desde cualquier origen
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true
 }));
+
 
 
 //Consts Mongo
