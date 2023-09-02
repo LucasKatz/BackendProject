@@ -12,7 +12,7 @@ ticketRouter.get("/:id", authMiddleware, getSpecificTicket);
 
 ticketRouter.post("/:cid/purchase",  createTicket, redirectToMercadoPago);
 
-//ticketRouter.post("/:cid/purchase-redirect",  redirectToMercadoPago);
+ticketRouter.post("/:cid/purchase-redirect",  redirectToMercadoPago);
 
 ticketRouter.put("/update",authMiddleware,updateTicket);
 
