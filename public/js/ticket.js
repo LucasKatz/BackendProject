@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
               if (response.ok) {
                   // La redirección se completó correctamente.
-                  // Puedes realizar alguna acción adicional aquí si es necesario.
+                  console.log("la redireccion va bien")
                   response.json().then(data => {
                       window.location.href = data.redirectUrl;
                   });
