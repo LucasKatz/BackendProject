@@ -1,3 +1,6 @@
+import Swal from 'sweetalert2';
+
+
 // Agrego un evento click al botón "Agregar al Carrito" usando delegación de eventos
 document.addEventListener("click", function(event) {
     if (event.target.classList.contains("addToCartButton")) {
@@ -19,7 +22,7 @@ document.addEventListener("click", function(event) {
         .then(response => response.json())
         .then(data => {
             // Muestra una notificación de éxito con Sweet Alert
-            swal("Éxito", "Producto agregado con éxito", "success")
+            Swal("Éxito", "Producto agregado con éxito", "success")
             .then(() => {
                 console.log(data);
                 // Otra acción si es necesaria
@@ -27,7 +30,7 @@ document.addEventListener("click", function(event) {
         })
         .catch(error => {
             // Muestra una notificación de error con Sweet Alert
-            swal("Error", "Error al agregar el producto al carrito", "error");
+            Swal("Error", "Error al agregar el producto al carrito", "error");
             console.error("Error al agregar el producto al carrito:", error);
         });
     }
