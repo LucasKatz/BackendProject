@@ -32,9 +32,6 @@ import Thnxrouter from "./routers/thankyouRoute.js";
 import googleAuthRoute from "./routers/sessionsRoute.js";
 import cors from 'cors';
 
-
-
-
 dotenv.config();
 
 const app = express();
@@ -54,6 +51,24 @@ const specs = swaggerJSDoc(swaggerOptions)
 const messages = [];
 
 
+
+// Configuración de CORS
+const corsOptions = {
+  origin: "*",
+  credentials: true,
+};
+app.use(cors(corsOptions));
+
+app.use((req, res, next) => {
+	res.header('Access-Control-Allow-Origin', '*');
+	res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, 	X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-	Method');
+	res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, 	DELETE');
+	res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+	next();
+});
+
+
+
 //Consts Mongo
 const USER_MONGO=process.env.USER_MONGO
 const PASS_MONGO=process.env.PASS_MONGO
@@ -68,14 +83,6 @@ app.use(express.static(__dirname + "/public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/apidocs', swaggerUiExpress.serve,swaggerUiExpress.setup(specs) )
-// Configuración de CORS
-app.use((req, res, next) => {
-	res.header('Access-Control-Allow-Origin', '*');
-	res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, 	X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-	Method');
-	res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, 	DELETE');
-	res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
-	next();
-});
 
 
 app.post("/socketMessage", (req, res) => {
