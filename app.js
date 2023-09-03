@@ -53,14 +53,6 @@ const specs = swaggerJSDoc(swaggerOptions)
 
 const messages = [];
 
-// Configuración de CORS
-app.use(cors({
-  origin: "*", // Acepta solicitudes desde cualquier origen
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true
-}));
-
-
 
 //Consts Mongo
 const USER_MONGO=process.env.USER_MONGO
@@ -76,6 +68,12 @@ app.use(express.static(__dirname + "/public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/apidocs', swaggerUiExpress.serve,swaggerUiExpress.setup(specs) )
+// Configuración de CORS
+app.use(cors({
+  origin: "*", 
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true
+}));
 
 
 app.post("/socketMessage", (req, res) => {
