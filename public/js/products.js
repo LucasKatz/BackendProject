@@ -1,6 +1,3 @@
-import Toastify from 'toastify-js';
-
-
 // Agrego un evento click al botón "Agregar al Carrito" usando delegación de eventos
 document.addEventListener("click", function(event) {
     if (event.target.classList.contains("addToCartButton")) {
@@ -23,17 +20,6 @@ document.addEventListener("click", function(event) {
         .then(response => response.json())
         .then(data => {
           // Realiza alguna acción después de agregar el producto al carrito
-            Toastify({
-            text: "Producto agregado al carrito",
-            duration: 3000,
-            close: true,
-            gravity: "bottom", // `top` or `bottom`
-            position: "right", // `left`, `center` or `right`
-            stopOnFocus: true, // Prevents dismissing of toast on hover
-            style: {
-                background: "linear-gradient(to right, #00b09b, #96c93d)",
-            },
-        }).showToast();
             console.log(data);
             console.log("Producto agregado con éxito");
         })
@@ -69,17 +55,6 @@ document.addEventListener("click", function(event) {
         .then(response => response.json())
         .then(data => {
             // Realiza alguna acción después de eliminar el producto del carrito
-            Toastify({
-                text: "Producto eliminado del carrito",
-                duration: 3000,
-                close: true,
-                gravity: "bottom", // `top` or `bottom`
-                position: "right", // `left`, `center` or `right`
-                stopOnFocus: true, // Prevents dismissing of toast on hover
-                style: {
-                    background: "linear-gradient(to right, #00b09b, #96c93d)",
-                },
-            }).showToast();
             console.log(data);
             console.log("Producto eliminado con éxito");
             location.reload(); // Recarga la página
@@ -106,17 +81,6 @@ document.addEventListener("click", function(event) {
         .then(response => response.json())
         .then(data => {
             // Realiza alguna acción después de vaciar el carrito
-            Toastify({
-                text: "Carrito vaciado con éxito",
-                duration: 3000,
-                close: true,
-                gravity: "bottom", // `top` or `bottom`
-                position: "right", // `left`, `center` or `right`
-                stopOnFocus: true, // Prevents dismissing of toast on hover
-                style: {
-                    background: "linear-gradient(to right, #00b09b, #96c93d)",
-                },
-            }).showToast();
             console.log(data);
             console.log("Carrito vaciado con éxito");
             location.reload(); // Recarga la página
