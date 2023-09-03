@@ -10,6 +10,7 @@ toastr.options = {
 
 // Agrega un evento click al botón "Agregar al Carrito" usando delegación de eventos
 document.addEventListener("click", function(event) {
+    console.log("Click event triggered");
     if (event.target.classList.contains("addToCartButton")) {
         const productId = event.target.dataset.productId;
         const quantityInput = event.target.parentNode.querySelector(".productQuantity");
@@ -45,6 +46,7 @@ document.addEventListener("click", function(event) {
 
 // Agrega un evento click al botón "Eliminar" usando delegación de eventos
 document.addEventListener("click", function(event) {
+    console.log("Click event triggered");
     if (event.target.classList.contains("deleteProductButton")) {
         // Obtén el cartId desde sessionStorage
         const cartId = sessionStorage.getItem("cartId");
@@ -77,6 +79,7 @@ document.addEventListener("click", function(event) {
 
 // Agrega un evento click al botón "Vaciar Carrito" usando delegación de eventos
 document.addEventListener("click", function(event) {
+    console.log("Click event triggered");
     if (event.target.classList.contains("vaciarCarrito")) {
         // Obtén el cartId desde el botón
         const cartId = event.target.dataset.cartId;
