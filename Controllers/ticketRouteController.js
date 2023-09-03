@@ -206,12 +206,6 @@ export const createTicketAndRedirect = async (req, res) => {
 };
 
 
-
-
-
-
-
-
 export const updateTicket =async (req, res) => {
   const myTicket = {
     purchase_datetime: req.body.purchase_datetime,
