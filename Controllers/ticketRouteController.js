@@ -35,7 +35,7 @@ export const getSpecificTicket = async (req, res) => {
   }
 };
 
-export const createTicket = async (req, res) => {
+/*export const createTicket = async (req, res) => {
   try {
     const cartId = req.params.cid;
 
@@ -115,9 +115,9 @@ export const createTicket = async (req, res) => {
     console.error("Error en createTicket:", err);
     res.status(500).send(err.message);
   }
-};
+};*/
 
-export const createTicketAndRedirect = async (req, res) => {
+export const createTicket = async (req, res) => {
   try {
     const cartId = req.params.cid;
 
@@ -205,49 +205,7 @@ export const createTicketAndRedirect = async (req, res) => {
   }
 };
 
-export const redirectToMercadoPago = async (cartId, res) => {
-  try {
-    // Paso 1: Buscar información del carrito en tu base de datos
-    const cartInfo = await cartModel.findOne({ cartID: cartId });
 
-    if (!cartInfo) {
-      // Si no se encuentra el carrito, devuelve un error 404 o un mensaje adecuado
-      return res.status(404).send("El carrito no existe.");
-    }
-
-    // Paso 2: Obtener información relevante del carrito
-    const products = cartInfo.products; // Esto es una lista de productos en el carrito
-    const totalAPagar = cartInfo.totalAPagar; // Total a pagar en tu moneda
-
-    // Paso 3: Crear la preferencia de pago en MercadoPago
-    const mercadoPagoItems = products.map((product) => ({
-      title: product.name, // Nombre del producto
-      unit_price: product.price, // Precio unitario
-      currency_id: "ARS", // Moneda (en este caso, pesos argentinos)
-      quantity: product.quantity, // Cantidad
-    }));
-
-    // Configurar la preferencia de pago en MercadoPago
-    const preference = await mercadopago.preferences.create({
-      items: mercadoPagoItems,
-      notification_url: "https://backendproject-production-c244.up.railway.app", // URL de notificación
-      back_urls: {
-        success: "https://backendproject-production-c244.up.railway.app/thankyou", // URL de éxito
-        pending: "https://backendproject-production-c244.up.railway.app/pending", // URL de pago pendiente
-        failure: "https://backendproject-production-c244.up.railway.app/failure", // URL de fallo
-      },
-    });
-
-    // Paso 4: Obtener la URL de inicio de la preferencia de pago
-    const urlDeInicioDePreferencia = preference.body.init_point;
-
-    // Paso 5: Redirigir al usuario a la página de pago de MercadoPago
-    res.redirect(urlDeInicioDePreferencia);
-  } catch (error) {
-    console.error("Error en la lógica de redirección a MercadoPago:", error);
-    res.status(500).send("Error en la lógica de redirección a MercadoPago");
-  }
-};
 
 
 
