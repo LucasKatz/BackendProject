@@ -1,3 +1,6 @@
+import Toastify from 'toastify-js';
+
+
 // Agrego un evento click al botón "Agregar al Carrito" usando delegación de eventos
 document.addEventListener("click", function(event) {
     if (event.target.classList.contains("addToCartButton")) {
