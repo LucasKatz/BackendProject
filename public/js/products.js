@@ -21,7 +21,7 @@ document.addEventListener("click", function(event) {
         .then(data => {
           // Realiza alguna acción después de agregar el producto al carrito
             console.log(data);
-            console.alert("Producto agregado con éxito");
+            console.log("Producto agregado con éxito");
         })
         .catch(error => {
             console.error("Error al agregar el producto al carrito:", error);
@@ -56,7 +56,7 @@ document.addEventListener("click", function(event) {
         .then(data => {
             // Realiza alguna acción después de eliminar el producto del carrito
             console.log(data);
-            console.alert("Producto eliminado con éxito");
+            console.log("Producto eliminado con éxito");
             location.reload(); // Recarga la página
         })
         .catch(error => {
@@ -82,7 +82,7 @@ document.addEventListener("click", function(event) {
         .then(data => {
             // Realiza alguna acción después de vaciar el carrito
             console.log(data);
-            console.alert("Carrito vaciado con éxito");
+            console.log("Carrito vaciado con éxito");
             location.reload(); // Recarga la página
         })
         .catch(error => {
