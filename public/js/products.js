@@ -1,14 +1,21 @@
-import Swal from 'sweetalert2';
+// Importa Toastr
+import toastr from 'toastr';
+import '../../views/toastr.css'; 
 
+// Configura opciones globales de Toastr (opcional)
+toastr.options = {
+    closeButton: true, // Muestra un botón de cierre en las notificaciones
+    positionClass: 'toast-top-right', // Posición de las notificaciones en la pantalla
+};
 
-// Agrego un evento click al botón "Agregar al Carrito" usando delegación de eventos
+// Agrega un evento click al botón "Agregar al Carrito" usando delegación de eventos
 document.addEventListener("click", function(event) {
     if (event.target.classList.contains("addToCartButton")) {
         const productId = event.target.dataset.productId;
         const quantityInput = event.target.parentNode.querySelector(".productQuantity");
         const quantity = parseInt(quantityInput.value);
 
-        // Obtengo el cartId desde sessionStorage
+        // Obtén el cartId desde sessionStorage
         const cartId = sessionStorage.getItem("cartId");
 
         // Realiza una solicitud POST al servidor para agregar el producto al carrito
@@ -21,32 +28,25 @@ document.addEventListener("click", function(event) {
         })
         .then(response => response.json())
         .then(data => {
-            // Muestra una notificación de éxito con Sweet Alert
-            Swal.fire("Éxito", "Producto agregado con éxito", "success")
-            .then(() => {
-                console.log(data);
-                // Otra acción si es necesaria
-            });
+            // Muestra una notificación de éxito con Toastr
+            toastr.success("Producto agregado con éxito");
+
+            // Realiza alguna acción después de agregar el producto al carrito
+            console.log(data);
         })
         .catch(error => {
-            // Muestra una notificación de error con Sweet Alert
-            Swal.fire("Error", "Error al agregar el producto al carrito", "error");
+            // Muestra una notificación de error con Toastr
+            toastr.error("Error al agregar el producto al carrito");
+
             console.error("Error al agregar el producto al carrito:", error);
         });
     }
 });
 
-document.querySelectorAll('.showDetailsButton').forEach(button => {
-    button.addEventListener('click', () => {
-        const container = button.parentNode.parentNode.querySelector('.detailsContainer');
-        container.style.display = container.style.display === 'none' ? 'block' : 'none';
-    });
-});
-
-// Agrego un evento click al botón "Eliminar" usando delegación de eventos
+// Agrega un evento click al botón "Eliminar" usando delegación de eventos
 document.addEventListener("click", function(event) {
     if (event.target.classList.contains("deleteProductButton")) {
-        // Obtengo el cartId desde sessionStorage
+        // Obtén el cartId desde sessionStorage
         const cartId = sessionStorage.getItem("cartId");
         const productId = event.target.dataset.productId;
 
@@ -59,25 +59,26 @@ document.addEventListener("click", function(event) {
         })
         .then(response => response.json())
         .then(data => {
-            // Muestra una notificación de éxito con Sweet Alert
-            Swal.fire("Éxito", "Producto eliminado con éxito", "success")
-            .then(() => {
-                console.log(data);
-                location.reload(); // Recarga la página
-            });
+            // Muestra una notificación de éxito con Toastr
+            toastr.success("Producto eliminado con éxito");
+
+            // Realiza alguna acción después de eliminar el producto del carrito
+            console.log(data);
+            location.reload(); // Recarga la página
         })
         .catch(error => {
-            // Muestra una notificación de error con Sweet Alert
-            Swal.fire("Error", "Error al eliminar el producto del carrito", "error");
+            // Muestra una notificación de error con Toastr
+            toastr.error("Error al eliminar el producto del carrito");
+
             console.error("Error al eliminar el producto del carrito:", error);
         });
     }
 });
 
-// Agrego un evento click al botón "Vaciar Carrito" usando delegación de eventos
+// Agrega un evento click al botón "Vaciar Carrito" usando delegación de eventos
 document.addEventListener("click", function(event) {
     if (event.target.classList.contains("vaciarCarrito")) {
-        // Obtengo el cartId desde el botón
+        // Obtén el cartId desde el botón
         const cartId = event.target.dataset.cartId;
 
         // Realiza una solicitud DELETE al servidor para vaciar el carrito
@@ -89,16 +90,17 @@ document.addEventListener("click", function(event) {
         })
         .then(response => response.json())
         .then(data => {
-            // Muestra una notificación de éxito con Sweet Alert
-            swal("Éxito", "Carrito vaciado con éxito", "success")
-            .then(() => {
-                console.log(data);
-                location.reload(); // Recarga la página
-            });
+            // Muestra una notificación de éxito con Toastr
+            toastr.success("Carrito vaciado con éxito");
+
+            // Realiza alguna acción después de vaciar el carrito
+            console.log(data);
+            location.reload(); // Recarga la página
         })
         .catch(error => {
-            // Muestra una notificación de error con Sweet Alert
-            swal("Error", "Error al vaciar el carrito", "error");
+            // Muestra una notificación de error con Toastr
+            toastr.error("Error al vaciar el carrito");
+
             console.error("Error al vaciar el carrito:", error);
         });
     }
