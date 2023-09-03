@@ -101,4 +101,3 @@ document.addEventListener("click", function(event) {
     }
 });
 
-<script src="ruta/al/archivo/sweetalert2.all.min.js"></script>
