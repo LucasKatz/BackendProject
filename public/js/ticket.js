@@ -8,24 +8,23 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch(`/ticket/${cartId}/purchase-redirect`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+          "Content-Type": "application/json",
       },
-    })
-    .then(response => {
-      if (response.ok) {
-        // La redirección se completó correctamente.
-        // Puedes realizar alguna acción adicional aquí si es necesario.
-        response.json().then(data => {
-          window.location.href = data.redirectUrl; 
-        });
+  })
+  .then((response) => response.json())
+  .then((data) => {
+      if (data.redirectUrl) {
+          // Si la respuesta contiene la URL de redirección
+          window.location.href = data.redirectUrl;
       } else {
-        // Manejo de error si la redirección no se completó correctamente.
-        console.error("La redirección a MercadoPago no se completó correctamente.");
+          // Si la respuesta no contiene la URL, manejar el error
+          console.error("La redirección a MercadoPago no se completó correctamente.");
       }
-    })
-    .catch(error => {
+  })
+  .catch((error) => {
       console.error(error);
-    });
+  });
+  
   });
 }
 });

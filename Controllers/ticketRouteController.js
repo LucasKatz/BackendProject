@@ -186,8 +186,8 @@ export const createTicketAndRedirect = async (req, res) => {
             },
           });
 
-          // Redirigir al usuario a la página de pago de MercadoPago
-          res.redirect(preference.body.init_point);
+          // Envía la URL de inicio de preferencia como parte de la respuesta JSON
+          res.json({ redirectUrl: preference.body.init_point });
 
         } else {
           res.status(400).send("No se encuentran productos agregados al carrito.");
@@ -200,7 +200,7 @@ export const createTicketAndRedirect = async (req, res) => {
     }
 
   } catch (err) {
-    console.error("Error en createTicket:", err);
+    console.error("Error en createTicketAndRedirect:", err);
     res.status(500).send(err.message);
   }
 };
